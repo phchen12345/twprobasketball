@@ -1,5 +1,6 @@
 "use client";
 
+import NextImage from "next/image";
 import { ScheduleSectionState, TpblGame, formatWeekday } from "./scheduleTypes";
 
 type Props = {
@@ -23,11 +24,6 @@ export default function TpblScheduleSection({
   schedule,
   todayKey,
 }: Props) {
-  const activeButtonClass = isThirdSectionActive ? "bg-[#0f4c81] text-white" : "bg-[#8F724E] text-white";
-  const inactiveButtonClass = isThirdSectionActive
-    ? "border border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81]"
-    : "border border-[#c5a57d] bg-[#f5ede3] text-[#8F724E]";
-
   const {
     scheduleView,
     setScheduleView,
@@ -44,6 +40,11 @@ export default function TpblScheduleSection({
     teamOptions,
   } = schedule;
 
+  const activeButtonClass = isThirdSectionActive ? "bg-[#0f4c81] text-white" : "bg-[#8F724E] text-white";
+  const inactiveButtonClass = isThirdSectionActive
+    ? "border border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81]"
+    : "border border-[#c5a57d] bg-[#f5ede3] text-[#8F724E]";
+
   return (
     <section
       ref={thirdSectionRef}
@@ -59,9 +60,7 @@ export default function TpblScheduleSection({
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">
                 2025-26 Official Games
               </p>
-              <h2 className="mt-3 font-serif text-2xl text-white sm:text-4xl">
-                TPBL 賽程
-              </h2>
+              <h2 className="mt-3 font-serif text-2xl text-white sm:text-4xl">TPBL 賽程</h2>
             </div>
             <p className="text-sm text-white/70">
               {scheduleView === "completed" ? "已完成" : "即將開賽"} · 第 {currentPage} / {totalPages} 頁 · 共{" "}
@@ -158,23 +157,23 @@ export default function TpblScheduleSection({
                   </div>
 
                   <div className="grid grid-cols-[minmax(0,1fr)_92px_minmax(0,1fr)] items-center gap-3 border-[#d7dce5] sm:gap-5 md:grid-cols-[minmax(0,1fr)_120px_minmax(0,1fr)] lg:border-r lg:px-6">
-                    <div className="flex min-w-0 items-center justify-end gap-2 text-right sm:gap-4">
+                    <div className="flex min-w-0 flex-col items-center justify-end gap-2 text-center sm:flex-row sm:gap-4 sm:text-right">
+                      <NextImage
+                        src={game.away_team.logo}
+                        alt={game.away_team.name}
+                        width={48}
+                        height={48}
+                        className="h-12 w-12 object-contain sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+                        unoptimized
+                      />
                       <div className="min-w-0">
-                        <p className="text-base font-semibold leading-tight text-[#13233d] sm:text-xl lg:text-2xl">
+                        <p className="text-sm font-semibold leading-tight text-[#13233d] whitespace-nowrap sm:text-xl lg:text-2xl">
                           {game.away_team.name}
                         </p>
-                        <span className="mt-3 inline-flex rounded-full bg-[#f6efe5] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8a6d46]">
+                        <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#f6efe5] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-[#8a6d46] sm:mt-3 sm:px-3 sm:text-[11px] sm:uppercase sm:tracking-[0.14em]">
                           客隊
                         </span>
                       </div>
-                      <img
-                        src={game.away_team.logo}
-                        alt={game.away_team.name}
-                        width={96}
-                        height={96}
-                        loading="lazy"
-                        className="h-12 w-12 object-contain sm:h-20 sm:w-20 lg:h-24 lg:w-24"
-                      />
                     </div>
 
                     <div className="flex flex-col items-center justify-center text-center">
@@ -213,20 +212,20 @@ export default function TpblScheduleSection({
                       )}
                     </div>
 
-                    <div className="flex min-w-0 items-center gap-2 sm:gap-4">
-                      <img
+                    <div className="flex min-w-0 flex-col items-center gap-2 text-center sm:flex-row sm:gap-4 sm:text-left">
+                      <NextImage
                         src={game.home_team.logo}
                         alt={game.home_team.name}
-                        width={96}
-                        height={96}
-                        loading="lazy"
+                        width={48}
+                        height={48}
                         className="h-12 w-12 object-contain sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+                        unoptimized
                       />
                       <div className="min-w-0">
-                        <p className="text-base font-semibold leading-tight text-[#13233d] sm:text-xl lg:text-2xl">
+                        <p className="text-sm font-semibold leading-tight text-[#13233d] whitespace-nowrap sm:text-xl lg:text-2xl">
                           {game.home_team.name}
                         </p>
-                        <span className="mt-3 inline-flex rounded-full bg-[#0f4c81] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
+                        <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#0f4c81] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-white sm:mt-3 sm:px-3 sm:text-[11px] sm:uppercase sm:tracking-[0.14em]">
                           主隊
                         </span>
                       </div>
