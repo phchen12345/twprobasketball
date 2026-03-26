@@ -28,6 +28,7 @@ export function useBasketballAnimation({
   thirdSectionRef,
   canvasRef,
 }: Params) {
+  // 把目前幀數放在 React state 外，讓 GSAP 更新時更順暢。
   const frameState = useRef({ frame: 0 });
   const loadedImages = useRef<HTMLImageElement[]>([]);
   const [isReady, setIsReady] = useState(false);
@@ -54,6 +55,7 @@ export function useBasketballAnimation({
 
     let destroyed = false;
 
+    // 繪製指定幀，同時讓 canvas 尺寸跟著外層容器縮放。
     function drawFrame(frameIndex: number) {
       const activeCanvas = canvasRef.current;
       const activeContext = activeCanvas?.getContext("2d");
@@ -95,6 +97,7 @@ export function useBasketballAnimation({
 
     loadedImages.current = images;
 
+    // 首段主動畫：固定 hero 區塊、隨捲動切換 canvas 幀數，並記錄動畫是否已結束。
     const tween = gsap.to(frameState.current, {
       frame: frameCount - 1,
       ease: "none",
@@ -111,6 +114,7 @@ export function useBasketballAnimation({
       },
     });
 
+    // 當下一區塊進場時，控制 PLG 區塊背景的 reveal 進度。
     const backgroundTrigger = ScrollTrigger.create({
       trigger: contentSection,
       start: "top bottom",
@@ -122,6 +126,7 @@ export function useBasketballAnimation({
       onLeaveBack: () => setBackgroundReveal(0),
     });
 
+    // 當 PLG 區塊位於主要視窗區域時，點亮對應的導覽項目。
     const plgNavTrigger = ScrollTrigger.create({
       trigger: contentSection,
       start: "top 45%",
@@ -132,6 +137,7 @@ export function useBasketballAnimation({
       onLeaveBack: () => setActiveNav(null),
     });
 
+    // 當 TPBL 區塊進入作用區間時，切換共享背景狀態與導覽高亮。
     const thirdSectionTrigger = ScrollTrigger.create({
       trigger: thirdSection,
       start: "top 30%",
@@ -154,6 +160,7 @@ export function useBasketballAnimation({
       },
     });
 
+    // 視窗尺寸改變時，重新繪製目前幀數，避免畫面比例跑掉。
     const resizeHandler = () => drawFrame(frameState.current.frame);
     window.addEventListener("resize", resizeHandler);
 

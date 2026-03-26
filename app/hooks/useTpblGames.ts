@@ -7,6 +7,7 @@ import { TpblApiGame, TpblFallbackGame, TpblGame } from "../components/scheduleT
 import { mapFallbackTpblGame, mapTpblApiGame } from "../lib/tpblMapper";
 
 export function useTpblGames() {
+  // 先準備本地 fallback，避免 TPBL API 失敗時整個區塊沒有資料。
   const fallbackTpblGames = useMemo(
     () => (tpblScheduleData.games as TpblFallbackGame[]).map(mapFallbackTpblGame),
     [],
@@ -18,6 +19,7 @@ export function useTpblGames() {
 
     async function loadTpblGames() {
       try {
+        // 在 client 端抓 TPBL 官方 API 的最新賽程資料。
         const response = await fetch(TPBL_API_URL, { cache: "no-store" });
         if (!response.ok) {
           throw new Error(`TPBL API request failed with ${response.status}`);
@@ -28,6 +30,7 @@ export function useTpblGames() {
           setTpblGames(data.map(mapTpblApiGame));
         }
       } catch {
+        // 如果 API 抓不到，就退回專案內建的備援資料。
         if (!cancelled) {
           setTpblGames(fallbackTpblGames);
         }

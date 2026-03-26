@@ -41,7 +41,7 @@ export default function AnimationStage({ stageRef, canvasRef, isReady }: Props) 
             PLG x TPBL
           </p>
           <h1 className="mt-4 font-serif text-3xl leading-none tracking-tight text-white sm:mt-5 sm:text-6xl lg:text-8xl">
-            Scroll through the league schedule
+            Track Taiwan&apos;s pro basketball schedules in one place
           </h1>
         </div>
       </div>

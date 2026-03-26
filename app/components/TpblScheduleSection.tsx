@@ -18,6 +18,7 @@ export default function TpblScheduleSection({
   schedule,
   todayKey,
 }: TpblSectionProps) {
+  // TPBL section 共用和 PLG 相同的賽程狀態模型，但多了重播與回顧操作。
   const {
     scheduleView,
     setScheduleView,
@@ -124,6 +125,7 @@ export default function TpblScheduleSection({
             </label>
           </div>
 
+          {/* 固定列表高度，避免切頁時區塊高度縮短。 */}
           <div className="mt-6 min-h-[640px] space-y-4">
             {pagedGames.map((game) => (
               <article
@@ -139,6 +141,7 @@ export default function TpblScheduleSection({
                   </span>
                 </div>
 
+                {/* 卡片分成日期時間欄、對戰資訊欄，以及 TPBL 專用操作欄。 */}
                 <div className="grid gap-5 md:gap-6 lg:grid-cols-[150px_minmax(0,1fr)_200px] lg:items-center">
                   <div className="border-b border-[#d7dce5] pb-4 md:flex md:items-end md:justify-between md:gap-4 md:border-b lg:block lg:border-b-0 lg:border-r lg:pb-0 lg:pr-6">
                     <div className="flex items-start gap-2">
@@ -154,7 +157,8 @@ export default function TpblScheduleSection({
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-[minmax(0,1fr)_92px_minmax(0,1fr)] items-center gap-3 border-[#d7dce5] sm:gap-5 md:grid-cols-[minmax(0,1fr)_120px_minmax(0,1fr)] lg:border-r lg:px-6">
+                  {/* 把中間比分欄加寬，讓分數、Logo、隊名之間更有空間。 */}
+                  <div className="grid grid-cols-[minmax(0,1fr)_124px_minmax(0,1fr)] items-center gap-4 border-[#d7dce5] sm:gap-6 md:grid-cols-[minmax(0,1fr)_168px_minmax(0,1fr)] lg:border-r lg:px-8">
                     <div className="flex min-w-0 flex-col items-center justify-end gap-2 text-center sm:flex-row sm:gap-4 sm:text-right">
                       <NextImage
                         src={game.away_team.logo}
@@ -165,7 +169,7 @@ export default function TpblScheduleSection({
                         unoptimized
                       />
                       <div className="min-w-0">
-                        <p className="whitespace-nowrap text-sm font-semibold leading-tight text-[#13233d] sm:text-xl lg:text-2xl">
+                        <p className="whitespace-nowrap text-sm font-semibold leading-tight text-[#13233d] sm:text-lg lg:text-2xl">
                           {game.away_team.name}
                         </p>
                         <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#F2F2F3] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-black sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
@@ -174,14 +178,15 @@ export default function TpblScheduleSection({
                       </div>
                     </div>
 
+                    {/* 中間區塊負責顯示最終比分，或尚未開打時的狀態標籤。 */}
                     <div className="flex flex-col items-center justify-center text-center">
                       {typeof game.away_score === "number" && typeof game.home_score === "number" ? (
                         <>
                           <span className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#7e8797] sm:mb-3 sm:text-sm">
                             VS
                           </span>
-                          <div className="flex items-end justify-center gap-3 sm:gap-5">
-                            <span className="text-4xl font-light leading-none text-[#9ca3af] sm:text-5xl">
+                          <div className="flex items-end justify-center gap-4 sm:gap-6">
+                            <span className="text-4xl font-semibold leading-none text-[#13233d] sm:text-5xl">
                               {game.away_score}
                             </span>
                             <span className="text-4xl font-semibold leading-none text-[#13233d] sm:text-5xl">
@@ -220,7 +225,7 @@ export default function TpblScheduleSection({
                         unoptimized
                       />
                       <div className="min-w-0">
-                        <p className="whitespace-nowrap text-sm font-semibold leading-tight text-[#13233d] sm:text-xl lg:text-2xl">
+                        <p className="whitespace-nowrap text-sm font-semibold leading-tight text-[#13233d] sm:text-lg lg:text-2xl">
                           {game.home_team.name}
                         </p>
                         <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#0f4c81] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-white sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
@@ -230,6 +235,7 @@ export default function TpblScheduleSection({
                     </div>
                   </div>
 
+                  {/* 右側操作連結來自 TPBL API 的 metadata，沒有資料時就留白。 */}
                   <div className="border-t border-[#d7dce5] pt-4 lg:border-t-0 lg:pt-0 lg:pl-4">
                     <div className="flex min-h-[88px] flex-col justify-center gap-3">
                       {game.replay_url ? (
@@ -265,6 +271,7 @@ export default function TpblScheduleSection({
             ))}
           </div>
 
+          {/* 分頁樣式與互動邏輯和 PLG 保持一致。 */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
             <button
               type="button"
