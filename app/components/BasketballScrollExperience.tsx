@@ -25,11 +25,13 @@ export default function BasketballScrollExperience() {
 
   const { isReady, isPastAnimation, backgroundReveal, activeNav, isThirdSectionActive } =
     useBasketballAnimation({
-      sectionRef,
-      stageRef,
-      contentSectionRef,
-      thirdSectionRef,
-      canvasRef,
+      refs: {
+        sectionRef,
+        stageRef,
+        contentSectionRef,
+        thirdSectionRef,
+        canvasRef,
+      },
     });
 
   const plgSchedule = useSchedule(plgGames, todayKey, {
