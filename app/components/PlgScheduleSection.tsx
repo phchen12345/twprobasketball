@@ -131,8 +131,8 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
             </div>
 
             {/* 每張卡片分成日期時間欄，以及較寬的對戰資訊欄。 */}
-            <div className="grid gap-5 md:gap-6 lg:grid-cols-[150px_minmax(0,1fr)] lg:items-center">
-              <div className="border-b border-[#d7dce5] pb-4 md:flex md:items-end md:justify-between md:gap-4 md:border-b lg:block lg:border-b-0 lg:border-r lg:pb-0 lg:pr-6">
+            <div className="grid gap-5 xl:grid-cols-[150px_minmax(0,1fr)] xl:items-center">
+              <div className="border-b border-[#d7dce5] pb-4 flex items-end justify-between gap-4 xl:block xl:border-b-0 xl:border-r xl:pb-0 xl:pr-6">
                 <div className="flex items-start gap-2">
                   <p className="text-[1.75rem] font-semibold leading-none text-[#13233d] sm:text-[2rem]">
                     {formatDisplayDate(game.date)}
@@ -145,18 +145,18 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
               </div>
 
               {/* 把中間比分欄加寬，避免分數、Logo、隊名擠在一起。 */}
-              <div className="grid grid-cols-[minmax(0,1fr)_124px_minmax(0,1fr)] items-center gap-4 sm:gap-6 md:grid-cols-[minmax(0,1fr)_168px_minmax(0,1fr)] lg:px-4">
+              <div className="grid grid-cols-[minmax(0,1fr)_108px_minmax(0,1fr)] items-center gap-3 sm:gap-4 lg:grid-cols-[minmax(0,1fr)_132px_minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_168px_minmax(0,1fr)] xl:px-4">
                 <div className="flex min-w-0 flex-col items-center justify-end gap-2 text-center sm:flex-row sm:gap-4 sm:text-right">
                   <NextImage
                     src={game.away_team.logo}
                     alt={game.away_team.name}
                     width={96}
                     height={96}
-                    className="h-12 w-12 object-contain sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+                    className="h-12 w-12 object-contain sm:h-14 sm:w-14 lg:h-[4.25rem] lg:w-[4.25rem] xl:h-24 xl:w-24"
                     unoptimized
                   />
                   <div className="min-w-0">
-                    <p className="whitespace-nowrap text-sm font-semibold leading-tight text-[#13233d] sm:text-lg lg:text-2xl">
+                    <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
                       {game.away_team.name}
                     </p>
                     <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#f6efe5] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-[#8a6d46] sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
@@ -173,10 +173,10 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                         VS
                       </span>
                       <div className="flex items-end justify-center gap-4 sm:gap-6">
-                        <span className="text-4xl font-semibold leading-none text-[#13233d] sm:text-5xl">
+                        <span className="text-3xl font-semibold leading-none text-[#13233d] sm:text-[2.25rem] lg:text-[2.5rem] xl:text-5xl">
                           {game.away_score}
                         </span>
-                        <span className="text-4xl font-semibold leading-none text-[#13233d] sm:text-5xl">
+                        <span className="text-3xl font-semibold leading-none text-[#13233d] sm:text-[2.25rem] lg:text-[2.5rem] xl:text-5xl">
                           {game.home_score}
                         </span>
                       </div>
@@ -208,11 +208,11 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                     alt={game.home_team.name}
                     width={96}
                     height={96}
-                    className="h-12 w-12 object-contain sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+                    className="h-12 w-12 object-contain sm:h-14 sm:w-14 lg:h-[4.25rem] lg:w-[4.25rem] xl:h-24 xl:w-24"
                     unoptimized
                   />
                   <div className="min-w-0">
-                    <p className="whitespace-nowrap text-sm font-semibold leading-tight text-[#13233d] sm:text-lg lg:text-2xl">
+                    <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
                       {game.home_team.name}
                     </p>
                     <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-black px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-white sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
