@@ -14,7 +14,7 @@ function formatDisplayDate(date: string) {
 }
 
 function formatMonthLabel(month: string) {
-  return month === "all" ? "All Months" : month.replace("-", " / ");
+  return month === "all" ? "全部月份" : month.replace("-", " / ");
 }
 
 export default function TpblScheduleSection({
@@ -23,6 +23,11 @@ export default function TpblScheduleSection({
   schedule,
   todayKey,
 }: Props) {
+  const activeButtonClass = isThirdSectionActive ? "bg-[#0f4c81] text-white" : "bg-[#8F724E] text-white";
+  const inactiveButtonClass = isThirdSectionActive
+    ? "border border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81]"
+    : "border border-[#c5a57d] bg-[#f5ede3] text-[#8F724E]";
+
   const {
     scheduleView,
     setScheduleView,
@@ -55,12 +60,12 @@ export default function TpblScheduleSection({
                 2025-26 Official Games
               </p>
               <h2 className="mt-3 font-serif text-2xl text-white sm:text-4xl">
-                TPBL Schedule
+                TPBL 賽程
               </h2>
             </div>
             <p className="text-sm text-white/70">
-              {scheduleView === "completed" ? "Completed" : "Upcoming"} · Page {currentPage} /{" "}
-              {totalPages} · {activeGames.length} games
+              {scheduleView === "completed" ? "已完成" : "即將開賽"} · 第 {currentPage} / {totalPages} 頁 · 共{" "}
+              {activeGames.length} 場
             </p>
           </div>
 
@@ -69,30 +74,26 @@ export default function TpblScheduleSection({
               type="button"
               onClick={() => setScheduleView("upcoming")}
               className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                scheduleView === "upcoming"
-                  ? "bg-[#BB986C] text-white"
-                  : "border border-[#dcc4a1] bg-[#f7f1e8] text-[#8a6d46]"
+                scheduleView === "upcoming" ? activeButtonClass : inactiveButtonClass
               }`}
             >
-              Upcoming
+              即將開賽
             </button>
             <button
               type="button"
               onClick={() => setScheduleView("completed")}
               className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                scheduleView === "completed"
-                  ? "bg-[#BB986C] text-white"
-                  : "border border-[#dcc4a1] bg-[#f7f1e8] text-[#8a6d46]"
+                scheduleView === "completed" ? activeButtonClass : inactiveButtonClass
               }`}
             >
-              Completed
+              已完成
             </button>
           </div>
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <label className="flex flex-col gap-2">
               <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-                By Month
+                依月份選擇
               </span>
               <select
                 value={selectedMonth}
@@ -109,14 +110,14 @@ export default function TpblScheduleSection({
 
             <label className="flex flex-col gap-2">
               <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-                By Team
+                依隊伍選擇
               </span>
               <select
                 value={selectedTeam}
                 onChange={(event) => setSelectedTeam(event.target.value)}
                 className="rounded-2xl border border-white/20 bg-white px-4 py-3 text-sm text-[#13233d] outline-none transition focus:border-[#BB986C]"
               >
-                <option value="all">All Teams</option>
+                <option value="all">全部隊伍</option>
                 {teamOptions.filter((team) => team !== "all").map((team) => (
                   <option key={team} value={team}>
                     {team}
@@ -137,7 +138,7 @@ export default function TpblScheduleSection({
                     GAME {game.game_id}
                   </span>
                   <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a93a3]">
-                    {scheduleView === "completed" ? "Completed" : "Upcoming"}
+                    {scheduleView === "completed" ? "已完成" : "即將開賽"}
                   </span>
                 </div>
 
@@ -156,14 +157,14 @@ export default function TpblScheduleSection({
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-[minmax(0,1fr)_92px_minmax(0,1fr)] items-center gap-3 border-[#d7dce5] sm:gap-5 md:grid-cols-[minmax(0,1fr)_120px_minmax(0,1fr)] md:items-center lg:border-r lg:px-6">
+                  <div className="grid grid-cols-[minmax(0,1fr)_92px_minmax(0,1fr)] items-center gap-3 border-[#d7dce5] sm:gap-5 md:grid-cols-[minmax(0,1fr)_120px_minmax(0,1fr)] lg:border-r lg:px-6">
                     <div className="flex min-w-0 items-center justify-end gap-2 text-right sm:gap-4">
                       <div className="min-w-0">
                         <p className="text-base font-semibold leading-tight text-[#13233d] sm:text-xl lg:text-2xl">
                           {game.away_team.name}
                         </p>
                         <span className="mt-3 inline-flex rounded-full bg-[#f6efe5] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8a6d46]">
-                          Away
+                          客隊
                         </span>
                       </div>
                       <img
@@ -194,7 +195,7 @@ export default function TpblScheduleSection({
                             {game.venue}
                           </span>
                           <span className="mt-3 inline-flex rounded-full bg-[#0f4c81] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
-                            Final
+                            完賽
                           </span>
                         </>
                       ) : (
@@ -206,7 +207,7 @@ export default function TpblScheduleSection({
                             {game.venue}
                           </span>
                           <span className="mt-3 inline-flex rounded-full bg-[#eef1f5] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6b7280]">
-                            {game.date < todayKey ? "Played" : "Upcoming"}
+                            {game.date < todayKey ? "已賽" : "即將開賽"}
                           </span>
                         </>
                       )}
@@ -226,7 +227,7 @@ export default function TpblScheduleSection({
                           {game.home_team.name}
                         </p>
                         <span className="mt-3 inline-flex rounded-full bg-[#0f4c81] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
-                          Home
+                          主隊
                         </span>
                       </div>
                     </div>
@@ -235,7 +236,7 @@ export default function TpblScheduleSection({
                   <div className="border-t border-[#d7dce5] pt-4 lg:border-t-0 lg:pt-0 lg:pl-2">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a93a3]">
-                        Venue
+                        場館
                       </p>
                       <p className="mt-2 text-base font-semibold leading-tight text-[#13233d] sm:text-lg">
                         {game.venue}
@@ -254,7 +255,7 @@ export default function TpblScheduleSection({
               disabled={currentPage === 1}
               className="rounded-full border border-[#d7dce5] bg-white px-4 py-2 text-sm text-[#5d6675] transition disabled:cursor-not-allowed disabled:opacity-40"
             >
-              Prev
+              上一頁
             </button>
             {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
               <button
@@ -276,7 +277,7 @@ export default function TpblScheduleSection({
               disabled={currentPage === totalPages}
               className="rounded-full border border-[#d7dce5] bg-white px-4 py-2 text-sm text-[#5d6675] transition disabled:cursor-not-allowed disabled:opacity-40"
             >
-              Next
+              下一頁
             </button>
           </div>
         </div>

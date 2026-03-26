@@ -36,55 +36,26 @@ export default function ScrollHeader({ isPastAnimation, activeNav }: Props) {
             />
           </a>
 
-          <div
+          <nav
             className={
               isPastAnimation
-                ? "flex min-w-0 items-center justify-end gap-3 transition-all duration-500 ease-out sm:gap-7"
-                : "ml-auto flex min-w-0 items-center justify-end gap-3 transition-all duration-500 ease-out sm:gap-6"
+                ? "flex min-w-0 items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-100 transition-all duration-500 ease-out sm:gap-7 sm:text-[11px]"
+                : "ml-auto flex min-w-0 items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-zinc-300 transition-all duration-500 ease-out sm:gap-6 sm:text-xs md:gap-10 md:text-sm"
             }
           >
-            <nav
-              className={
-                isPastAnimation
-                  ? "flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-100 transition-all duration-500 ease-out sm:gap-7 sm:text-[11px]"
-                  : "flex items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-zinc-300 transition-all duration-500 ease-out sm:gap-6 sm:text-xs md:gap-10 md:text-sm"
-              }
+            <a
+              href="#plg-schedule"
+              className={`transition hover:text-white ${activeNav === "plg" ? "text-[#BB986C]" : ""}`}
             >
-              <a
-                href="#plg-schedule"
-                className={`transition hover:text-white ${activeNav === "plg" ? "text-[#BB986C]" : ""}`}
-              >
-                PLG 賽程
-              </a>
-              <a
-                href="#tpbl-schedule"
-                className={`transition hover:text-white ${activeNav === "tpbl" ? "text-[#BB986C]" : ""}`}
-              >
-                TPBL 賽程
-              </a>
-              <a href="#cta" className="hidden transition hover:text-white sm:inline">
-                Insights
-              </a>
-              {isPastAnimation ? (
-                <a href="#cta" className="hidden transition hover:text-white sm:inline">
-                  Contact
-                </a>
-              ) : null}
-            </nav>
-
-            {isPastAnimation ? null : (
-              <a
-                href="#cta"
-                className="relative hidden min-h-10 min-w-24 items-center justify-center px-5 text-sm uppercase tracking-[0.18em] text-white md:inline-flex"
-              >
-                <span className="absolute left-0 top-0 h-4 w-4 border-l border-t border-white/80" />
-                <span className="absolute right-0 top-0 h-4 w-4 border-r border-t border-white/80" />
-                <span className="absolute bottom-0 left-0 h-4 w-4 border-b border-l border-white/80" />
-                <span className="absolute bottom-0 right-0 h-4 w-4 border-b border-r border-white/80" />
-                Contact
-              </a>
-            )}
-          </div>
+              PLG 賽程
+            </a>
+            <a
+              href="#tpbl-schedule"
+              className={`transition hover:text-white ${activeNav === "tpbl" ? "text-[#BB986C]" : ""}`}
+            >
+              TPBL 賽程
+            </a>
+          </nav>
         </div>
       </div>
     </header>
