@@ -43,6 +43,9 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
             2025-26 Regular Season
           </p>
           <h2 className="mt-3 font-serif text-2xl text-white sm:text-4xl">P. LEAGUE+ 賽程</h2>
+          <p className="mt-2 text-xs text-white/50">
+            資料來源：P. LEAGUE+ 官方賽程頁
+          </p>
         </div>
         <p className="text-sm text-white/60">
           {scheduleView === "completed" ? "已完成" : "即將開賽"} · 第 {currentPage} / {totalPages} 頁 · 共{" "}

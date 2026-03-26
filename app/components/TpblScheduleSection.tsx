@@ -58,6 +58,9 @@ export default function TpblScheduleSection({
                 2025-26 Official Games
               </p>
               <h2 className="mt-3 font-serif text-2xl text-white sm:text-4xl">TPBL 賽程</h2>
+              <p className="mt-2 text-xs text-white/60">
+                資料來源：TPBL 官方 API 與官方賽程資訊
+              </p>
             </div>
             <p className="text-sm text-white/70">
               {scheduleView === "completed" ? "已完成" : "即將開賽"} · 第 {currentPage} / {totalPages} 頁 · 共{" "}
@@ -143,7 +146,7 @@ export default function TpblScheduleSection({
 
                 {/* 卡片分成日期時間欄、對戰資訊欄，以及 TPBL 專用操作欄。 */}
                 <div className="grid gap-5 xl:grid-cols-[150px_minmax(0,1fr)_200px] xl:items-center">
-                  <div className="border-b border-[#d7dce5] pb-4 flex items-end justify-between gap-4 xl:block xl:border-b-0 xl:border-r xl:pb-0 xl:pr-6">
+                  <div className="flex items-end justify-between gap-4 border-b border-[#d7dce5] pb-4 xl:block xl:border-b-0 xl:border-r xl:pb-0 xl:pr-6">
                     <div className="flex items-start gap-2">
                       <p className="text-[1.75rem] font-semibold leading-none text-[#13233d] sm:text-[2rem]">
                         {formatDisplayDate(game.date)}
