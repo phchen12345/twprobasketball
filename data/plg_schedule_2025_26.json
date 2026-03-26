@@ -1,0 +1,520 @@
+{
+  "season": "2025-26",
+  "league": "P. LEAGUE+",
+  "source": "https://pleagueofficial.com/schedule-regular-season/25-26",
+  "updated_at": "2026-03-24",
+  "teams": {
+    "勇士": {
+      "name_en": "Taipei Fubon Braves",
+      "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png"
+    },
+    "領航猿": {
+      "name_en": "Taoyuan Pauian Pilots",
+      "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png"
+    },
+    "獵鷹": {
+      "name_en": "TSG Ghosthawks",
+      "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png"
+    },
+    "洋基工程": {
+      "name_en": "Yankey Ark Professional Basketball Team",
+      "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png"
+    }
+  },
+  "games": [
+    {
+      "game_id": "G01",
+      "date": "2025-10-26",
+      "time": "17:00",
+      "venue": "桃園市立綜合體育館",
+      "matchup": "勇士 vs 領航猿",
+      "away_score": 96,
+      "home_score": 112,
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G02",
+      "date": "2025-10-29",
+      "time": "19:00",
+      "venue": "桃園市立綜合體育館",
+      "matchup": "獵鷹 vs 領航猿",
+      "away_score": 89,
+      "home_score": 101,
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G03",
+      "date": "2025-11-08",
+      "time": "17:00",
+      "venue": "臺北和平籃球館",
+      "matchup": "獵鷹 vs 勇士",
+      "away_score": 112,
+      "home_score": 76,
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G04",
+      "date": "2025-11-09",
+      "time": "17:00",
+      "venue": "臺北和平籃球館",
+      "matchup": "洋基工程 vs 勇士",
+      "away_score": 106,
+      "home_score": 133,
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G05",
+      "date": "2025-12-11",
+      "time": "19:00",
+      "venue": "桃園市立綜合體育館",
+      "matchup": "勇士 vs 領航猿",
+      "away_score": 99,
+      "home_score": 105,
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G06",
+      "date": "2025-12-20",
+      "time": "17:00",
+      "venue": "國立成功大學",
+      "matchup": "洋基工程 vs 獵鷹",
+      "away_score": 90,
+      "home_score": 102,
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G07",
+      "date": "2025-12-21",
+      "time": "17:00",
+      "venue": "國立成功大學",
+      "matchup": "領航猿 vs 獵鷹",
+      "away_score": 107,
+      "home_score": 87,
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G08",
+      "date": "2025-12-27",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "領航猿 vs 洋基工程",
+      "away_score": 127,
+      "home_score": 91,
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G09",
+      "date": "2025-12-28",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "獵鷹 vs 洋基工程",
+      "away_score": 114,
+      "home_score": 89,
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G10",
+      "date": "2026-01-03",
+      "time": "17:00",
+      "venue": "臺北和平籃球館",
+      "matchup": "獵鷹 vs 勇士",
+      "away_score": 86,
+      "home_score": 124,
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G11",
+      "date": "2026-01-04",
+      "time": "17:00",
+      "venue": "臺北和平籃球館",
+      "matchup": "洋基工程 vs 勇士",
+      "away_score": 105,
+      "home_score": 126,
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G12",
+      "date": "2026-01-06",
+      "time": "19:00",
+      "venue": "臺北和平籃球館",
+      "matchup": "領航猿 vs 勇士",
+      "away_score": 118,
+      "home_score": 97,
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G13",
+      "date": "2026-01-10",
+      "time": "17:00",
+      "venue": "板橋體育館",
+      "matchup": "獵鷹 vs 領航猿",
+      "away_score": 91,
+      "home_score": 99,
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G14",
+      "date": "2026-01-11",
+      "time": "17:00",
+      "venue": "板橋體育館",
+      "matchup": "勇士 vs 領航猿",
+      "away_score": 89,
+      "home_score": 99,
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G15",
+      "date": "2026-01-13",
+      "time": "19:00",
+      "venue": "板橋體育館",
+      "matchup": "洋基工程 vs 領航猿",
+      "away_score": 95,
+      "home_score": 131,
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G16",
+      "date": "2026-01-17",
+      "time": "17:00",
+      "venue": "國立成功大學",
+      "matchup": "領航猿 vs 獵鷹",
+      "away_score": 100,
+      "home_score": 98,
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G17",
+      "date": "2026-01-18",
+      "time": "17:00",
+      "venue": "國立成功大學",
+      "matchup": "洋基工程 vs 獵鷹",
+      "away_score": 103,
+      "home_score": 125,
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G18",
+      "date": "2026-01-20",
+      "time": "19:00",
+      "venue": "國立成功大學",
+      "matchup": "勇士 vs 獵鷹",
+      "away_score": 85,
+      "home_score": 90,
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G19",
+      "date": "2026-01-24",
+      "time": "17:00",
+      "venue": "臺北和平籃球館",
+      "matchup": "獵鷹 vs 勇士",
+      "away_score": 62,
+      "home_score": 80,
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G20",
+      "date": "2026-01-25",
+      "time": "17:00",
+      "venue": "臺北和平籃球館",
+      "matchup": "領航猿 vs 勇士",
+      "away_score": 95,
+      "home_score": 94,
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G21",
+      "date": "2026-01-31",
+      "time": "17:00",
+      "venue": "國立成功大學",
+      "matchup": "領航猿 vs 獵鷹",
+      "away_score": 84,
+      "home_score": 110,
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G22",
+      "date": "2026-02-01",
+      "time": "17:00",
+      "venue": "國立成功大學",
+      "matchup": "勇士 vs 獵鷹",
+      "away_score": 91,
+      "home_score": 97,
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G23",
+      "date": "2026-02-03",
+      "time": "19:00",
+      "venue": "國立成功大學",
+      "matchup": "洋基工程 vs 獵鷹",
+      "away_score": 67,
+      "home_score": 86,
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G24",
+      "date": "2026-02-07",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "勇士 vs 洋基工程",
+      "away_score": 91,
+      "home_score": 112,
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G25",
+      "date": "2026-02-08",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "獵鷹 vs 洋基工程",
+      "away_score": 102,
+      "home_score": 98,
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G26",
+      "date": "2026-02-10",
+      "time": "19:00",
+      "venue": "新竹市立體育館",
+      "matchup": "領航猿 vs 洋基工程",
+      "away_score": 106,
+      "home_score": 84,
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G27",
+      "date": "2026-03-07",
+      "time": "17:00",
+      "venue": "國立成功大學",
+      "matchup": "勇士 vs 獵鷹",
+      "away_score": 116,
+      "home_score": 89,
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G28",
+      "date": "2026-03-08",
+      "time": "17:00",
+      "venue": "國立成功大學",
+      "matchup": "洋基工程 vs 獵鷹",
+      "away_score": 107,
+      "home_score": 92,
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G29",
+      "date": "2026-03-12",
+      "time": "19:00",
+      "venue": "臺北和平籃球館",
+      "matchup": "領航猿 vs 勇士",
+      "away_score": 109,
+      "home_score": 91,
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G30",
+      "date": "2026-03-14",
+      "time": "17:00",
+      "venue": "臺北和平籃球館",
+      "matchup": "洋基工程 vs 勇士",
+      "away_score": 102,
+      "home_score": 94,
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G31",
+      "date": "2026-03-15",
+      "time": "17:00",
+      "venue": "臺北和平籃球館",
+      "matchup": "獵鷹 vs 勇士",
+      "away_score": 89,
+      "home_score": 114,
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G32",
+      "date": "2026-03-26",
+      "time": "19:00",
+      "venue": "新竹市立體育館",
+      "matchup": "勇士 vs 洋基工程",
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G33",
+      "date": "2026-03-28",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "獵鷹 vs 洋基工程",
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G34",
+      "date": "2026-03-29",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "領航猿 vs 洋基工程",
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G35",
+      "date": "2026-04-04",
+      "time": "16:00",
+      "venue": "臺中洲際迷你蛋",
+      "matchup": "洋基工程 vs 領航猿",
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G36",
+      "date": "2026-04-05",
+      "time": "16:00",
+      "venue": "臺中洲際迷你蛋",
+      "matchup": "勇士 vs 領航猿",
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G37",
+      "date": "2026-04-11",
+      "time": "17:00",
+      "venue": "臺北小巨蛋",
+      "matchup": "領航猿 vs 勇士",
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G38",
+      "date": "2026-04-12",
+      "time": "17:00",
+      "venue": "臺北小巨蛋",
+      "matchup": "洋基工程 vs 勇士",
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" }
+    },
+    {
+      "game_id": "G39",
+      "date": "2026-04-18",
+      "time": "17:00",
+      "venue": "國立成功大學",
+      "matchup": "勇士 vs 獵鷹",
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G40",
+      "date": "2026-04-19",
+      "time": "17:00",
+      "venue": "國立成功大學",
+      "matchup": "領航猿 vs 獵鷹",
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" }
+    },
+    {
+      "game_id": "G41",
+      "date": "2026-04-25",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "領航猿 vs 洋基工程",
+      "away_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G42",
+      "date": "2026-04-26",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "勇士 vs 洋基工程",
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G43",
+      "date": "2026-05-02",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "獵鷹 vs 領航猿",
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G44",
+      "date": "2026-05-03",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "洋基工程 vs 領航猿",
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G45",
+      "date": "2026-05-09",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "勇士 vs 洋基工程",
+      "away_team": { "name": "勇士", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G46",
+      "date": "2026-05-10",
+      "time": "17:00",
+      "venue": "新竹市立體育館",
+      "matchup": "獵鷹 vs 洋基工程",
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" }
+    },
+    {
+      "game_id": "G47",
+      "date": "2026-05-16",
+      "time": "17:00",
+      "venue": "桃園市立綜合體育館",
+      "matchup": "獵鷹 vs 領航猿",
+      "away_team": { "name": "獵鷹", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_7_1760078282.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    },
+    {
+      "game_id": "G48",
+      "date": "2026-05-17",
+      "time": "17:00",
+      "venue": "桃園市立綜合體育館",
+      "matchup": "洋基工程 vs 領航猿",
+      "away_team": { "name": "洋基工程", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png" },
+      "home_team": { "name": "領航猿", "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png" }
+    }
+  ]
+}

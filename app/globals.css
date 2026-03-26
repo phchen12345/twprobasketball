@@ -1,0 +1,690 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --text: #f2eee8;
+  --muted: #b9b2aa;
+  --line: rgba(255, 255, 255, 0.08);
+  --accent: #ea6b1f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(234, 107, 31, 0.12), transparent 16%),
+    linear-gradient(180deg, #111112 0%, #0b0b0c 100%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+.site {
+  width: 100%;
+}
+
+.hero,
+.introPanel,
+.lineupSection,
+.interiorSection,
+.technologySection,
+.cta,
+.subnav,
+.featureBand {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+}
+
+.hero {
+  padding: 20px 28px 0;
+}
+
+.masthead {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 0 20px;
+}
+
+.brand,
+.reserveLink {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.nav,
+.subnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.nav {
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.heroContent {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  padding: 72px 0 34px;
+}
+
+.sectionLabel,
+.overline,
+.tierName {
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.heroText h1 {
+  max-width: 9ch;
+  margin-top: 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4.2rem, 8.5vw, 7.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.heroLead,
+.highlightCard p,
+.metric p,
+.bodyCopy,
+.interiorCard p,
+.technologyRow p,
+.tierCard li {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.heroLead {
+  max-width: 54ch;
+  margin-top: 20px;
+  font-size: 1.05rem;
+}
+
+.heroStats {
+  display: grid;
+  gap: 18px;
+  min-width: 240px;
+}
+
+.heroStats div {
+  padding-left: 18px;
+  border-left: 1px solid var(--line);
+}
+
+.heroStats strong,
+.metric strong,
+.interiorCard strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.heroStats span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.heroVisual {
+  position: relative;
+  min-height: 720px;
+  overflow: hidden;
+  border-radius: 32px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 22%),
+    linear-gradient(180deg, #232325 0%, #171718 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.heroGlow {
+  position: absolute;
+  inset: auto auto 19% 50%;
+  width: 62vw;
+  max-width: 880px;
+  aspect-ratio: 1.5;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(234, 107, 31, 0.34), rgba(234, 107, 31, 0) 68%);
+  filter: blur(24px);
+}
+
+.ballStage {
+  position: absolute;
+  left: 50%;
+  top: 13%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.ballDragArea {
+  width: min(38vw, 420px);
+  aspect-ratio: 1;
+  cursor: grab;
+  touch-action: none;
+  perspective: 1400px;
+}
+
+.ballDragArea:active {
+  cursor: grabbing;
+}
+
+.ball3d {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 80ms linear;
+}
+
+.ballCore {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, #ffd5b7 0%, #f6994a 18%, #e2771e 40%, #bb4f06 68%, #7a2a00 100%);
+  box-shadow:
+    inset -36px -44px 62px rgba(93, 28, 0, 0.35),
+    0 36px 90px rgba(0, 0, 0, 0.28);
+}
+
+.ballLine,
+.ballArc,
+.ballHighlight {
+  position: absolute;
+  border-radius: 999px;
+}
+
+.ballLine {
+  background: rgba(70, 29, 10, 0.66);
+}
+
+.ballLineVertical {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+}
+
+.ballLineHorizontal {
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+}
+
+.ballArc {
+  border: 4px solid rgba(70, 29, 10, 0.66);
+}
+
+.ballArcLeft,
+.ballArcRight {
+  top: 12%;
+  bottom: 12%;
+  width: 46%;
+}
+
+.ballArcLeft {
+  left: -2%;
+  border-right: 0;
+}
+
+.ballArcRight {
+  right: -2%;
+  border-left: 0;
+}
+
+.ballArcTop,
+.ballArcBottom {
+  left: 12%;
+  right: 12%;
+  height: 26%;
+}
+
+.ballArcTop {
+  top: 16%;
+  border-bottom: 0;
+}
+
+.ballArcBottom {
+  bottom: 16%;
+  border-top: 0;
+}
+
+.ballHighlight {
+  left: 18%;
+  top: 16%;
+  width: 18%;
+  height: 18%;
+  background: radial-gradient(circle, rgba(255, 244, 232, 0.7), rgba(255, 244, 232, 0));
+  filter: blur(6px);
+}
+
+.dragHint {
+  margin-top: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.heroShadow {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  width: min(48vw, 540px);
+  height: 54px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.34);
+  filter: blur(18px);
+}
+
+.courtSurface {
+  position: absolute;
+  left: 42px;
+  right: 42px;
+  bottom: 34px;
+  height: 48%;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 153, 75, 0.04), rgba(0, 0, 0, 0));
+  background-size: 96px 96px, 96px 96px, auto;
+}
+
+.courtSurface::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.centerMark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 180px;
+  height: 180px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.arc {
+  position: absolute;
+  top: 50%;
+  width: 240px;
+  height: 300px;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.arcLeft {
+  left: 0;
+  border-left: 0;
+  border-radius: 0 160px 160px 0;
+}
+
+.arcRight {
+  right: 0;
+  border-right: 0;
+  border-radius: 160px 0 0 160px;
+}
+
+.subnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  justify-content: center;
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(11, 11, 12, 0.82);
+  backdrop-filter: blur(14px);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.introPanel,
+.lineupSection,
+.interiorSection,
+.technologySection,
+.cta {
+  padding: 104px 28px;
+}
+
+.introPanel {
+  text-align: center;
+}
+
+.introPanel h2,
+.sectionIntro h2,
+.cta h2 {
+  max-width: 13ch;
+  margin-top: 16px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.introPanel h2 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.highlightGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 52px;
+}
+
+.highlightCard {
+  padding: 10px 10px 10px 0;
+  text-align: left;
+}
+
+.highlightCard h3,
+.tierCard h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.7rem;
+  line-height: 1.05;
+}
+
+.highlightCard p {
+  margin-top: 14px;
+}
+
+.featureBand {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.metric {
+  padding: 34px 28px;
+  border-right: 1px solid var(--line);
+}
+
+.metric:last-child {
+  border-right: 0;
+}
+
+.metricValue,
+.interiorCard span {
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1;
+}
+
+.metric p {
+  margin-top: 8px;
+}
+
+.sectionIntro {
+  display: grid;
+  gap: 14px;
+}
+
+.tierGrid,
+.interiorGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.tierCard,
+.interiorCard {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 24%);
+}
+
+.tierPrice {
+  margin-top: 14px;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.tierCard ul {
+  padding-left: 18px;
+  margin-top: 18px;
+}
+
+.tierCard li + li {
+  margin-top: 10px;
+}
+
+.narrow {
+  max-width: 760px;
+}
+
+.bodyCopy {
+  max-width: 60ch;
+  margin-top: 8px;
+}
+
+.interiorCard strong {
+  margin-top: 14px;
+}
+
+.interiorCard p {
+  margin-top: 10px;
+}
+
+.technologyGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.technologyVisual,
+.technologyList {
+  min-height: 420px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+}
+
+.technologyVisual {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center, rgba(234, 107, 31, 0.12), transparent 34%),
+    linear-gradient(180deg, #1a1a1d 0%, #121214 100%);
+}
+
+.screenPanel {
+  position: absolute;
+  inset: 42px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.screenTop {
+  height: 72px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.screenRows {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+}
+
+.screenRows span {
+  display: block;
+  height: 82px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.technologyList {
+  display: grid;
+  align-content: center;
+  padding: 0 26px;
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.technologyRow {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.technologyRow:last-child {
+  border-bottom: 0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.reserveButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--text);
+  color: #111112;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .heroContent,
+  .highlightGrid,
+  .featureBand,
+  .tierGrid,
+  .interiorGrid,
+  .technologyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .heroStats {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero,
+  .introPanel,
+  .lineupSection,
+  .interiorSection,
+  .technologySection,
+  .cta,
+  .subnav {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .masthead {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .nav,
+  .subnav {
+    justify-content: flex-start;
+  }
+
+  .heroVisual {
+    min-height: 520px;
+  }
+
+  .ballStage {
+    top: 18%;
+  }
+
+  .ballDragArea {
+    width: 240px;
+  }
+
+  .courtSurface {
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .arc {
+    width: 140px;
+    height: 220px;
+  }
+
+  .centerMark {
+    width: 110px;
+    height: 110px;
+  }
+
+  .technologyVisual,
+  .technologyList {
+    min-height: auto;
+  }
+}
