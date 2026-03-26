@@ -18,7 +18,6 @@ export default function TpblScheduleSection({
   schedule,
   todayKey,
 }: TpblSectionProps) {
-  // TPBL section 共用和 PLG 相同的賽程狀態模型，但多了重播與回顧操作。
   const {
     scheduleView,
     setScheduleView,
@@ -128,7 +127,6 @@ export default function TpblScheduleSection({
             </label>
           </div>
 
-          {/* 固定列表高度，避免切頁時區塊高度縮短。 */}
           <div className="mt-6 min-h-[640px] space-y-4">
             {pagedGames.map((game) => (
               <article
@@ -144,7 +142,6 @@ export default function TpblScheduleSection({
                   </span>
                 </div>
 
-                {/* 卡片分成日期時間欄、對戰資訊欄，以及 TPBL 專用操作欄。 */}
                 <div className="grid gap-5 xl:grid-cols-[150px_minmax(0,1fr)_200px] xl:items-center">
                   <div className="flex items-end justify-between gap-4 border-b border-[#d7dce5] pb-4 xl:block xl:border-b-0 xl:border-r xl:pb-0 xl:pr-6">
                     <div className="flex items-start gap-2">
@@ -160,7 +157,6 @@ export default function TpblScheduleSection({
                     </p>
                   </div>
 
-                  {/* 把中間比分欄加寬，讓分數、Logo、隊名之間更有空間。 */}
                   <div className="grid grid-cols-[minmax(0,1fr)_108px_minmax(0,1fr)] items-center gap-3 border-[#d7dce5] sm:gap-4 lg:grid-cols-[minmax(0,1fr)_132px_minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_168px_minmax(0,1fr)] xl:border-r xl:px-8">
                     <div className="flex min-w-0 flex-col items-center justify-end gap-2 text-center sm:flex-row sm:gap-4 sm:text-right">
                       <NextImage
@@ -181,7 +177,6 @@ export default function TpblScheduleSection({
                       </div>
                     </div>
 
-                    {/* 中間區塊負責顯示最終比分，或尚未開打時的狀態標籤。 */}
                     <div className="flex flex-col items-center justify-center text-center">
                       {typeof game.away_score === "number" && typeof game.home_score === "number" ? (
                         <>
@@ -238,7 +233,6 @@ export default function TpblScheduleSection({
                     </div>
                   </div>
 
-                  {/* 右側操作連結來自 TPBL API 的 metadata，沒有資料時就留白。 */}
                   <div className="border-t border-[#d7dce5] pt-4 sm:flex sm:justify-end xl:block xl:border-t-0 xl:pt-0 xl:pl-4">
                     <div className="flex min-h-[88px] flex-col justify-center gap-3">
                       {game.replay_url ? (
@@ -274,7 +268,6 @@ export default function TpblScheduleSection({
             ))}
           </div>
 
-          {/* 分頁樣式與互動邏輯和 PLG 保持一致。 */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
             <button
               type="button"
