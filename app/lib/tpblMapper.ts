@@ -1,5 +1,5 @@
 import { FALLBACK_LOGO, TPBL_TEAM_LOGOS } from "../constants/tpbl";
-import { TpblApiGame, TpblFallbackGame, TpblGame } from "../components/scheduleTypes";
+import type { TpblApiGame, TpblFallbackGame, TpblGame } from "../components/scheduleTypes";
 
 function getLocalTpblLogoPath(teamName: string) {
   return TPBL_TEAM_LOGOS[teamName] ?? FALLBACK_LOGO;
@@ -17,6 +17,8 @@ export function mapTpblApiGame(game: TpblApiGame): TpblGame {
     status: game.status,
     away_score: isCompleted ? game.away_team.won_score ?? game.away_team.lost_score : undefined,
     home_score: isCompleted ? game.home_team.won_score ?? game.home_team.lost_score : undefined,
+    replay_url: game.meta?.live_stream_url,
+    recap_url: game.meta?.recap,
     away_team: {
       name: game.away_team.name,
       logo: getLocalTpblLogoPath(game.away_team.name),
@@ -32,6 +34,8 @@ export function mapFallbackTpblGame(game: TpblFallbackGame): TpblGame {
   return {
     ...game,
     status: "NOT_STARTED",
+    replay_url: undefined,
+    recap_url: undefined,
     away_team: { name: game.away_team, logo: getLocalTpblLogoPath(game.away_team) },
     home_team: { name: game.home_team, logo: getLocalTpblLogoPath(game.home_team) },
   };

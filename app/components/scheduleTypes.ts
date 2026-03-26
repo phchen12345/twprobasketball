@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, RefObject, SetStateAction } from "react";
 
 export type ActiveNav = "plg" | "tpbl" | null;
 export type ScheduleView = "completed" | "upcoming";
@@ -29,6 +29,8 @@ export type TpblGame = {
   status: string;
   away_score?: number;
   home_score?: number;
+  replay_url?: string;
+  recap_url?: string;
   away_team: TeamWithLogo;
   home_team: TeamWithLogo;
 };
@@ -49,6 +51,10 @@ export type TpblApiGame = {
   status: string;
   game_date: string;
   game_time: string;
+  meta?: {
+    recap?: string;
+    live_stream_url?: string;
+  } | null;
   home_team: {
     name: string;
     won_score?: number;
@@ -81,6 +87,13 @@ export type ScheduleSectionState<T> = {
   setSelectedTeam: (value: string) => void;
   monthOptions: string[];
   teamOptions: string[];
+};
+
+export type TpblSectionProps = {
+  isThirdSectionActive: boolean;
+  thirdSectionRef: RefObject<HTMLElement | null>;
+  schedule: ScheduleSectionState<TpblGame>;
+  todayKey: string;
 };
 
 export function formatWeekday(dateString: string) {

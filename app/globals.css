@@ -26,10 +26,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-a {
+/* a {
   color: inherit;
   text-decoration: none;
-}
+} */
 
 h1,
 h2,
@@ -175,7 +175,11 @@ ul {
   max-width: 880px;
   aspect-ratio: 1.5;
   transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(234, 107, 31, 0.34), rgba(234, 107, 31, 0) 68%);
+  background: radial-gradient(
+    circle,
+    rgba(234, 107, 31, 0.34),
+    rgba(234, 107, 31, 0) 68%
+  );
   filter: blur(24px);
 }
 
@@ -211,8 +215,14 @@ ul {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 28%, #ffd5b7 0%, #f6994a 18%, #e2771e 40%, #bb4f06 68%, #7a2a00 100%);
+  background: radial-gradient(
+    circle at 32% 28%,
+    #ffd5b7 0%,
+    #f6994a 18%,
+    #e2771e 40%,
+    #bb4f06 68%,
+    #7a2a00 100%
+  );
   box-shadow:
     inset -36px -44px 62px rgba(93, 28, 0, 0.35),
     0 36px 90px rgba(0, 0, 0, 0.28);
@@ -288,7 +298,11 @@ ul {
   top: 16%;
   width: 18%;
   height: 18%;
-  background: radial-gradient(circle, rgba(255, 244, 232, 0.7), rgba(255, 244, 232, 0));
+  background: radial-gradient(
+    circle,
+    rgba(255, 244, 232, 0.7),
+    rgba(255, 244, 232, 0)
+  );
   filter: blur(6px);
 }
 
@@ -325,7 +339,10 @@ ul {
     linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
     linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
     linear-gradient(180deg, rgba(255, 153, 75, 0.04), rgba(0, 0, 0, 0));
-  background-size: 96px 96px, 96px 96px, auto;
+  background-size:
+    96px 96px,
+    96px 96px,
+    auto;
 }
 
 .courtSurface::before {
@@ -480,7 +497,11 @@ ul {
   padding: 28px;
   border: 1px solid var(--line);
   border-radius: 24px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 24%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    transparent 24%
+  );
 }
 
 .tierPrice {
@@ -534,7 +555,11 @@ ul {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at center, rgba(234, 107, 31, 0.12), transparent 34%),
+    radial-gradient(
+      circle at center,
+      rgba(234, 107, 31, 0.12),
+      transparent 34%
+    ),
     linear-gradient(180deg, #1a1a1d 0%, #121214 100%);
 }
 

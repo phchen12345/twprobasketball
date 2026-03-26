@@ -1,14 +1,8 @@
 "use client";
 
 import NextImage from "next/image";
-import { ScheduleSectionState, TpblGame, formatWeekday } from "./scheduleTypes";
-
-type Props = {
-  isThirdSectionActive: boolean;
-  thirdSectionRef: React.RefObject<HTMLElement | null>;
-  schedule: ScheduleSectionState<TpblGame>;
-  todayKey: string;
-};
+import type { TpblSectionProps } from "./scheduleTypes";
+import { formatWeekday } from "./scheduleTypes";
 
 function formatDisplayDate(date: string) {
   return date.slice(5).replace("-", "/");
@@ -23,7 +17,7 @@ export default function TpblScheduleSection({
   thirdSectionRef,
   schedule,
   todayKey,
-}: Props) {
+}: TpblSectionProps) {
   const {
     scheduleView,
     setScheduleView,
@@ -40,7 +34,9 @@ export default function TpblScheduleSection({
     teamOptions,
   } = schedule;
 
-  const activeButtonClass = isThirdSectionActive ? "bg-[#0f4c81] text-white" : "bg-[#8F724E] text-white";
+  const activeButtonClass = isThirdSectionActive
+    ? "bg-[#0f4c81] text-white"
+    : "bg-[#8F724E] text-white";
   const inactiveButtonClass = isThirdSectionActive
     ? "border border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81]"
     : "border border-[#c5a57d] bg-[#f5ede3] text-[#8F724E]";
@@ -53,7 +49,7 @@ export default function TpblScheduleSection({
         isThirdSectionActive ? "bg-[#003C64]" : "bg-[#8F724E]"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-[92rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="rounded-[2rem] border border-white/15 bg-white/10 p-4 backdrop-blur-sm sm:p-6 lg:p-10">
           <div className="flex flex-col gap-4 border-b border-white/20 pb-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -117,11 +113,13 @@ export default function TpblScheduleSection({
                 className="rounded-2xl border border-white/20 bg-white px-4 py-3 text-sm text-[#13233d] outline-none transition focus:border-[#BB986C]"
               >
                 <option value="all">全部隊伍</option>
-                {teamOptions.filter((team) => team !== "all").map((team) => (
-                  <option key={team} value={team}>
-                    {team}
-                  </option>
-                ))}
+                {teamOptions
+                  .filter((team) => team !== "all")
+                  .map((team) => (
+                    <option key={team} value={team}>
+                      {team}
+                    </option>
+                  ))}
               </select>
             </label>
           </div>
@@ -141,7 +139,7 @@ export default function TpblScheduleSection({
                   </span>
                 </div>
 
-                <div className="grid gap-5 md:gap-6 lg:grid-cols-[150px_minmax(0,1fr)_160px] lg:items-center">
+                <div className="grid gap-5 md:gap-6 lg:grid-cols-[150px_minmax(0,1fr)_200px] lg:items-center">
                   <div className="border-b border-[#d7dce5] pb-4 md:flex md:items-end md:justify-between md:gap-4 md:border-b lg:block lg:border-b-0 lg:border-r lg:pb-0 lg:pr-6">
                     <div className="flex items-start gap-2">
                       <p className="text-[1.75rem] font-semibold leading-none text-[#13233d] sm:text-[2rem]">
@@ -167,10 +165,10 @@ export default function TpblScheduleSection({
                         unoptimized
                       />
                       <div className="min-w-0">
-                        <p className="text-sm font-semibold leading-tight text-[#13233d] whitespace-nowrap sm:text-xl lg:text-2xl">
+                        <p className="whitespace-nowrap text-sm font-semibold leading-tight text-[#13233d] sm:text-xl lg:text-2xl">
                           {game.away_team.name}
                         </p>
-                        <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#f6efe5] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-[#8a6d46] sm:mt-3 sm:px-3 sm:text-[11px] sm:uppercase sm:tracking-[0.14em]">
+                        <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#F2F2F3] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-black sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
                           客隊
                         </span>
                       </div>
@@ -194,7 +192,7 @@ export default function TpblScheduleSection({
                             {game.venue}
                           </span>
                           <span className="mt-3 inline-flex rounded-full bg-[#0f4c81] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
-                            完賽
+                            Final
                           </span>
                         </>
                       ) : (
@@ -206,7 +204,7 @@ export default function TpblScheduleSection({
                             {game.venue}
                           </span>
                           <span className="mt-3 inline-flex rounded-full bg-[#eef1f5] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6b7280]">
-                            {game.date < todayKey ? "已賽" : "即將開賽"}
+                            {game.date < todayKey ? "Played" : "Upcoming"}
                           </span>
                         </>
                       )}
@@ -222,24 +220,44 @@ export default function TpblScheduleSection({
                         unoptimized
                       />
                       <div className="min-w-0">
-                        <p className="text-sm font-semibold leading-tight text-[#13233d] whitespace-nowrap sm:text-xl lg:text-2xl">
+                        <p className="whitespace-nowrap text-sm font-semibold leading-tight text-[#13233d] sm:text-xl lg:text-2xl">
                           {game.home_team.name}
                         </p>
-                        <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#0f4c81] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-white sm:mt-3 sm:px-3 sm:text-[11px] sm:uppercase sm:tracking-[0.14em]">
+                        <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#0f4c81] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-white sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
                           主隊
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="border-t border-[#d7dce5] pt-4 lg:border-t-0 lg:pt-0 lg:pl-2">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a93a3]">
-                        場館
-                      </p>
-                      <p className="mt-2 text-base font-semibold leading-tight text-[#13233d] sm:text-lg">
-                        {game.venue}
-                      </p>
+                  <div className="border-t border-[#d7dce5] pt-4 lg:border-t-0 lg:pt-0 lg:pl-4">
+                    <div className="flex min-h-[88px] flex-col justify-center gap-3">
+                      {game.replay_url ? (
+                        <a
+                          href={game.replay_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex w-fit text-sm font-semibold no-underline decoration-black underline-offset-4 transition hover:underline"
+                          style={{ color: "black" }}
+                        >
+                          觀看重播
+                        </a>
+                      ) : (
+                        <span className="h-5" />
+                      )}
+                      {game.recap_url ? (
+                        <a
+                          href={game.recap_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex w-fit text-sm font-semibold no-underline decoration-black underline-offset-4 transition hover:underline"
+                          style={{ color: "black" }}
+                        >
+                          賽事回顧
+                        </a>
+                      ) : (
+                        <span className="h-5" />
+                      )}
                     </div>
                   </div>
                 </div>

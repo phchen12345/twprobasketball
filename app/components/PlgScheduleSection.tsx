@@ -1,7 +1,8 @@
 "use client";
 
 import NextImage from "next/image";
-import { ScheduleGame, ScheduleSectionState, formatWeekday } from "./scheduleTypes";
+import type { ScheduleGame, ScheduleSectionState } from "./scheduleTypes";
+import { formatWeekday } from "./scheduleTypes";
 
 type Props = {
   schedule: ScheduleSectionState<ScheduleGame>;
@@ -40,11 +41,13 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#7e8797]">
             2025-26 Regular Season
           </p>
-          <h2 className="mt-3 font-serif text-2xl text-[#13233d] sm:text-4xl">P. LEAGUE+ 賽程</h2>
+          <h2 className="mt-3 font-serif text-2xl text-[#13233d] sm:text-4xl">
+            P. LEAGUE+ 賽程
+          </h2>
         </div>
         <p className="text-sm text-[#5d6675]">
-          {scheduleView === "completed" ? "已完成" : "即將開賽"} · 第 {currentPage} / {totalPages} 頁 · 共{" "}
-          {activeGames.length} 場
+          {scheduleView === "completed" ? "已完成" : "即將開賽"} · 第{" "}
+          {currentPage} / {totalPages} 頁 · 共 {activeGames.length} 場
         </p>
       </div>
 
@@ -101,11 +104,13 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
             className="rounded-2xl border border-[#d7dce5] bg-white px-4 py-3 text-sm text-[#13233d] outline-none transition focus:border-[#BB986C]"
           >
             <option value="all">全部隊伍</option>
-            {teamOptions.filter((team) => team !== "all").map((team) => (
-              <option key={team} value={team}>
-                {team}
-              </option>
-            ))}
+            {teamOptions
+              .filter((team) => team !== "all")
+              .map((team) => (
+                <option key={team} value={team}>
+                  {team}
+                </option>
+              ))}
           </select>
         </label>
       </div>
@@ -125,7 +130,7 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
               </span>
             </div>
 
-            <div className="grid gap-5 md:gap-6 lg:grid-cols-[150px_minmax(0,1fr)_160px] lg:items-center">
+            <div className="grid gap-5 md:gap-6 lg:grid-cols-[150px_minmax(0,1fr)] lg:items-center">
               <div className="border-b border-[#d7dce5] pb-4 md:flex md:items-end md:justify-between md:gap-4 md:border-b lg:block lg:border-b-0 lg:border-r lg:pb-0 lg:pr-6">
                 <div className="flex items-start gap-2">
                   <p className="text-[1.75rem] font-semibold leading-none text-[#13233d] sm:text-[2rem]">
@@ -140,7 +145,7 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                 </p>
               </div>
 
-              <div className="grid grid-cols-[minmax(0,1fr)_92px_minmax(0,1fr)] items-center gap-3 border-[#d7dce5] sm:gap-5 md:grid-cols-[minmax(0,1fr)_120px_minmax(0,1fr)] lg:border-r lg:px-6">
+              <div className="grid grid-cols-[minmax(0,1fr)_92px_minmax(0,1fr)] items-center gap-3 sm:gap-5 md:grid-cols-[minmax(0,1fr)_120px_minmax(0,1fr)] lg:px-2">
                 <div className="flex min-w-0 flex-col items-center justify-end gap-2 text-center sm:flex-row sm:gap-4 sm:text-right">
                   <NextImage
                     src={game.away_team.logo}
@@ -151,17 +156,18 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                     unoptimized
                   />
                   <div className="min-w-0">
-                    <p className="text-sm font-semibold leading-tight text-[#13233d] whitespace-nowrap sm:text-xl lg:text-2xl">
+                    <p className="whitespace-nowrap text-sm font-semibold leading-tight text-[#13233d] sm:text-xl lg:text-2xl">
                       {game.away_team.name}
                     </p>
-                    <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#f6efe5] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-[#8a6d46] sm:mt-3 sm:px-3 sm:text-[11px] sm:uppercase sm:tracking-[0.14em]">
+                    <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#f6efe5] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-[#8a6d46] sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
                       客隊
                     </span>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-center justify-center text-center">
-                  {typeof game.away_score === "number" && typeof game.home_score === "number" ? (
+                  {typeof game.away_score === "number" &&
+                  typeof game.home_score === "number" ? (
                     <>
                       <span className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#7e8797] sm:mb-3 sm:text-sm">
                         VS
@@ -177,8 +183,8 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                       <span className="mt-2 max-w-[11rem] text-xs font-medium leading-snug text-[#5d6675] sm:mt-3 sm:text-sm">
                         {game.venue}
                       </span>
-                      <span className="mt-3 inline-flex rounded-full bg-[#0f4c81] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
-                        完賽
+                      <span className="mt-3 inline-flex rounded-full bg-[#BB986C] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
+                        Final
                       </span>
                     </>
                   ) : (
@@ -190,7 +196,7 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                         {game.venue}
                       </span>
                       <span className="mt-3 inline-flex rounded-full bg-[#eef1f5] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6b7280]">
-                        {game.date < todayKey ? "已賽" : "即將開賽"}
+                        {game.date < todayKey ? "Played" : "Upcoming"}
                       </span>
                     </>
                   )}
@@ -206,24 +212,13 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                     unoptimized
                   />
                   <div className="min-w-0">
-                    <p className="text-sm font-semibold leading-tight text-[#13233d] whitespace-nowrap sm:text-xl lg:text-2xl">
+                    <p className="whitespace-nowrap text-sm font-semibold leading-tight text-[#13233d] sm:text-xl lg:text-2xl">
                       {game.home_team.name}
                     </p>
-                    <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-black px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-white sm:mt-3 sm:px-3 sm:text-[11px] sm:uppercase sm:tracking-[0.14em]">
+                    <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-black px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-white sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
                       主隊
                     </span>
                   </div>
-                </div>
-              </div>
-
-              <div className="border-t border-[#d7dce5] pt-4 lg:border-t-0 lg:pt-0 lg:pl-2">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a93a3]">
-                    場館
-                  </p>
-                  <p className="mt-2 text-base font-semibold leading-tight text-[#13233d] sm:text-lg">
-                    {game.venue}
-                  </p>
                 </div>
               </div>
             </div>
@@ -240,23 +235,27 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
         >
           上一頁
         </button>
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-          <button
-            key={page}
-            type="button"
-            onClick={() => setCurrentPage(page)}
-            className={`h-10 min-w-10 rounded-full px-3 text-sm font-semibold transition ${
-              currentPage === page
-                ? "bg-[#13233d] text-white"
-                : "border border-[#d7dce5] bg-white text-[#5d6675]"
-            }`}
-          >
-            {page}
-          </button>
-        ))}
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+          (page) => (
+            <button
+              key={page}
+              type="button"
+              onClick={() => setCurrentPage(page)}
+              className={`h-10 min-w-10 rounded-full px-3 text-sm font-semibold transition ${
+                currentPage === page
+                  ? "bg-[#8a6d46] text-white"
+                  : "border border-[#d7dce5] bg-white text-[#5d6675]"
+              }`}
+            >
+              {page}
+            </button>
+          ),
+        )}
         <button
           type="button"
-          onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
+          onClick={() =>
+            setCurrentPage((page) => Math.min(totalPages, page + 1))
+          }
           disabled={currentPage === totalPages}
           className="rounded-full border border-[#d7dce5] bg-white px-4 py-2 text-sm text-[#5d6675] transition disabled:cursor-not-allowed disabled:opacity-40"
         >

@@ -33,7 +33,7 @@ export default function ScheduleContainer({
         style={{ transform: `translateX(${(1 - backgroundReveal) * -100}%)` }}
       />
       <div
-        className={`relative mx-auto min-h-[120vh] max-w-7xl gap-4 px-4 pt-16 pb-24 sm:min-h-[130vh] sm:px-6 sm:pt-20 lg:px-8 ${
+        className={`relative mx-auto min-h-[120vh] max-w-[92rem] gap-4 px-4 pt-16 pb-24 sm:min-h-[130vh] sm:px-6 sm:pt-20 lg:px-8 ${
           isThirdSectionActive ? "bg-transparent" : isPastAnimation ? "bg-transparent" : "bg-black"
         }`}
       >
