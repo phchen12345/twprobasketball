@@ -61,10 +61,7 @@ export default function TpblScheduleSection({
                 資料來源：TPBL 官方 API 與官方賽程資訊
               </p>
             </div>
-            <p className="text-sm text-white/70">
-              {scheduleView === "completed" ? "已完成" : "即將開賽"} · 第 {currentPage} / {totalPages} 頁 · 共{" "}
-              {activeGames.length} 場
-            </p>
+            <p className="text-sm text-white/70">共 {activeGames.length} 場</p>
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3">
@@ -136,9 +133,6 @@ export default function TpblScheduleSection({
                 <div className="mb-5 flex items-center justify-between gap-3">
                   <span className="inline-flex rounded-full bg-[#0f172a] px-3 py-1 text-xs font-semibold text-white sm:px-4 sm:text-sm">
                     GAME {game.game_id}
-                  </span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a93a3]">
-                    {scheduleView === "completed" ? "已完成" : "即將開賽"}
                   </span>
                 </div>
 
