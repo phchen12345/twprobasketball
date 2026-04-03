@@ -1,6 +1,10 @@
 "use client";
 
 import NextImage from "next/image";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
+import { Select } from "@/components/ui/select";
 import type { TpblSectionProps } from "./scheduleTypes";
 import { formatWeekday } from "./scheduleTypes";
 
@@ -14,6 +18,7 @@ function formatMonthLabel(month: string) {
 
 export default function TpblScheduleSection({
   isThirdSectionActive,
+  isBclSectionActive,
   thirdSectionRef,
   schedule,
   todayKey,
@@ -34,24 +39,31 @@ export default function TpblScheduleSection({
     teamOptions,
   } = schedule;
 
-  const activeButtonClass = isThirdSectionActive
-    ? "bg-[#0f4c81] text-white"
-    : "bg-[#8F724E] text-white";
   const inactiveButtonClass = isThirdSectionActive
     ? "border border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81]"
     : "border border-[#c5a57d] bg-[#f5ede3] text-[#8F724E]";
+  const activeButtonClass = isThirdSectionActive
+    ? "bg-[#0f4c81] text-white shadow-[0_12px_32px_rgba(15,76,129,0.32)] hover:bg-[#0d426e]"
+    : "bg-[#8F724E] text-white shadow-[0_12px_32px_rgba(143,114,78,0.3)] hover:bg-[#7b6243]";
+  const navButtonClass = isThirdSectionActive
+    ? "border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81] hover:bg-[#dceaf7]"
+    : "border-[#c5a57d] bg-[#f5ede3] text-[#8F724E] hover:bg-[#efdfcc]";
 
   return (
     <section
       ref={thirdSectionRef}
       id="tpbl-schedule"
       className={`transition-colors duration-200 ${
-        isThirdSectionActive ? "bg-[#003C64]" : "bg-[#8F724E]"
+        isBclSectionActive
+          ? "bg-[#4b421d]"
+          : isThirdSectionActive
+            ? "bg-[#003C64]"
+            : "bg-[#8F724E]"
       }`}
     >
       <div className="mx-auto max-w-[92rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <div className="rounded-[2rem] border border-white/15 bg-white/10 p-4 backdrop-blur-sm sm:p-6 lg:p-10">
-          <div className="flex flex-col gap-4 border-b border-white/20 pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <Card className="border-white/15 bg-white/10 p-4 sm:p-6 lg:p-10">
+          <CardHeader className="border-b border-white/20 pb-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">
                 2025-26 Official Games
@@ -62,27 +74,27 @@ export default function TpblScheduleSection({
               </p>
             </div>
             <p className="text-sm text-white/70">共 {activeGames.length} 場</p>
-          </div>
+          </CardHeader>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            <button
+            <Button
               type="button"
+              size="pill"
+              variant={scheduleView === "upcoming" ? "accent" : "pill"}
+              className={scheduleView === "upcoming" ? activeButtonClass : inactiveButtonClass}
               onClick={() => setScheduleView("upcoming")}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                scheduleView === "upcoming" ? activeButtonClass : inactiveButtonClass
-              }`}
             >
               即將開賽
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
+              size="pill"
+              variant={scheduleView === "completed" ? "accent" : "pill"}
+              className={scheduleView === "completed" ? activeButtonClass : inactiveButtonClass}
               onClick={() => setScheduleView("completed")}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                scheduleView === "completed" ? activeButtonClass : inactiveButtonClass
-              }`}
             >
               已完成
-            </button>
+            </Button>
           </div>
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -90,27 +102,27 @@ export default function TpblScheduleSection({
               <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
                 依月份選擇
               </span>
-              <select
+              <Select
                 value={selectedMonth}
                 onChange={(event) => setSelectedMonth(event.target.value)}
-                className="rounded-2xl border border-white/20 bg-white px-4 py-3 text-sm text-[#13233d] outline-none transition focus:border-[#BB986C]"
+                className="border-white/20 bg-white text-[#13233d] focus:border-[#BB986C]"
               >
                 {monthOptions.map((month) => (
                   <option key={month} value={month}>
                     {formatMonthLabel(month)}
                   </option>
                 ))}
-              </select>
+              </Select>
             </label>
 
             <label className="flex flex-col gap-2">
               <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
                 依隊伍選擇
               </span>
-              <select
+              <Select
                 value={selectedTeam}
                 onChange={(event) => setSelectedTeam(event.target.value)}
-                className="rounded-2xl border border-white/20 bg-white px-4 py-3 text-sm text-[#13233d] outline-none transition focus:border-[#BB986C]"
+                className="border-white/20 bg-white text-[#13233d] focus:border-[#BB986C]"
               >
                 <option value="all">全部隊伍</option>
                 {teamOptions
@@ -120,7 +132,7 @@ export default function TpblScheduleSection({
                       {team}
                     </option>
                   ))}
-              </select>
+              </Select>
             </label>
           </div>
 
@@ -131,9 +143,9 @@ export default function TpblScheduleSection({
                 className="overflow-hidden rounded-[1.5rem] border border-[#d7dce5] bg-white px-4 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.06)] sm:px-6 sm:py-6 lg:px-7"
               >
                 <div className="mb-5 flex items-center justify-between gap-3">
-                  <span className="inline-flex rounded-full bg-[#0f172a] px-3 py-1 text-xs font-semibold text-white sm:px-4 sm:text-sm">
+                  <Badge variant="dark" className="sm:text-sm">
                     GAME {game.game_id}
-                  </span>
+                  </Badge>
                 </div>
 
                 <div className="grid gap-5 xl:grid-cols-[150px_minmax(0,1fr)_200px] xl:items-center">
@@ -165,9 +177,7 @@ export default function TpblScheduleSection({
                         <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
                           {game.away_team.name}
                         </p>
-                        <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#F2F2F3] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-black sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
-                          客隊
-                        </span>
+                        <Badge variant="away" className="mt-2 sm:mt-3">客隊</Badge>
                       </div>
                     </div>
 
@@ -188,9 +198,7 @@ export default function TpblScheduleSection({
                           <span className="mt-2 max-w-[11rem] text-xs font-medium leading-snug text-[#5d6675] sm:mt-3 sm:text-sm">
                             {game.venue}
                           </span>
-                          <span className="mt-3 inline-flex rounded-full bg-[#0f4c81] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
-                            Final
-                          </span>
+                          <Badge variant="accent" className="mt-3">Final</Badge>
                         </>
                       ) : (
                         <>
@@ -200,9 +208,7 @@ export default function TpblScheduleSection({
                           <span className="mt-2 text-xs font-medium text-[#5d6675] sm:mt-3 sm:text-sm">
                             {game.venue}
                           </span>
-                          <span className="mt-3 inline-flex rounded-full bg-[#eef1f5] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6b7280]">
-                            {game.date < todayKey ? "Played" : "Upcoming"}
-                          </span>
+                          <Badge variant="muted" className="mt-3">{game.date < todayKey ? "Played" : "Upcoming"}</Badge>
                         </>
                       )}
                     </div>
@@ -220,9 +226,7 @@ export default function TpblScheduleSection({
                         <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
                           {game.home_team.name}
                         </p>
-                        <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#0f4c81] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-white sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
-                          主隊
-                        </span>
+                        <Badge variant="home" className="mt-2 sm:mt-3">主隊</Badge>
                       </div>
                     </div>
                   </div>
@@ -234,10 +238,11 @@ export default function TpblScheduleSection({
                           href={game.replay_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex w-fit text-sm font-semibold no-underline decoration-black underline-offset-4 transition hover:underline"
-                          style={{ color: "black" }}
+                          className="inline-flex"
                         >
-                          觀看重播
+                          <Button type="button" size="pill" variant="ivory" className={`pointer-events-none ${navButtonClass}`}>
+                            觀看重播
+                          </Button>
                         </a>
                       ) : (
                         <span className="h-5" />
@@ -247,10 +252,11 @@ export default function TpblScheduleSection({
                           href={game.recap_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex w-fit text-sm font-semibold no-underline decoration-black underline-offset-4 transition hover:underline"
-                          style={{ color: "black" }}
+                          className="inline-flex"
                         >
-                          賽事回顧
+                          <Button type="button" size="pill" variant="ivory" className={`pointer-events-none ${navButtonClass}`}>
+                            賽事回顧
+                          </Button>
                         </a>
                       ) : (
                         <span className="h-5" />
@@ -263,38 +269,26 @@ export default function TpblScheduleSection({
           </div>
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            <button
-              type="button"
-              onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
-              disabled={currentPage === 1}
-              className="rounded-full border border-[#d7dce5] bg-white px-4 py-2 text-sm text-[#5d6675] transition disabled:cursor-not-allowed disabled:opacity-40"
-            >
+            <Button type="button" size="pill" variant="ivory" className={navButtonClass} onClick={() => setCurrentPage((page) => Math.max(1, page - 1))} disabled={currentPage === 1}>
               上一頁
-            </button>
+            </Button>
             {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-              <button
+              <Button
                 key={page}
                 type="button"
+                size="pill"
+                variant={currentPage === page ? "slate" : "ivory"}
+                className={`min-w-10 ${currentPage === page ? activeButtonClass : navButtonClass}`}
                 onClick={() => setCurrentPage(page)}
-                className={`h-10 min-w-10 rounded-full px-3 text-sm font-semibold transition ${
-                  currentPage === page
-                    ? "bg-[#13233d] text-white"
-                    : "border border-[#d7dce5] bg-white text-[#5d6675]"
-                }`}
               >
                 {page}
-              </button>
+              </Button>
             ))}
-            <button
-              type="button"
-              onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
-              disabled={currentPage === totalPages}
-              className="rounded-full border border-[#d7dce5] bg-white px-4 py-2 text-sm text-[#5d6675] transition disabled:cursor-not-allowed disabled:opacity-40"
-            >
+            <Button type="button" size="pill" variant="ivory" className={navButtonClass} onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))} disabled={currentPage === totalPages}>
               下一頁
-            </button>
+            </Button>
           </div>
-        </div>
+        </Card>
       </div>
     </section>
   );

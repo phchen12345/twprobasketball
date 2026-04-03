@@ -13,6 +13,8 @@ export const BASKETBALL_ANIMATION_CONFIG = {
   tpblThemeEnd: "bottom top",
   tpblNavStart: "top 45%",
   tpblNavEnd: "bottom 45%",
+  bclNavStart: "top 20%",
+  bclNavEnd: "bottom top",
 } as const;
 
 export function buildBasketballFrameSrc(index: number) {

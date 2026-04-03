@@ -13,6 +13,7 @@ export type BasketballAnimationRefs = {
   stageRef: RefObject<HTMLDivElement | null>;
   contentSectionRef: RefObject<HTMLDivElement | null>;
   thirdSectionRef: RefObject<HTMLElement | null>;
+  bclSectionRef: RefObject<HTMLElement | null>;
   canvasRef: RefObject<HTMLCanvasElement | null>;
 };
 
@@ -23,6 +24,7 @@ type Params = {
   onBackgroundRevealChange: (progress: number) => void;
   onActiveNavChange: (activeNav: ActiveNav) => void;
   onThirdSectionThemeChange: (isActive: boolean) => void;
+  onBclSectionThemeChange: (isActive: boolean) => void;
 };
 
 export function useGsapScrollAnimation({
@@ -32,12 +34,14 @@ export function useGsapScrollAnimation({
   onBackgroundRevealChange,
   onActiveNavChange,
   onThirdSectionThemeChange,
+  onBclSectionThemeChange,
 }: Params) {
-  const { canvasRef, sectionRef, stageRef, contentSectionRef, thirdSectionRef } = refs;
+  const { canvasRef, sectionRef, stageRef, contentSectionRef, thirdSectionRef, bclSectionRef } = refs;
   const frameState = useRef({ frame: 0 });
   const lastPastAnimation = useRef(false);
   const lastActiveNav = useRef<ActiveNav>(null);
   const lastThemeState = useRef(false);
+  const lastBclThemeState = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -45,8 +49,9 @@ export function useGsapScrollAnimation({
     const stage = stageRef.current;
     const contentSection = contentSectionRef.current;
     const thirdSection = thirdSectionRef.current;
+    const bclSection = bclSectionRef.current;
 
-    if (!canvas || !section || !stage || !contentSection || !thirdSection) {
+    if (!canvas || !section || !stage || !contentSection || !thirdSection || !bclSection) {
       return;
     }
 
@@ -68,6 +73,13 @@ export function useGsapScrollAnimation({
       if (lastThemeState.current !== value) {
         lastThemeState.current = value;
         onThirdSectionThemeChange(value);
+      }
+    };
+
+    const setBclThemeState = (value: boolean) => {
+      if (lastBclThemeState.current !== value) {
+        lastBclThemeState.current = value;
+        onBclSectionThemeChange(value);
       }
     };
 
@@ -124,8 +136,28 @@ export function useGsapScrollAnimation({
       end: BASKETBALL_ANIMATION_CONFIG.tpblNavEnd,
       onEnter: () => setActiveNav("tpbl"),
       onEnterBack: () => setActiveNav("tpbl"),
-      onLeave: () => setActiveNav(null),
+      onLeave: () => setActiveNav("bcl"),
       onLeaveBack: () => setActiveNav("plg"),
+    });
+
+    const bclNavTrigger = ScrollTrigger.create({
+      trigger: bclSection,
+      start: BASKETBALL_ANIMATION_CONFIG.bclNavStart,
+      end: BASKETBALL_ANIMATION_CONFIG.bclNavEnd,
+      onEnter: () => setActiveNav("bcl"),
+      onEnterBack: () => setActiveNav("bcl"),
+      onLeave: () => setActiveNav(null),
+      onLeaveBack: () => setActiveNav("tpbl"),
+    });
+
+    const bclThemeTrigger = ScrollTrigger.create({
+      trigger: bclSection,
+      start: BASKETBALL_ANIMATION_CONFIG.bclNavStart,
+      end: BASKETBALL_ANIMATION_CONFIG.bclNavEnd,
+      onEnter: () => setBclThemeState(true),
+      onEnterBack: () => setBclThemeState(true),
+      onLeave: () => setBclThemeState(false),
+      onLeaveBack: () => setBclThemeState(false),
     });
 
     const resizeHandler = () => drawFrame(frameState.current.frame);
@@ -135,6 +167,8 @@ export function useGsapScrollAnimation({
       window.removeEventListener("resize", resizeHandler);
       plgNavTrigger.kill();
       tpblNavTrigger.kill();
+      bclNavTrigger.kill();
+      bclThemeTrigger.kill();
       thirdSectionThemeTrigger.kill();
       backgroundTrigger.kill();
       tween.scrollTrigger?.kill();
@@ -146,10 +180,12 @@ export function useGsapScrollAnimation({
     onBackgroundRevealChange,
     onIntroReadyChange,
     onThirdSectionThemeChange,
+    onBclSectionThemeChange,
     canvasRef,
     sectionRef,
     stageRef,
     contentSectionRef,
     thirdSectionRef,
+    bclSectionRef,
   ]);
 }

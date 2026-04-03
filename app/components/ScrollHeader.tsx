@@ -1,6 +1,7 @@
 "use client";
 
 import NextImage from "next/image";
+import { Button } from "@/components/ui/button";
 import topBarLogoImage from "../../Logo2.jpg";
 import { ActiveNav } from "./scheduleTypes";
 
@@ -10,14 +11,20 @@ type Props = {
 };
 
 export default function ScrollHeader({ isPastAnimation, activeNav }: Props) {
+  const items = [
+    { href: "#plg-schedule", label: "PLG 賽程", active: activeNav === "plg" },
+    { href: "#tpbl-schedule", label: "TPBL 賽程", active: activeNav === "tpbl" },
+    { href: "#bcl-schedule", label: "BCL 賽程", active: activeNav === "bcl" },
+  ];
+
   return (
     <header className="fixed inset-x-0 top-0 z-40">
-      <div className={`transition-all duration-500 ease-out ${isPastAnimation ? "pt-2" : "pt-0"}`}>
+      <div className={`transition-all duration-500 ease-out ${isPastAnimation ? "pt-3" : "pt-2"}`}>
         <div
           className={
             isPastAnimation
-              ? "mx-auto flex w-[calc(100%-1rem)] max-w-max scale-90 items-center justify-between gap-3 rounded-xl bg-[#1a1a1a] px-3 py-2 text-white shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition-all duration-500 ease-out sm:w-fit sm:gap-6 sm:px-5"
-              : "flex w-full scale-100 items-center justify-between gap-3 bg-black px-3 py-2.5 transition-all duration-500 ease-out sm:px-4 lg:px-6"
+              ? "mx-auto flex w-[calc(100%-1rem)] max-w-max scale-95 items-center justify-between gap-3 rounded-[1.25rem] border border-white/10 bg-[#0f1117]/88 px-3 py-2 text-white shadow-[0_18px_48px_rgba(0,0,0,0.28)] backdrop-blur-xl transition-all duration-500 ease-out sm:w-fit sm:gap-4 sm:px-4"
+              : "mx-3 flex items-center justify-between gap-3 rounded-[1.5rem] border border-white/10 bg-[#0b0d12]/82 px-3 py-2.5 text-white shadow-[0_18px_48px_rgba(0,0,0,0.22)] backdrop-blur-xl transition-all duration-500 ease-out sm:mx-4 lg:mx-6"
           }
         >
           <a
@@ -39,22 +46,25 @@ export default function ScrollHeader({ isPastAnimation, activeNav }: Props) {
           <nav
             className={
               isPastAnimation
-                ? "flex min-w-0 items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-100 transition-all duration-500 ease-out sm:gap-7 sm:text-[11px]"
-                : "ml-auto flex min-w-0 items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-zinc-300 transition-all duration-500 ease-out sm:gap-6 sm:text-xs md:gap-10 md:text-sm"
+                ? "flex min-w-0 items-center gap-2 transition-all duration-500 ease-out sm:gap-3"
+                : "ml-auto flex min-w-0 items-center gap-2 transition-all duration-500 ease-out sm:gap-3"
             }
           >
-            <a
-              href="#plg-schedule"
-              className={`transition hover:text-white ${activeNav === "plg" ? "text-[#BB986C]" : ""}`}
-            >
-              PLG 賽程
-            </a>
-            <a
-              href="#tpbl-schedule"
-              className={`transition hover:text-white ${activeNav === "tpbl" ? "text-[#BB986C]" : ""}`}
-            >
-              TPBL 賽程
-            </a>
+            {items.map((item) => (
+              <a key={item.href} href={item.href}>
+                <Button
+                  variant={item.active ? "accent" : "pill"}
+                  size="pill"
+                  className={`h-9 px-3 text-[10px] uppercase tracking-[0.14em] sm:text-[11px] ${
+                    item.active
+                      ? "bg-white text-black shadow-[0_10px_28px_rgba(255,255,255,0.18)] hover:bg-white/90"
+                      : ""
+                  }`}
+                >
+                  {item.label}
+                </Button>
+              </a>
+            ))}
           </nav>
         </div>
       </div>

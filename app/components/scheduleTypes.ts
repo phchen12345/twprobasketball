@@ -1,6 +1,6 @@
 import type { Dispatch, RefObject, SetStateAction } from "react";
 
-export type ActiveNav = "plg" | "tpbl" | null;
+export type ActiveNav = "plg" | "tpbl" | "bcl" | null;
 export type ScheduleView = "completed" | "upcoming";
 
 export type TeamWithLogo = {
@@ -33,6 +33,38 @@ export type TpblGame = {
   recap_url?: string;
   away_team: TeamWithLogo;
   home_team: TeamWithLogo;
+};
+
+export type BclGame = {
+  game_id: string;
+  date: string;
+  time: string;
+  venue: string;
+  matchup: string;
+  live_url?: string;
+  away_score?: number;
+  home_score?: number;
+  away_team: TeamWithLogo;
+  home_team: TeamWithLogo;
+};
+
+export type BclSectionProps = {
+  isBclSectionActive: boolean;
+  schedule: ScheduleSectionState<BclGame>;
+  todayKey: string;
+};
+
+export type BclRawGame = {
+  game_id: string;
+  date: string;
+  time: string;
+  venue: string;
+  matchup: string;
+  live_url?: string;
+  away_score?: number;
+  home_score?: number;
+  away_team: string;
+  home_team: string;
 };
 
 export type TpblFallbackGame = {
@@ -91,6 +123,7 @@ export type ScheduleSectionState<T> = {
 
 export type TpblSectionProps = {
   isThirdSectionActive: boolean;
+  isBclSectionActive: boolean;
   thirdSectionRef: RefObject<HTMLElement | null>;
   schedule: ScheduleSectionState<TpblGame>;
   todayKey: string;

@@ -1,5 +1,25 @@
 import BasketballScrollExperience from "./components/BasketballScrollExperience";
 
 export default function HomePage() {
-  return <BasketballScrollExperience />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SportsOrganization",
+    name: "台灣籃球職業聯賽賽程",
+    url: "https://twprobasketball.vercel.app",
+    description:
+      "提供台灣籃球職業聯賽賽程整理，包含 TPBL、PLG 與 BCL Asia-East 賽程、比賽時間、場館與直播資訊。",
+    sport: "Basketball",
+    areaServed: "TW",
+    inLanguage: "zh-TW",
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <BasketballScrollExperience />
+    </>
+  );
 }

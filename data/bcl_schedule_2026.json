@@ -1,0 +1,127 @@
+{
+  "season": "2026",
+  "league": "BCL Asia-East",
+  "source": "https://www.fiba.basketball/en/events/basketball-champions-league-asia-east-2026/games",
+  "games": [
+    {
+      "game_id": "BCLAE-01",
+      "date": "2026-04-06",
+      "time": "20:00",
+      "venue": "Hong Kong,Southorn Stadium",
+      "matchup": "香港 南華籃球隊 vs 蒙古 烏蘭巴托野馬",
+      "live_url": "https://www.youtube.com/watch?v=Y6qnsFOjLb4",
+      "away_team": "蒙古 烏蘭巴托野馬",
+      "home_team": "香港 南華籃球隊"
+    },
+    {
+      "game_id": "BCLAE-02",
+      "date": "2026-04-07",
+      "time": "20:00",
+      "venue": "Hong Kong,Southorn Stadium",
+      "matchup": "香港 南華籃球隊 vs 新北國王",
+      "live_url": "https://www.youtube.com/watch?v=eQrJDdVLFU0",
+      "away_team": "新北國王",
+      "home_team": "香港 南華籃球隊"
+    },
+    {
+      "game_id": "BCLAE-03",
+      "date": "2026-04-09",
+      "time": "20:00",
+      "venue": "Hong Kong,Southorn Stadium",
+      "matchup": "香港 南華籃球隊 vs 桃園璞園領航猿",
+      "live_url": "https://www.youtube.com/watch?v=2dzm46Ufqhk",
+      "away_team": "桃園璞園領航猿",
+      "home_team": "香港 南華籃球隊"
+    },
+    {
+      "game_id": "BCLAE-04",
+      "date": "2026-04-14",
+      "time": "19:00",
+      "venue": "臺北市立大學天母體育館",
+      "matchup": "桃園璞園領航猿 vs 新北國王",
+      "live_url": "https://www.youtube.com/watch?v=8KmT9ZjtkHU",
+      "away_team": "新北國王",
+      "home_team": "桃園璞園領航猿"
+    },
+    {
+      "game_id": "BCLAE-05",
+      "date": "2026-04-16",
+      "time": "19:00",
+      "venue": "臺北市立大學天母體育館",
+      "matchup": "桃園璞園領航猿 vs 香港 南華籃球隊",
+      "live_url": "https://www.youtube.com/watch?v=SZX88-r0c4M",
+      "away_team": "香港 南華籃球隊",
+      "home_team": "桃園璞園領航猿"
+    },
+    {
+      "game_id": "BCLAE-06",
+      "date": "2026-04-18",
+      "time": "17:00",
+      "venue": "臺北市立大學天母體育館",
+      "matchup": "新北國王 vs 香港 南華籃球隊",
+      "live_url": "https://www.youtube.com/watch?v=FTcnrk4C-d4",
+      "away_team": "香港 南華籃球隊",
+      "home_team": "新北國王"
+    },
+    {
+      "game_id": "BCLAE-07",
+      "date": "2026-04-19",
+      "time": "17:00",
+      "venue": "臺北市立大學天母體育館",
+      "matchup": "新北國王 vs 蒙古 烏蘭巴托野馬",
+      "live_url": "https://www.youtube.com/watch?v=rbrzRwdciZc",
+      "away_team": "蒙古 烏蘭巴托野馬",
+      "home_team": "新北國王"
+    },
+    {
+      "game_id": "BCLAE-08",
+      "date": "2026-04-21",
+      "time": "19:00",
+      "venue": "臺北市立大學天母體育館",
+      "matchup": "桃園璞園領航猿 vs 蒙古 烏蘭巴托野馬",
+      "live_url": "https://www.youtube.com/watch?v=oCW20FgLFnk",
+      "away_team": "蒙古 烏蘭巴托野馬",
+      "home_team": "桃園璞園領航猿"
+    },
+    {
+      "game_id": "BCLAE-09",
+      "date": "2026-04-26",
+      "time": "17:00",
+      "venue": "新北市新莊體育館",
+      "matchup": "新北國王 vs 桃園璞園領航猿",
+      "live_url": "https://www.youtube.com/watch?v=JO0eLHhHGWo",
+      "away_team": "桃園璞園領航猿",
+      "home_team": "新北國王"
+    },
+    {
+      "game_id": "BCLAE-10",
+      "date": "2026-05-05",
+      "time": "19:00",
+      "venue": "Ulaanbaatar,MBank arena",
+      "matchup": "蒙古 烏蘭巴托野馬 vs 香港 南華籃球隊",
+      "live_url": "https://www.youtube.com/watch?v=7Ag07xC7M28",
+      "away_team": "香港 南華籃球隊",
+      "home_team": "蒙古 烏蘭巴托野馬"
+    },
+    {
+      "game_id": "BCLAE-11",
+      "date": "2026-05-07",
+      "time": "19:00",
+      "venue": "Ulaanbaatar,MBank arena",
+      "matchup": "蒙古 烏蘭巴托野馬 vs 桃園璞園領航猿",
+      "live_url": "https://www.youtube.com/watch?v=YvIqSPc8SPM",
+      "away_team": "桃園璞園領航猿",
+      "home_team": "蒙古 烏蘭巴托野馬"
+    },
+    {
+      "game_id": "BCLAE-12",
+      "date": "2026-05-08",
+      "time": "19:00",
+      "venue": "Ulaanbaatar,MBank arena",
+      "matchup": "蒙古 烏蘭巴托野馬 vs 新北國王",
+      "live_url": "https://www.youtube.com/watch?v=anHRlFAyxY4",
+      "away_team": "新北國王",
+      "home_team": "蒙古 烏蘭巴托野馬"
+    }
+  ]
+}

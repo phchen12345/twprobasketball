@@ -1,6 +1,9 @@
 "use client";
 
 import NextImage from "next/image";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Select } from "@/components/ui/select";
 import type { ScheduleGame, ScheduleSectionState } from "./scheduleTypes";
 import { formatWeekday } from "./scheduleTypes";
 
@@ -51,28 +54,32 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
       </div>
 
       <div className="mt-6 flex flex-wrap gap-3">
-        <button
+        <Button
           type="button"
-          onClick={() => setScheduleView("upcoming")}
-          className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+          size="pill"
+          variant={scheduleView === "upcoming" ? "accent" : "pill"}
+          className={
             scheduleView === "upcoming"
-              ? "bg-[#BB986C] text-white"
-              : "border border-[#5e513f] bg-[#181818] text-[#d9c4a6]"
-          }`}
+              ? "bg-[#BB986C] shadow-[0_12px_32px_rgba(187,152,108,0.34)] hover:bg-[#a9885d]"
+              : "border-[#5e513f] bg-[#181818] text-[#d9c4a6] hover:bg-[#211d18]"
+          }
+          onClick={() => setScheduleView("upcoming")}
         >
           即將開賽
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
-          onClick={() => setScheduleView("completed")}
-          className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+          size="pill"
+          variant={scheduleView === "completed" ? "accent" : "pill"}
+          className={
             scheduleView === "completed"
-              ? "bg-[#BB986C] text-white"
-              : "border border-[#5e513f] bg-[#181818] text-[#d9c4a6]"
-          }`}
+              ? "bg-[#BB986C] shadow-[0_12px_32px_rgba(187,152,108,0.34)] hover:bg-[#a9885d]"
+              : "border-[#5e513f] bg-[#181818] text-[#d9c4a6] hover:bg-[#211d18]"
+          }
+          onClick={() => setScheduleView("completed")}
         >
           已完成
-        </button>
+        </Button>
       </div>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -80,27 +87,27 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
           <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
             依月份選擇
           </span>
-          <select
+          <Select
             value={selectedMonth}
             onChange={(event) => setSelectedMonth(event.target.value)}
-            className="rounded-2xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none transition focus:border-[#BB986C]"
+            className="border-white/10 bg-[#16181f] text-white focus:border-[#BB986C]"
           >
             {monthOptions.map((month) => (
               <option key={month} value={month}>
                 {formatMonthLabel(month)}
               </option>
             ))}
-          </select>
+          </Select>
         </label>
 
         <label className="flex flex-col gap-2">
           <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
             依隊伍選擇
           </span>
-          <select
+          <Select
             value={selectedTeam}
             onChange={(event) => setSelectedTeam(event.target.value)}
-            className="rounded-2xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none transition focus:border-[#BB986C]"
+            className="border-white/10 bg-[#16181f] text-white focus:border-[#BB986C]"
           >
             <option value="all">全部隊伍</option>
             {teamOptions
@@ -110,7 +117,7 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                   {team}
                 </option>
               ))}
-          </select>
+          </Select>
         </label>
       </div>
 
@@ -122,9 +129,9 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
             className="overflow-hidden rounded-[1.5rem] border border-[#d7dce5] bg-white px-4 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.06)] sm:px-6 sm:py-6 lg:px-7"
           >
             <div className="mb-5 flex items-center justify-between gap-3">
-              <span className="inline-flex rounded-full bg-[#0f172a] px-3 py-1 text-xs font-semibold text-white sm:px-4 sm:text-sm">
+              <Badge variant="dark" className="sm:text-sm">
                 GAME {game.game_id.replace(/^G/i, "")}
-              </span>
+              </Badge>
             </div>
 
             {/* 每張卡片分成日期時間欄，以及較寬的對戰資訊欄。 */}
@@ -156,9 +163,7 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                     <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
                       {game.away_team.name}
                     </p>
-                    <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-[#f6efe5] px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-[#8a6d46] sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
-                      客隊
-                    </span>
+                    <Badge variant="away" className="mt-2 sm:mt-3">客隊</Badge>
                   </div>
                 </div>
 
@@ -180,9 +185,7 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                       <span className="mt-2 max-w-[11rem] text-xs font-medium leading-snug text-[#5d6675] sm:mt-3 sm:text-sm">
                         {game.venue}
                       </span>
-                      <span className="mt-3 inline-flex rounded-full bg-[#BB986C] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
-                        Final
-                      </span>
+                      <Badge variant="accent" className="mt-3">Final</Badge>
                     </>
                   ) : (
                     <>
@@ -192,9 +195,7 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                       <span className="mt-2 text-xs font-medium text-[#5d6675] sm:mt-3 sm:text-sm">
                         {game.venue}
                       </span>
-                      <span className="mt-3 inline-flex rounded-full bg-[#eef1f5] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6b7280]">
-                        {game.date < todayKey ? "Played" : "Upcoming"}
-                      </span>
+                      <Badge variant="muted" className="mt-3">{game.date < todayKey ? "Played" : "Upcoming"}</Badge>
                     </>
                   )}
                 </div>
@@ -212,9 +213,7 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                     <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
                       {game.home_team.name}
                     </p>
-                    <span className="mt-2 inline-flex whitespace-nowrap rounded-full bg-black px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-white sm:mt-3 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]">
-                      主隊
-                    </span>
+                    <Badge variant="home" className="mt-2 sm:mt-3">主隊</Badge>
                   </div>
                 </div>
               </div>
@@ -225,36 +224,42 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
 
       {/* 分頁控制放在固定高度列表下方，讓整體滾動結構維持穩定。 */}
       <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-        <button
+        <Button
           type="button"
+          size="pill"
+          variant="pill"
+          className="border-[#5e513f] bg-[#181818] text-[#d9c4a6] hover:bg-[#211d18]"
           onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
           disabled={currentPage === 1}
-          className="rounded-full border border-white/10 bg-[#111111] px-4 py-2 text-sm text-white/70 transition disabled:cursor-not-allowed disabled:opacity-40"
         >
           上一頁
-        </button>
+        </Button>
         {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-          <button
+          <Button
             key={page}
             type="button"
-            onClick={() => setCurrentPage(page)}
-            className={`h-10 min-w-10 rounded-full px-3 text-sm font-semibold transition ${
+            size="pill"
+            variant={currentPage === page ? "accent" : "pill"}
+            className={`min-w-10 ${
               currentPage === page
-                ? "bg-[#BB986C] text-white"
-                : "border border-white/10 bg-[#111111] text-white/70"
+                ? "bg-[#BB986C] shadow-[0_12px_32px_rgba(187,152,108,0.34)] hover:bg-[#a9885d]"
+                : "border-[#5e513f] bg-[#181818] text-[#d9c4a6] hover:bg-[#211d18]"
             }`}
+            onClick={() => setCurrentPage(page)}
           >
             {page}
-          </button>
+          </Button>
         ))}
-        <button
+        <Button
           type="button"
+          size="pill"
+          variant="pill"
+          className="border-[#5e513f] bg-[#181818] text-[#d9c4a6] hover:bg-[#211d18]"
           onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
           disabled={currentPage === totalPages}
-          className="rounded-full border border-white/10 bg-[#111111] px-4 py-2 text-sm text-white/70 transition disabled:cursor-not-allowed disabled:opacity-40"
         >
           下一頁
-        </button>
+        </Button>
       </div>
     </section>
   );
