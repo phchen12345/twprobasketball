@@ -167,7 +167,7 @@ export default function TpblScheduleSection({
                         {formatWeekday(game.date)}
                       </p>
                     </div>
-                    <p className="mt-2 text-[1.75rem] font-medium leading-none text-[#24466d] md:mt-0 sm:text-[2rem]">
+                    <p className="mt-2 text-[1.75rem] font-medium leading-none text-[#13233d] md:mt-0 sm:text-[2rem]">
                       {game.time}
                     </p>
                   </div>
