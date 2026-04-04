@@ -606,6 +606,8 @@
       "time": "16:00",
       "venue": "臺中洲際迷你蛋",
       "matchup": "洋基工程 vs 領航猿",
+      "away_score": 25,
+      "home_score": 40,
       "away_team": {
         "name": "洋基工程",
         "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_8_1760078581.png"
