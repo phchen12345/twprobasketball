@@ -3,10 +3,13 @@
 import { useEffect, useState } from "react";
 import { Eye, LoaderCircle } from "lucide-react";
 
+const VISITOR_API_BASE_URL = process.env.NEXT_PUBLIC_VISITOR_API_BASE_URL?.replace(/\/$/, "");
 const VISITOR_API_URL =
-  process.env.NEXT_PUBLIC_VISITOR_API_URL || "http://localhost:4000/api/visitors/increment";
+  process.env.NEXT_PUBLIC_VISITOR_API_URL ||
+  (VISITOR_API_BASE_URL ? `${VISITOR_API_BASE_URL}/api/visitors/increment` : undefined);
 const VISITOR_READ_API_URL =
-  process.env.NEXT_PUBLIC_VISITOR_READ_API_URL || "http://localhost:4000/api/visitors";
+  process.env.NEXT_PUBLIC_VISITOR_READ_API_URL ||
+  (VISITOR_API_BASE_URL ? `${VISITOR_API_BASE_URL}/api/visitors` : undefined);
 const VISITOR_COOLDOWN_KEY = "twprobasketball_last_visit_at";
 const VISITOR_COOLDOWN_MS = 30 * 60 * 1000;
 
@@ -24,6 +27,10 @@ export default function VisitorCounter() {
 
     async function loadVisitorCount() {
       try {
+        if (!VISITOR_API_URL || !VISITOR_READ_API_URL) {
+          throw new Error("Visitor API URL is not configured");
+        }
+
         const lastVisitAt = window.localStorage.getItem(VISITOR_COOLDOWN_KEY);
         const now = Date.now();
         const shouldIncrement =
