@@ -37,9 +37,9 @@ export default function AnimationStage({ stageRef, canvasRef, isReady }: Props) 
 
       <div className="relative z-20 mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 pt-24 pb-8 sm:px-6 sm:pt-32 lg:px-8">
         <div className="max-w-xl rounded-3xl border border-white/10 bg-black/30 p-5 backdrop-blur-md sm:max-w-2xl sm:p-8">
-          <p className="text-sm font-medium uppercase tracking-[0.24em] text-orange-300">
-            PLG x TPBL
-          </p>
+          {/* <p className="text-sm font-medium uppercase tracking-[0.24em] text-orange-300">
+            PLG x TPBL x BCL
+          </p> */}
           <h1 className="mt-4 font-serif text-3xl leading-none tracking-tight text-white sm:mt-5 sm:text-6xl lg:text-8xl">
             Track Taiwan&apos;s pro basketball schedules in one place
           </h1>

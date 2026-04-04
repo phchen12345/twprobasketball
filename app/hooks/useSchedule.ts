@@ -7,6 +7,7 @@ const gamesPerPage = 6;
 
 type SchedulableGame = {
   date: string;
+  time?: string;
   away_score?: number;
   home_score?: number;
   status?: string;
@@ -22,13 +23,36 @@ function getMonthKey(date: string) {
 
 // 只要有最終比分，或資料明確標示已完賽，就視為已完成，
 // 不完全依賴日期切分，避免像 G32 這種剛打完但仍被歸在 upcoming。
+function getScheduledAt(date: string, time?: string) {
+  if (!time) {
+    return new Date(`${date}T00:00:00`);
+  }
+
+  return new Date(`${date}T${time}:00`);
+}
+
 function isCompletedGame<T extends SchedulableGame>(game: T, todayKey: string) {
+  if (game.status === "COMPLETED") {
+    return true;
+  }
+
+  // 只要資料有明確 status，且不是 COMPLETED，就一律不要提前歸到已完成。
+  if (typeof game.status === "string" && game.status.length > 0) {
+    return false;
+  }
+
   if (typeof game.away_score === "number" && typeof game.home_score === "number") {
     return true;
   }
 
-  if (game.status === "COMPLETED") {
-    return true;
+  // 沒有明確完賽狀態時，不只看日期，避免當天進行中的比賽被提早歸到 completed。
+  if (game.time) {
+    const scheduledAt = getScheduledAt(game.date, game.time);
+    const now = new Date();
+    const elapsedMs = now.getTime() - scheduledAt.getTime();
+    const completionGraceMs = 5 * 60 * 60 * 1000;
+
+    return elapsedMs >= completionGraceMs;
   }
 
   return game.date < todayKey;

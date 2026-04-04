@@ -18,5 +18,5 @@ export const BASKETBALL_ANIMATION_CONFIG = {
 } as const;
 
 export function buildBasketballFrameSrc(index: number) {
-  return `/basketball-animation/ezgif-frame-${String(index).padStart(3, "0")}.png`;
+  return `/basketball-animation/ezgif-frame-${String(index).padStart(3, "0")}.webp`;
 }

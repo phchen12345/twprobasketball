@@ -6,8 +6,6 @@ function getLocalTpblLogoPath(teamName: string) {
 }
 
 export function mapTpblApiGame(game: TpblApiGame): TpblGame {
-  const isCompleted = game.status === "COMPLETED";
-
   return {
     game_id: game.code,
     date: game.game_date,
@@ -15,8 +13,9 @@ export function mapTpblApiGame(game: TpblApiGame): TpblGame {
     venue: game.venue,
     matchup: `${game.away_team.name} vs ${game.home_team.name}`,
     status: game.status,
-    away_score: isCompleted ? game.away_team.won_score ?? game.away_team.lost_score : undefined,
-    home_score: isCompleted ? game.home_team.won_score ?? game.home_team.lost_score : undefined,
+    is_live: game.is_live,
+    away_score: game.away_team.won_score ?? game.away_team.lost_score,
+    home_score: game.home_team.won_score ?? game.home_team.lost_score,
     replay_url: game.meta?.live_stream_url,
     recap_url: game.meta?.recap,
     away_team: {

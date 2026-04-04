@@ -157,7 +157,6 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                     width={96}
                     height={96}
                     className="h-12 w-12 object-contain sm:h-14 sm:w-14 lg:h-[4.25rem] lg:w-[4.25rem] xl:h-24 xl:w-24"
-                    unoptimized
                   />
                   <div className="min-w-0">
                     <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
@@ -185,7 +184,12 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                       <span className="mt-2 max-w-[11rem] text-xs font-medium leading-snug text-[#5d6675] sm:mt-3 sm:text-sm">
                         {game.venue}
                       </span>
-                      <Badge variant="accent" className="mt-3">Final</Badge>
+                      <Badge
+                        variant="accent"
+                        className="mt-3 border-transparent bg-[#BB986C] text-white shadow-[0_8px_20px_rgba(187,152,108,0.28)]"
+                      >
+                        Final
+                      </Badge>
                     </>
                   ) : (
                     <>
@@ -207,13 +211,17 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
                     width={96}
                     height={96}
                     className="h-12 w-12 object-contain sm:h-14 sm:w-14 lg:h-[4.25rem] lg:w-[4.25rem] xl:h-24 xl:w-24"
-                    unoptimized
                   />
                   <div className="min-w-0">
                     <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
                       {game.home_team.name}
                     </p>
-                    <Badge variant="home" className="mt-2 sm:mt-3">主隊</Badge>
+                    <Badge
+                      variant="home"
+                      className="mt-2 border-transparent bg-[#BB986C] text-white sm:mt-3"
+                    >
+                      主隊
+                    </Badge>
                   </div>
                 </div>
               </div>

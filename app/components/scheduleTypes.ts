@@ -27,6 +27,7 @@ export type TpblGame = {
   venue: string;
   matchup: string;
   status: string;
+  is_live?: boolean;
   away_score?: number;
   home_score?: number;
   replay_url?: string;
@@ -81,6 +82,7 @@ export type TpblApiGame = {
   code: string;
   venue: string;
   status: string;
+  is_live?: boolean;
   game_date: string;
   game_time: string;
   meta?: {

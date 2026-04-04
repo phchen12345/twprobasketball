@@ -20,9 +20,11 @@ function formatMonthLabel(month: string) {
 function TeamBadge({
   team,
   variant,
+  isBclSectionActive,
 }: {
   team: BclGame["away_team"];
   variant: "away" | "home";
+  isBclSectionActive: boolean;
 }) {
   return (
     <div
@@ -36,13 +38,21 @@ function TeamBadge({
         width={96}
         height={96}
         className="h-12 w-12 object-contain sm:h-14 sm:w-14 lg:h-[4.25rem] lg:w-[4.25rem] xl:h-24 xl:w-24"
-        unoptimized
       />
       <div className="min-w-0">
         <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
           {team.name}
         </p>
-        <Badge variant={variant === "away" ? "away" : "home"} className="mt-2 sm:mt-3">
+        <Badge
+          variant={variant === "away" ? "away" : "home"}
+          className={`mt-2 border-transparent sm:mt-3 ${
+            variant === "home"
+              ? isBclSectionActive
+                ? "bg-[#C5A649] text-white"
+                : "bg-[#0f4c81] text-white"
+              : ""
+          }`}
+        >
           {variant === "away" ? "客隊" : "主隊"}
         </Badge>
       </div>
@@ -225,7 +235,7 @@ export default function BclScheduleSection({
                 </div>
 
                 <div className="grid grid-cols-[minmax(0,1fr)_108px_minmax(0,1fr)] items-center gap-3 border-[#d7dce5] sm:gap-4 lg:grid-cols-[minmax(0,1fr)_132px_minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_168px_minmax(0,1fr)] xl:border-r xl:px-8">
-                  <TeamBadge team={game.away_team} variant="away" />
+                  <TeamBadge team={game.away_team} variant="away" isBclSectionActive={isBclSectionActive} />
 
                   <div className="flex flex-col items-center justify-center text-center">
                     {typeof game.away_score === "number" && typeof game.home_score === "number" ? (
@@ -244,7 +254,14 @@ export default function BclScheduleSection({
                         <span className="mt-2 max-w-[11rem] text-xs font-medium leading-snug text-[#5d6675] sm:mt-3 sm:text-sm">
                           {game.venue}
                         </span>
-                        <Badge variant="accent" className="mt-3">Final</Badge>
+                        <Badge
+                          variant="accent"
+                          className={`mt-3 border-transparent text-white shadow-[0_8px_20px_rgba(15,23,42,0.18)] ${
+                            isBclSectionActive ? "bg-[#C5A649]" : "bg-[#24508f]"
+                          }`}
+                        >
+                          Final
+                        </Badge>
                       </>
                     ) : (
                       <>
@@ -261,7 +278,7 @@ export default function BclScheduleSection({
                     )}
                   </div>
 
-                  <TeamBadge team={game.home_team} variant="home" />
+                  <TeamBadge team={game.home_team} variant="home" isBclSectionActive={isBclSectionActive} />
                 </div>
 
                 <div className="border-t border-[#d7dce5] pt-4 sm:flex sm:justify-end xl:block xl:border-t-0 xl:pt-0 xl:pl-4">

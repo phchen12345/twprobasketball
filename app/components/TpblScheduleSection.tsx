@@ -142,10 +142,19 @@ export default function TpblScheduleSection({
                 key={game.game_id}
                 className="overflow-hidden rounded-[1.5rem] border border-[#d7dce5] bg-white px-4 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.06)] sm:px-6 sm:py-6 lg:px-7"
               >
+                {(() => {
+                  const isLive =
+                    game.is_live === true ||
+                    game.status === "ACTIVE" ||
+                    game.status === "IN_PROGRESS";
+
+                  return (
+                    <>
                 <div className="mb-5 flex items-center justify-between gap-3">
                   <Badge variant="dark" className="sm:text-sm">
                     GAME {game.game_id}
                   </Badge>
+                  <span className="h-7" />
                 </div>
 
                 <div className="grid gap-5 xl:grid-cols-[150px_minmax(0,1fr)_200px] xl:items-center">
@@ -171,7 +180,6 @@ export default function TpblScheduleSection({
                         width={48}
                         height={48}
                         className="h-12 w-12 object-contain sm:h-14 sm:w-14 lg:h-[4.25rem] lg:w-[4.25rem] xl:h-24 xl:w-24"
-                        unoptimized
                       />
                       <div className="min-w-0">
                         <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
@@ -182,7 +190,24 @@ export default function TpblScheduleSection({
                     </div>
 
                     <div className="flex flex-col items-center justify-center text-center">
-                      {typeof game.away_score === "number" && typeof game.home_score === "number" ? (
+                      {isLive ? (
+                        <>
+                          <span className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#ef4444] sm:mb-3 sm:text-sm">
+                            LIVE
+                          </span>
+                          <div className="flex items-end justify-center gap-4 sm:gap-6">
+                            <span className="text-3xl font-semibold leading-none text-[#13233d] sm:text-[2.25rem] lg:text-[2.5rem] xl:text-5xl">
+                              {game.away_score ?? "-"}
+                            </span>
+                            <span className="text-3xl font-semibold leading-none text-[#13233d] sm:text-[2.25rem] lg:text-[2.5rem] xl:text-5xl">
+                              {game.home_score ?? "-"}
+                            </span>
+                          </div>
+                          <span className="mt-2 max-w-[11rem] text-xs font-medium leading-snug text-[#5d6675] sm:mt-3 sm:text-sm">
+                            {game.venue}
+                          </span>
+                        </>
+                      ) : typeof game.away_score === "number" && typeof game.home_score === "number" ? (
                         <>
                           <span className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#7e8797] sm:mb-3 sm:text-sm">
                             VS
@@ -198,7 +223,18 @@ export default function TpblScheduleSection({
                           <span className="mt-2 max-w-[11rem] text-xs font-medium leading-snug text-[#5d6675] sm:mt-3 sm:text-sm">
                             {game.venue}
                           </span>
-                          <Badge variant="accent" className="mt-3">Final</Badge>
+                          <Badge
+                            variant="accent"
+                            className={`mt-3 border-transparent text-white shadow-[0_8px_20px_rgba(15,23,42,0.18)] ${
+                              isBclSectionActive
+                                ? "bg-[#C5A649]"
+                                : isThirdSectionActive
+                                  ? "bg-[#0f4c81]"
+                                  : "bg-[#8F724E]"
+                            }`}
+                          >
+                            Final
+                          </Badge>
                         </>
                       ) : (
                         <>
@@ -220,7 +256,6 @@ export default function TpblScheduleSection({
                         width={48}
                         height={48}
                         className="h-12 w-12 object-contain sm:h-14 sm:w-14 lg:h-[4.25rem] lg:w-[4.25rem] xl:h-24 xl:w-24"
-                        unoptimized
                       />
                       <div className="min-w-0">
                         <p className="whitespace-nowrap text-xs font-semibold leading-tight text-[#13233d] sm:text-sm lg:text-base xl:text-2xl">
@@ -264,6 +299,9 @@ export default function TpblScheduleSection({
                     </div>
                   </div>
                 </div>
+                    </>
+                  );
+                })()}
               </article>
             ))}
           </div>

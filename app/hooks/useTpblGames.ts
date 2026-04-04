@@ -19,7 +19,7 @@ export function useTpblGames() {
 
     async function loadTpblGames() {
       try {
-        // 在 client 端抓 TPBL 官方 API 的最新賽程資料。
+        // 直接使用專案既有的 TPBL 官方 API。
         const response = await fetch(TPBL_API_URL, { cache: "no-store" });
         if (!response.ok) {
           throw new Error(`TPBL API request failed with ${response.status}`);
