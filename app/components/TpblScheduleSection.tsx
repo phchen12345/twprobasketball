@@ -177,8 +177,9 @@ export default function TpblScheduleSection({
                       <NextImage
                         src={game.away_team.logo}
                         alt={game.away_team.name}
-                        width={48}
-                        height={48}
+                        width={96}
+                        height={96}
+                        sizes="(min-width: 1280px) 96px, (min-width: 1024px) 68px, (min-width: 640px) 56px, 48px"
                         className="h-12 w-12 object-contain sm:h-14 sm:w-14 lg:h-[4.25rem] lg:w-[4.25rem] xl:h-24 xl:w-24"
                       />
                       <div className="min-w-0">
@@ -253,8 +254,9 @@ export default function TpblScheduleSection({
                       <NextImage
                         src={game.home_team.logo}
                         alt={game.home_team.name}
-                        width={48}
-                        height={48}
+                        width={96}
+                        height={96}
+                        sizes="(min-width: 1280px) 96px, (min-width: 1024px) 68px, (min-width: 640px) 56px, 48px"
                         className="h-12 w-12 object-contain sm:h-14 sm:w-14 lg:h-[4.25rem] lg:w-[4.25rem] xl:h-24 xl:w-24"
                       />
                       <div className="min-w-0">
