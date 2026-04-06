@@ -1,56 +1,27 @@
 "use client";
 
 import { useRef } from "react";
-import scheduleData from "../../data/plg_schedule_2025_26.json";
-import bclScheduleData from "../../data/bcl_schedule_2026.json";
 import BclScheduleSection from "./BclScheduleSection";
 import PlgScheduleSection from "./PlgScheduleSection";
+import PlgSceneContainer from "./PlgSceneContainer";
+import ScrollHeader from "./ScrollHeader";
 import TpblScheduleSection from "./TpblScheduleSection";
 import VisitorCounter from "./VisitorCounter";
-import { BclGame, BclRawGame, ScheduleGame } from "./scheduleTypes";
-import ScrollHeader from "./ScrollHeader";
 import AnimationStage from "./AnimationStage";
-import ScheduleContainer from "./ScheduleContainer";
 import { useBasketballAnimation } from "../hooks/useBasketballAnimation";
-import { useSchedule } from "../hooks/useSchedule";
+import { useLeagueData } from "../hooks/useLeagueData";
+import { useLeagueSchedules } from "../hooks/useLeagueSchedules";
 import { useTodayKey } from "../hooks/useTodayKey";
-import { useTpblGames } from "../hooks/useTpblGames";
 
-export default function BasketballScrollExperience() {
+export default function HomePageExperience() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const contentSectionRef = useRef<HTMLDivElement | null>(null);
   const thirdSectionRef = useRef<HTMLElement | null>(null);
   const bclSectionRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const plgGames = scheduleData.games as ScheduleGame[];
-  const bclGames = (bclScheduleData.games as BclRawGame[]).map((game) => ({
-    ...game,
-    away_team: {
-      name: game.away_team,
-      logo:
-        game.away_team === "香港 南華籃球隊"
-          ? "/bcl-logos/sca.webp"
-          : game.away_team === "蒙古 烏蘭巴托野馬"
-            ? "/bcl-logos/bro.webp"
-            : game.away_team === "新北國王"
-              ? "/tpbl-logos/kings.webp"
-              : "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png",
-    },
-    home_team: {
-      name: game.home_team,
-      logo:
-        game.home_team === "香港 南華籃球隊"
-          ? "/bcl-logos/sca.webp"
-          : game.home_team === "蒙古 烏蘭巴托野馬"
-            ? "/bcl-logos/bro.webp"
-            : game.home_team === "新北國王"
-              ? "/tpbl-logos/kings.webp"
-              : "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png",
-    },
-  })) as BclGame[];
-  const tpblGames = useTpblGames();
   const todayKey = useTodayKey();
+  const { plgGames, tpblGames, bclGames } = useLeagueData();
 
   const {
     isReady,
@@ -58,29 +29,25 @@ export default function BasketballScrollExperience() {
     backgroundReveal,
     activeNav,
     isThirdSectionActive,
-  } =
-    useBasketballAnimation({
-      refs: {
-        sectionRef,
-        stageRef,
-        contentSectionRef,
-        thirdSectionRef,
-        bclSectionRef,
-        canvasRef,
-      },
-    });
+  } = useBasketballAnimation({
+    refs: {
+      sectionRef,
+      stageRef,
+      contentSectionRef,
+      thirdSectionRef,
+      bclSectionRef,
+      canvasRef,
+    },
+  });
 
-  const plgSchedule = useSchedule(plgGames, todayKey, {
-    getTeams: (game) => [game.away_team.name, game.home_team.name],
+  const { plgSchedule, tpblSchedule, bclSchedule } = useLeagueSchedules({
+    plgGames,
+    tpblGames,
+    bclGames,
+    todayKey,
   });
-  const tpblSchedule = useSchedule(tpblGames, todayKey, {
-    getTeams: (game) => [game.away_team.name, game.home_team.name],
-  });
-  const bclSchedule = useSchedule(bclGames, todayKey, {
-    getTeams: (game) => [game.away_team.name, game.home_team.name],
-  });
+
   const isPlgBackgroundComplete = backgroundReveal >= 0.999;
-
   const isBclSectionActive = activeNav === "bcl";
 
   return (
@@ -111,14 +78,14 @@ export default function BasketballScrollExperience() {
         />
 
         <div className="relative z-10">
-          <ScheduleContainer
+          <PlgSceneContainer
             contentSectionRef={contentSectionRef}
             backgroundReveal={backgroundReveal}
             isThirdSectionActive={isThirdSectionActive}
             isPastAnimation={isPastAnimation}
           >
             <PlgScheduleSection schedule={plgSchedule} todayKey={todayKey} />
-          </ScheduleContainer>
+          </PlgSceneContainer>
 
           <TpblScheduleSection
             isThirdSectionActive={isThirdSectionActive}

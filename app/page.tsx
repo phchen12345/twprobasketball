@@ -1,4 +1,4 @@
-import BasketballScrollExperience from "./components/BasketballScrollExperience";
+import HomePageExperience from "./components/HomePageExperience";
 
 export default function HomePage() {
   const jsonLd = {
@@ -19,7 +19,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <BasketballScrollExperience />
+      <HomePageExperience />
     </>
   );
 }

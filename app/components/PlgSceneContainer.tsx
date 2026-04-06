@@ -10,7 +10,7 @@ type Props = {
   children: ReactNode;
 };
 
-export default function ScheduleContainer({
+export default function PlgSceneContainer({
   contentSectionRef,
   backgroundReveal,
   isThirdSectionActive,

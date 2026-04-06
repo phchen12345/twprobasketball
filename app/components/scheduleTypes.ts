@@ -8,45 +8,32 @@ export type TeamWithLogo = {
   logo: string;
 };
 
-export type ScheduleGame = {
+export type BaseScheduleGame = {
   game_id: string;
   date: string;
   time: string;
   venue: string;
   matchup: string;
-  away_score?: number;
-  home_score?: number;
   away_team: TeamWithLogo;
   home_team: TeamWithLogo;
+  away_score?: number;
+  home_score?: number;
 };
 
-export type TpblGame = {
-  game_id: string;
-  date: string;
-  time: string;
-  venue: string;
-  matchup: string;
+export type ScheduleGame = BaseScheduleGame & {
+  away_score?: number;
+  home_score?: number;
+};
+
+export type TpblGame = BaseScheduleGame & {
   status: string;
   is_live?: boolean;
-  away_score?: number;
-  home_score?: number;
   replay_url?: string;
   recap_url?: string;
-  away_team: TeamWithLogo;
-  home_team: TeamWithLogo;
 };
 
-export type BclGame = {
-  game_id: string;
-  date: string;
-  time: string;
-  venue: string;
-  matchup: string;
+export type BclGame = BaseScheduleGame & {
   live_url?: string;
-  away_score?: number;
-  home_score?: number;
-  away_team: TeamWithLogo;
-  home_team: TeamWithLogo;
 };
 
 export type BclSectionProps = {
