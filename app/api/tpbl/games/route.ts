@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { TPBL_API_URL } from "@/app/constants/tpbl";
+const TPBL_API_URL = "https://api.tpbl.basketball/api/seasons/2/games";
 
 export async function GET() {
   try {

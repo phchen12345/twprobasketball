@@ -1,4 +1,3 @@
-export const TPBL_API_URL = "https://api.tpbl.basketball/api/seasons/2/games";
 export const FALLBACK_LOGO = "/favicon.ico";
 
 export const TPBL_TEAM_LOGOS: Record<string, string> = {

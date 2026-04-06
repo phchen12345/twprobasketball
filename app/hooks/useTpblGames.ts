@@ -2,12 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import tpblScheduleData from "../../data/tpbl_schedule_2025_26_openers.json";
-import { TPBL_API_URL } from "../constants/tpbl";
 import { TpblApiGame, TpblFallbackGame, TpblGame } from "../components/scheduleTypes";
 import { mapFallbackTpblGame, mapTpblApiGame } from "../lib/tpblMapper";
 
+const TPBL_GAMES_API_PATH = "/api/tpbl/games";
+
 export function useTpblGames() {
-  // 先準備本地 fallback，避免 TPBL API 失敗時整個區塊沒有資料。
+  // Use bundled opener data first, then hydrate with the latest TPBL data when available.
   const fallbackTpblGames = useMemo(
     () => (tpblScheduleData.games as TpblFallbackGame[]).map(mapFallbackTpblGame),
     [],
@@ -19,8 +20,7 @@ export function useTpblGames() {
 
     async function loadTpblGames() {
       try {
-        // 直接使用專案既有的 TPBL 官方 API。
-        const response = await fetch(TPBL_API_URL, { cache: "no-store" });
+        const response = await fetch(TPBL_GAMES_API_PATH, { cache: "no-store" });
         if (!response.ok) {
           throw new Error(`TPBL API request failed with ${response.status}`);
         }
@@ -30,7 +30,7 @@ export function useTpblGames() {
           setTpblGames(data.map(mapTpblApiGame));
         }
       } catch {
-        // 如果 API 抓不到，就退回專案內建的備援資料。
+        // Keep the bundled opener data when the live API is unavailable.
         if (!cancelled) {
           setTpblGames(fallbackTpblGames);
         }
