@@ -9,22 +9,50 @@ export const plgScheduleTheme = {
   homeBadgeClassName: "bg-[#BB986C] text-white",
 };
 
-export function getTpblScheduleTheme(isThirdSectionActive: boolean) {
+export function getPlgPaginationTheme(isThirdSectionActive: boolean, isBclSectionActive: boolean) {
+  if (isBclSectionActive) {
+    return {
+      paginationClassName: "border-[#ddcf9c] bg-[#f7f1dc] text-[#8a742d] hover:bg-[#f1e7c5]",
+      paginationActiveClassName:
+        "bg-[#C5A649] text-white shadow-[0_12px_32px_rgba(197,166,73,0.34)] hover:bg-[#b2943f]",
+    };
+  }
+
+  if (isThirdSectionActive) {
+    return {
+      paginationClassName: "border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81] hover:bg-[#dceaf7]",
+      paginationActiveClassName:
+        "bg-[#0f4c81] text-white shadow-[0_12px_32px_rgba(15,76,129,0.32)] hover:bg-[#0d426e]",
+    };
+  }
+
+  return {
+    paginationClassName: plgScheduleTheme.paginationClassName,
+    paginationActiveClassName: plgScheduleTheme.paginationActiveClassName,
+  };
+}
+
+export function getTpblScheduleTheme(isThirdSectionActive: boolean, isBclSectionActive = false) {
   const inactiveTabClassName = isThirdSectionActive
     ? "border border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81]"
     : "border border-[#c5a57d] bg-[#f5ede3] text-[#8F724E]";
   const activeTabClassName = isThirdSectionActive
     ? "bg-[#0f4c81] text-white shadow-[0_12px_32px_rgba(15,76,129,0.32)] hover:bg-[#0d426e]"
     : "bg-[#8F724E] text-white shadow-[0_12px_32px_rgba(143,114,78,0.3)] hover:bg-[#7b6243]";
-  const paginationClassName = isThirdSectionActive
-    ? "border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81] hover:bg-[#dceaf7]"
-    : "border-[#c5a57d] bg-[#f5ede3] text-[#8F724E] hover:bg-[#efdfcc]";
+  const paginationClassName = isBclSectionActive
+    ? "border-[#ddcf9c] bg-[#f7f1dc] text-[#8a742d] hover:bg-[#f1e7c5]"
+    : isThirdSectionActive
+      ? "border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81] hover:bg-[#dceaf7]"
+      : "border-[#c5a57d] bg-[#f5ede3] text-[#8F724E] hover:bg-[#efdfcc]";
+  const paginationActiveClassName = isBclSectionActive
+    ? "bg-[#C5A649] text-white shadow-[0_12px_32px_rgba(197,166,73,0.34)] hover:bg-[#b2943f]"
+    : activeTabClassName;
 
   return {
     activeTabClassName,
     inactiveTabClassName,
     paginationClassName,
-    paginationActiveClassName: activeTabClassName,
+    paginationActiveClassName,
     filterLabelClassName: "text-xs font-semibold uppercase tracking-[0.18em] text-white/70",
     filterSelectClassName: "border-white/20 bg-white text-[#13233d] focus:border-[#BB986C]",
   };

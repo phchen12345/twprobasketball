@@ -17,7 +17,7 @@ export default function TpblScheduleSection({
   schedule,
   todayKey,
 }: TpblSectionProps) {
-  const theme = getTpblScheduleTheme(isThirdSectionActive);
+  const theme = getTpblScheduleTheme(isThirdSectionActive, isBclSectionActive);
 
   return (
     <ScheduleSection

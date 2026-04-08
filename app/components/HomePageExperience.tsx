@@ -84,7 +84,12 @@ export default function HomePageExperience() {
             isThirdSectionActive={isThirdSectionActive}
             isPastAnimation={isPastAnimation}
           >
-            <PlgScheduleSection schedule={plgSchedule} todayKey={todayKey} />
+            <PlgScheduleSection
+              isBclSectionActive={isBclSectionActive}
+              isThirdSectionActive={isThirdSectionActive}
+              schedule={plgSchedule}
+              todayKey={todayKey}
+            />
           </PlgSceneContainer>
 
           <TpblScheduleSection

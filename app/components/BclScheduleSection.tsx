@@ -19,6 +19,7 @@ export default function BclScheduleSection({
   const sectionRef = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const theme = getBclScheduleTheme(isBclSectionActive);
+  const isScheduleVisible = isVisible || isBclSectionActive;
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -47,7 +48,7 @@ export default function BclScheduleSection({
       id="bcl-schedule"
       sectionRef={sectionRef}
       outerClassName={`mx-auto max-w-[92rem] px-4 pt-12 pb-24 transition-all duration-700 ease-out sm:px-6 sm:pt-16 lg:px-8 lg:pt-20 lg:pb-28 ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
+        isScheduleVisible ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
       }`}
       cardClassName={`border-white/15 p-4 sm:p-6 lg:p-10 ${
         isBclSectionActive ? "bg-[#5e4f1f]/84" : "bg-[#0b3150]/78"
