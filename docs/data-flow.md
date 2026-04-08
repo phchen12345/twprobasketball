@@ -20,20 +20,20 @@
 
 共同欄位：
 
-- `game_id`
+- `gameId`
 - `date`
 - `time`
 - `venue`
 - `matchup`
-- `away_team`
-- `home_team`
-- `away_score?`
-- `home_score?`
+- `awayTeam`
+- `homeTeam`
+- `awayScore?`
+- `homeScore?`
 
 差異欄位：
 
-- TPBL: `status`, `is_live`, `replay_url`, `recap_url`
-- BCL: `live_url`
+- TPBL: `status`, `isLive`, `replayUrl`, `recapUrl`
+- BCL: `liveUrl`
 
 ## PLG Flow
 

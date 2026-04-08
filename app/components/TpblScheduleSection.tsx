@@ -41,7 +41,7 @@ export default function TpblScheduleSection({
       renderTopMeta={(game) => (
         <>
           <Badge variant="dark" className="sm:text-sm">
-            GAME {game.game_id}
+            GAME {game.gameId}
           </Badge>
           <span className="h-7" />
         </>
@@ -74,8 +74,8 @@ export default function TpblScheduleSection({
       }}
       renderActions={(game) => (
         <>
-          {game.replay_url ? (
-            <a href={game.replay_url} target="_blank" rel="noreferrer" className="inline-flex">
+          {game.replayUrl ? (
+            <a href={game.replayUrl} target="_blank" rel="noreferrer" className="inline-flex">
               <Button
                 type="button"
                 size="pill"
@@ -88,8 +88,8 @@ export default function TpblScheduleSection({
           ) : (
             <span className="h-5" />
           )}
-          {game.recap_url ? (
-            <a href={game.recap_url} target="_blank" rel="noreferrer" className="inline-flex">
+          {game.recapUrl ? (
+            <a href={game.recapUrl} target="_blank" rel="noreferrer" className="inline-flex">
               <Button
                 type="button"
                 size="pill"

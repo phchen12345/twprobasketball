@@ -82,8 +82,8 @@ export default function BclScheduleSection({
         };
       }}
       renderActions={(game) =>
-        game.live_url ? (
-          <a href={game.live_url} target="_blank" rel="noreferrer" className="inline-flex">
+        game.liveUrl ? (
+          <a href={game.liveUrl} target="_blank" rel="noreferrer" className="inline-flex">
             <Button
               type="button"
               size="pill"

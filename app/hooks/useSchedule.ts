@@ -9,8 +9,8 @@ const GAMES_PER_PAGE = 6;
 type SchedulableGame = {
   date: string;
   time?: string;
-  away_score?: number;
-  home_score?: number;
+  awayScore?: number;
+  homeScore?: number;
   status?: string;
 };
 

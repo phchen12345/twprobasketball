@@ -47,7 +47,7 @@ export default function PlgScheduleSection({ schedule, todayKey }: Props) {
       }}
       renderTopMeta={(game) => (
         <Badge variant="dark" className="sm:text-sm">
-          GAME {game.game_id.replace(/^G/i, "")}
+          GAME {game.gameId.replace(/^G/i, "")}
         </Badge>
       )}
     />

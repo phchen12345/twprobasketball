@@ -61,7 +61,7 @@ function TeamSide<T extends BaseScheduleGame>({
   side: "away" | "home";
   homeBadgeClassName?: string;
 }) {
-  const team = side === "away" ? game.away_team : game.home_team;
+  const team = side === "away" ? game.awayTeam : game.homeTeam;
 
   return (
     <div
@@ -204,7 +204,7 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
           const hasActions = Boolean(actions);
 
           return (
-            <article key={game.game_id} className={articleClassName}>
+            <article key={game.gameId} className={articleClassName}>
               {renderTopMeta ? (
                 <div className="mb-5 flex items-center justify-between gap-3">{renderTopMeta(game)}</div>
               ) : null}
@@ -247,10 +247,10 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
                     {presentation.mode !== "scheduled" ? (
                       <div className="flex items-end justify-center gap-4 sm:gap-6">
                         <span className="text-3xl font-semibold leading-none text-[#13233d] sm:text-[2.25rem] lg:text-[2.5rem] xl:text-5xl">
-                          {game.away_score ?? "-"}
+                          {game.awayScore ?? "-"}
                         </span>
                         <span className="text-3xl font-semibold leading-none text-[#13233d] sm:text-[2.25rem] lg:text-[2.5rem] xl:text-5xl">
-                          {game.home_score ?? "-"}
+                          {game.homeScore ?? "-"}
                         </span>
                       </div>
                     ) : null}

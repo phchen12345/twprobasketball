@@ -5,8 +5,8 @@ const COMPLETION_GRACE_MS = 5 * 60 * 60 * 1000;
 type SchedulableGame = {
   date: string;
   time?: string;
-  away_score?: number;
-  home_score?: number;
+  awayScore?: number;
+  homeScore?: number;
   status?: string;
 };
 
@@ -33,7 +33,7 @@ export function isCompletedGame<T extends SchedulableGame>(game: T, todayKey: st
     return false;
   }
 
-  if (typeof game.away_score === "number" && typeof game.home_score === "number") {
+  if (typeof game.awayScore === "number" && typeof game.homeScore === "number") {
     return true;
   }
 
@@ -46,21 +46,21 @@ export function isCompletedGame<T extends SchedulableGame>(game: T, todayKey: st
 }
 
 export function getTeamNames<T extends BaseScheduleGame>(game: T) {
-  return [game.away_team.name, game.home_team.name];
+  return [game.awayTeam.name, game.homeTeam.name];
 }
 
 export function getPlgGamePresentation(game: ScheduleGame): GamePresentationMode {
-  return typeof game.away_score === "number" && typeof game.home_score === "number"
+  return typeof game.awayScore === "number" && typeof game.homeScore === "number"
     ? "final"
     : "scheduled";
 }
 
 export function getTpblGamePresentation(game: TpblGame): GamePresentationMode {
-  if (game.is_live === true || game.status === "ACTIVE" || game.status === "IN_PROGRESS") {
+  if (game.isLive === true || game.status === "ACTIVE" || game.status === "IN_PROGRESS") {
     return "live";
   }
 
-  if (typeof game.away_score === "number" && typeof game.home_score === "number") {
+  if (typeof game.awayScore === "number" && typeof game.homeScore === "number") {
     return "final";
   }
 
@@ -68,7 +68,7 @@ export function getTpblGamePresentation(game: TpblGame): GamePresentationMode {
 }
 
 export function getBclGamePresentation(game: BclGame): GamePresentationMode {
-  return typeof game.away_score === "number" && typeof game.home_score === "number"
+  return typeof game.awayScore === "number" && typeof game.homeScore === "number"
     ? "final"
     : "scheduled";
 }

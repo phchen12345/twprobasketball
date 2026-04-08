@@ -11,7 +11,9 @@
       "matchup": "香港 南華籃球隊 vs 蒙古 烏蘭巴托野馬",
       "live_url": "https://www.youtube.com/watch?v=Y6qnsFOjLb4",
       "away_team": "蒙古 烏蘭巴托野馬",
-      "home_team": "香港 南華籃球隊"
+      "home_team": "香港 南華籃球隊",
+      "away_score": 86,
+      "home_score": 84
     },
     {
       "game_id": "BCLAE-02",
@@ -21,7 +23,9 @@
       "matchup": "香港 南華籃球隊 vs 新北國王",
       "live_url": "https://www.youtube.com/watch?v=eQrJDdVLFU0",
       "away_team": "新北國王",
-      "home_team": "香港 南華籃球隊"
+      "home_team": "香港 南華籃球隊",
+      "away_score": 82,
+      "home_score": 103
     },
     {
       "game_id": "BCLAE-03",
@@ -37,7 +41,7 @@
       "game_id": "BCLAE-04",
       "date": "2026-04-14",
       "time": "19:00",
-      "venue": "臺北市立大學天母體育館",
+      "venue": "桃園市立綜合體育館",
       "matchup": "桃園璞園領航猿 vs 新北國王",
       "live_url": "https://www.youtube.com/watch?v=8KmT9ZjtkHU",
       "away_team": "新北國王",
@@ -47,7 +51,7 @@
       "game_id": "BCLAE-05",
       "date": "2026-04-16",
       "time": "19:00",
-      "venue": "臺北市立大學天母體育館",
+      "venue": "桃園市立綜合體育館",
       "matchup": "桃園璞園領航猿 vs 香港 南華籃球隊",
       "live_url": "https://www.youtube.com/watch?v=SZX88-r0c4M",
       "away_team": "香港 南華籃球隊",
@@ -57,7 +61,7 @@
       "game_id": "BCLAE-06",
       "date": "2026-04-18",
       "time": "17:00",
-      "venue": "臺北市立大學天母體育館",
+      "venue": "新北市新莊體育館",
       "matchup": "新北國王 vs 香港 南華籃球隊",
       "live_url": "https://www.youtube.com/watch?v=FTcnrk4C-d4",
       "away_team": "香港 南華籃球隊",
@@ -67,7 +71,7 @@
       "game_id": "BCLAE-07",
       "date": "2026-04-19",
       "time": "17:00",
-      "venue": "臺北市立大學天母體育館",
+      "venue": "新北市新莊體育館",
       "matchup": "新北國王 vs 蒙古 烏蘭巴托野馬",
       "live_url": "https://www.youtube.com/watch?v=rbrzRwdciZc",
       "away_team": "蒙古 烏蘭巴托野馬",
@@ -77,7 +81,7 @@
       "game_id": "BCLAE-08",
       "date": "2026-04-21",
       "time": "19:00",
-      "venue": "臺北市立大學天母體育館",
+      "venue": "桃園市立綜合體育館",
       "matchup": "桃園璞園領航猿 vs 蒙古 烏蘭巴托野馬",
       "live_url": "https://www.youtube.com/watch?v=oCW20FgLFnk",
       "away_team": "蒙古 烏蘭巴托野馬",
