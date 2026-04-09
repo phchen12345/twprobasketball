@@ -2,8 +2,8 @@
 
 import NextImage from "next/image";
 import { Button } from "@/components/ui/button";
-import topBarLogoImage from "../../Logo2.jpg";
-import { ActiveNav } from "./scheduleTypes";
+import topBarLogoImage from "../../../Logo2.jpg";
+import { ActiveNav } from "../schedule/scheduleTypes";
 
 type Props = {
   isPastAnimation: boolean;

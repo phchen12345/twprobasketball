@@ -1,480 +1,482 @@
-# Software Design Document
+# 軟體設計文件
 
 ## Overview
 
-本專案是一個台灣職籃賽程整合網站，將 `PLG`、`TPBL` 與 `BCL Asia-East` 三個聯盟的賽程資料集中呈現在首頁，並結合滾動式動畫體驗。
+Basketball Next Site 是一個使用 Next.js 建置的籃球賽程整合網站，整合了三個聯盟的賽程資料：
 
-本文件是總覽文件，負責：
+- PLG
+- TPBL
+- BCL Asia-East
 
-- 定義系統目的與範圍
-- 說明核心架構原則
-- 補充完整 Data Model
-- 提供其他設計文件索引
+系統提供統一的賽程瀏覽體驗，即使三個聯盟的資料來源策略不同：
 
-相關文件：
+- PLG 使用由 scraper 產生並隨專案打包的 JSON
+- TPBL 使用執行期 API，並搭配內建 fallback JSON
+- BCL 使用隨專案打包的 JSON
 
-- [`docs/architecture.md`](/C:/Users/user/Desktop/React-practive/basketball-next-site/docs/architecture.md)
-- [`docs/data-flow.md`](/C:/Users/user/Desktop/React-practive/basketball-next-site/docs/data-flow.md)
-- [`docs/decisions.md`](/C:/Users/user/Desktop/React-practive/basketball-next-site/docs/decisions.md)
+前端以 Next.js App Router 與 React 為核心，將捲動驅動的動畫首頁與可重用的賽程區塊結合，並共用篩選、分頁、已完成與即將開賽等互動邏輯。
 
-## Scope
+## System Goals
 
-本文件涵蓋：
+- 提供單一頁面整合多個籃球聯盟的賽程資訊
+- 將不一致的上游資料來源正規化為可供 UI 共用的資料模型
+- 在不同聯盟之間重用同一套賽程互動邏輯
+- 保留各聯盟的品牌視覺與呈現差異，同時避免重複撰寫賽程邏輯
+- 當即時 API 無法使用時，仍能維持基本可用性
+- 支援可部署的正式環境網站，並具備自動更新 PLG 賽程的流程
 
-- 系統目標
-- 分層原則
-- 型別模型
-- 主要錯誤處理與效能原則
-- 專案結構總覽
+## Functional Requirements
 
-本文件不涵蓋：
+### 使用者需求
 
-- 視覺設計稿
-- CI/CD 與部署細節
-- scraper 內部實作細節
+- 使用者可以在同一頁查看 PLG、TPBL 與 BCL 的賽程區塊
+- 使用者可以切換 `upcoming` 與 `completed` 賽程
+- 使用者可以依月份篩選賽事
+- 使用者可以依球隊篩選賽事
+- 使用者可以對賽程結果進行分頁
+- 使用者可以透過捲動與頁首導覽在聯盟區塊間切換
+- 當聯盟資料提供對應連結時，使用者可以查看直播、重播或 recap
 
-## Core Principles
+### 資料需求
 
-### Layering
+- PLG 賽程資料必須由本地 JSON 載入
+- TPBL 賽程資料必須透過 server-side API route 取得
+- 當 TPBL 即時 API 無法使用時，系統必須回退到內建 JSON
+- BCL 賽程資料必須由本地 JSON 載入
+- 所有聯盟資料都必須在進入 UI 前先正規化成共用資料模型
 
-系統採四層分離：
+### 維運需求
 
-- UI / Presentation
-- Logic
-- Data
-- Domain
+- PLG 賽程 JSON 必須能透過自動化 scraper 更新
+- 系統必須可作為 Next.js 網站部署到 Vercel
+- Repository 必須支援以 GitHub Actions 執行排程更新
 
-原因：
+## System Architecture
 
-- 降低耦合
-- 提高可維護性
-- 避免 business logic 滲入 component
+### 架構風格
 
-### Pure Component Rule
+本系統採用分層式前端架構，執行於 Next.js App Router 應用中，主要分為：
 
-component 的原則是：
+- Presentation Layer
+- Schedule Interaction Layer
+- Data Acquisition Layer
+- Mapping 與 Domain Logic Layer
 
-- 不做 fetch
-- 不做 mapping
-- 不做 business rule 判斷
-- 只接收資料並 render
+### 執行時技術堆疊
 
-原因：
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS
+- GSAP
 
-UI 最常變更。讓 UI 保持純粹，可以把設計調整與資料規則變更分開。
+### 高階結構
 
-### Config-Driven Differences
+```text
+app/page.tsx
+-> HomePageExperience
+   -> animation components
+   -> navigation components
+   -> schedule section components
 
-不同聯盟的差異透過下列方式處理：
+hooks/data
+-> 各聯盟資料取得
+-> 聯盟資料聚合
 
-- domain config
-- wrapper component
-- theme injection
+hooks/schedule
+-> 共用賽程 state 與衍生資料
 
-原因：
+lib
+-> 各資料來源 mapper
 
-共用 UI 骨架可以最大化重用；而 league-specific 差異則應透過注入而不是在共用元件內寫大量分支。
+domain
+-> business rule 與 theme policy
 
-## Main Runtime Entry
+api/tpbl/games
+-> TPBL server-side proxy
+```
 
-首頁入口：
+### Next.js 職責
 
-- [`app/page.tsx`](/C:/Users/user/Desktop/React-practive/basketball-next-site/app/page.tsx)
+- `app/page.tsx` 作為頁面入口
+- `app/api/tpbl/games/route.ts` 代理 TPBL 上游 API
+- App Router 提供路由結構與 server/client 邊界
+- 靜態資產與打包 JSON 由前端直接存取
 
-首頁組裝元件：
+### React 職責
 
-- [`app/components/HomePageExperience.tsx`](/C:/Users/user/Desktop/React-practive/basketball-next-site/app/components/HomePageExperience.tsx)
+- `HomePageExperience` 作為首頁 composition root
+- hooks 封裝賽程狀態與動畫協調邏輯
+- 可重用的 schedule components 負責顯示正規化後的資料
+- league wrapper components 負責聯盟特有的樣式與行為
 
-`HomePageExperience` 是系統的 composition root，負責：
+## Data Flow
 
-- 建立 section refs
-- 組合 data hooks
-- 組合 schedule hooks
-- 組合 animation hooks
-- 將結果傳給各 presentation component
+### 整體資料流
+
+```text
+Source
+-> API response 或 local JSON
+-> mapper
+-> normalized schedule game array
+-> useLeagueData
+-> useLeagueSchedules
+-> useSchedule
+-> schedule section UI
+```
+
+### 各聯盟資料流
+
+#### PLG
+
+```text
+plg_schedule_2025_26.json
+-> mapPlgRawGame
+-> usePlgGames
+-> useLeagueData
+-> useLeagueSchedules
+-> useSchedule
+-> PlgScheduleSection
+```
+
+#### TPBL
+
+```text
+TPBL upstream API
+-> /api/tpbl/games
+-> mapTpblApiGame
+-> useTpblGames
+-> useLeagueData
+-> useLeagueSchedules
+-> useSchedule
+-> TpblScheduleSection
+```
+
+Fallback 路徑：
+
+```text
+tpbl_schedule_2025_26_openers.json
+-> mapFallbackTpblGame
+-> useTpblGames fallback state
+```
+
+#### BCL
+
+```text
+bcl_schedule_2026.json
+-> mapBclRawGame
+-> useBclGames
+-> useLeagueData
+-> useLeagueSchedules
+-> useSchedule
+-> BclScheduleSection
+```
+
+## Component Design
+
+### Composition Root
+
+`HomePageExperience` 是首頁的 composition root。
+
+主要職責：
+
+- 建立動畫與 section 所需 refs
+- 透過 data hooks 取得正規化後的聯盟資料
+- 透過 schedule hooks 建立各聯盟賽程狀態
+- 將動畫 state 與 presentation component 串接
+- 將 league-specific props 傳入各 schedule section
+
+### Schedule Component 設計
+
+賽程 UI 主要拆成：
+
+- `ScheduleSection`
+- `PlgScheduleSection`
+- `TpblScheduleSection`
+- `BclScheduleSection`
+
+`ScheduleSection` 是可重用的基底元件，負責：
+
+- `upcoming` / `completed` tab 切換
+- 月份與球隊篩選 UI
+- 分頁 UI
+- 單場賽事卡片版型
+
+各聯盟 wrapper 則負責：
+
+- theme 選擇
+- league-specific 呈現規則
+- league-specific actions，例如 replay、recap、live link
+
+### useSchedule Hook 設計
+
+`useSchedule` 是共用的賽程互動 hook。
+
+職責如下：
+
+- 將賽事切分為 `completed` 與 `upcoming`
+- 依日期排序賽事
+- 產生月份篩選選項
+- 產生球隊篩選選項
+- 套用月份與球隊篩選
+- 對篩選結果進行分頁
+- 在 view 或 filter 變動時重設頁碼
+
+主要 state：
+
+- `scheduleView`
+- `currentPage`
+- `selectedMonth`
+- `selectedTeam`
+
+主要衍生資料：
+
+- `completedGames`
+- `upcomingGames`
+- `activeGames`
+- `pagedGames`
+- `monthOptions`
+- `teamOptions`
+
+### Data Hook 設計
+
+#### usePlgGames
+
+- 載入 PLG 本地 JSON
+- 透過 `mapPlgRawGame` 將原始資料正規化
+
+#### useTpblGames
+
+- 先以 fallback JSON 初始化
+- 透過 `/api/tpbl/games` 取得即時 TPBL 資料
+- 成功時以 API 資料覆蓋 fallback
+
+#### useBclGames
+
+- 載入 BCL 本地 JSON
+- 透過 `mapBclRawGame` 將原始資料正規化
+
+#### useLeagueData
+
+- 聚合 `plgGames`、`tpblGames`、`bclGames`
+- 對頁面提供單一資料入口
+
+#### useLeagueSchedules
+
+- 對各聯盟分別套用 `useSchedule`
+- 回傳每個聯盟對應的 schedule state
 
 ## Data Model
 
-核心型別定義於：
+### Core Model: ScheduleGame
 
-- [`app/components/scheduleTypes.ts`](/C:/Users/user/Desktop/React-practive/basketball-next-site/app/components/scheduleTypes.ts)
-
-### 1. Navigation and View Types
-
-#### `ActiveNav`
+共用的正規化資料模型為 `ScheduleGame`：
 
 ```ts
-type ActiveNav = "plg" | "tpbl" | "bcl" | null;
-```
-
-用途：
-
-- 表示目前 scroll 狀態下活躍的聯盟區塊
-- 給 `ScrollHeader` 高亮導覽使用
-- 給首頁背景切換使用
-
-設計原因：
-
-這是 UI 與動畫之間的共享狀態，應使用明確 union type，而不是任意字串。
-
-#### `ScheduleView`
-
-```ts
-type ScheduleView = "completed" | "upcoming";
-```
-
-用途：
-
-- 控制 section 顯示的是即將開賽還是已完成比賽
-
-設計原因：
-
-這是 schedule UI 的核心切換狀態，使用 union type 可以避免非法值。
-
-### 2. Core Entity Types
-
-#### `TeamWithLogo`
-
-```ts
-type TeamWithLogo = {
-  name: string;
-  logo: string;
-};
-```
-
-用途：
-
-- 封裝球隊名稱與 logo 路徑
-- 作為所有聯盟共用的 team representation
-
-設計原因：
-
-team 在 UI 層通常總是以「名稱 + logo」一起出現，把它抽成獨立型別可減少重複。
-
-#### `BaseScheduleGame`
-
-```ts
-type BaseScheduleGame = {
+type ScheduleGame = {
   gameId: string;
   date: string;
   time: string;
   venue: string;
   matchup: string;
-  awayTeam: TeamWithLogo;
-  homeTeam: TeamWithLogo;
+  awayTeam: {
+    name: string;
+    logo: string;
+  };
+  homeTeam: {
+    name: string;
+    logo: string;
+  };
   awayScore?: number;
   homeScore?: number;
 };
 ```
 
-用途：
+此模型作為可重用賽程 UI 的共用契約。
 
-- 定義所有聯盟共用的 game 基底 shape
-- 給 `ScheduleSection` 與 `useSchedule` 作為泛型邊界
+### 擴充模型
 
-欄位說明：
+#### TpblGame
 
-- `gameId`: 比賽唯一識別碼
-- `date`: 比賽日期，格式為 `YYYY-MM-DD`
-- `time`: 比賽時間
-- `venue`: 場館或城市場館資訊
-- `matchup`: 原始對戰字串
-- `awayTeam`, `homeTeam`: 客主隊資訊
-- `awayScore?`, `homeScore?`: 比分，未開打時可能不存在
+額外欄位：
 
-設計原因：
+- `status`
+- `isLive`
+- `replayUrl`
+- `recapUrl`
 
-三個聯盟的資料雖然來源不同，但渲染賽事卡片所需的核心欄位一致，因此需要一個穩定共享的型別基底。
+#### BclGame
 
-### 3. League-Specific Game Types
+額外欄位：
 
-#### `ScheduleGame`
+- `liveUrl`
 
-```ts
-type ScheduleGame = BaseScheduleGame;
-```
+### 設計理由
 
-用途：
+正規化資料模型讓 UI 與 schedule hooks 能依賴穩定的一致 shape，同時保留各聯盟特有的欄位在擴充型別中。
 
-- 表示 PLG 賽程資料
+## API Interface
 
-設計原因：
+### 內部 API Route
 
-PLG 目前不需要額外欄位，所以直接使用共用基底即可。
-
-#### `TpblGame`
-
-```ts
-type TpblGame = BaseScheduleGame & {
-  status: string;
-  isLive?: boolean;
-  replayUrl?: string;
-  recapUrl?: string;
-};
-```
-
-用途：
-
-- 表示 TPBL 正規化後的 game model
-
-欄位補充：
-
-- `status`: API 狀態，例如 `COMPLETED`、`ACTIVE`、`IN_PROGRESS`
-- `isLive?`: 額外直播旗標
-- `replayUrl?`: 重播連結
-- `recapUrl?`: 回顧連結
-
-設計原因：
-
-TPBL 需要描述比賽狀態與額外媒體連結，因此不能只用 `BaseScheduleGame`。
-
-#### `BclGame`
-
-```ts
-type BclGame = BaseScheduleGame & {
-  liveUrl?: string;
-};
-```
-
-用途：
-
-- 表示 BCL 正規化後的 game model
-
-設計原因：
-
-BCL 除了共用欄位外，主要多一個直播連結，因此只補這個差異欄位即可。
-
-### 4. Raw Source Types
-
-#### `BclRawGame`
-
-```ts
-type BclRawGame = {
-  game_id: string;
-  date: string;
-  time: string;
-  venue: string;
-  matchup: string;
-  live_url?: string;
-  away_score?: number;
-  home_score?: number;
-  away_team: string;
-  home_team: string;
-};
-```
-
-用途：
-
-- 表示 BCL 原始 JSON 中尚未完成 team/logo 正規化的資料
-
-設計原因：
-
-raw type 與 normalized type 分開，可以清楚表達 mapping 邊界，避免 component 不小心依賴尚未整理好的資料。
-
-#### `TpblFallbackGame`
-
-```ts
-type TpblFallbackGame = {
-  game_id: string;
-  date: string;
-  time: string;
-  venue: string;
-  matchup: string;
-  away_team: string;
-  home_team: string;
-};
-```
-
-用途：
-
-- 表示 TPBL fallback JSON 的原始資料格式
-
-設計原因：
-
-fallback 檔案不一定和正式 API shape 一樣，因此需要單獨型別描述來源格式。
-
-#### `TpblApiGame`
-
-```ts
-type TpblApiGame = {
-  code: string;
-  venue: string;
-  status: string;
-  is_live?: boolean;
-  game_date: string;
-  game_time: string;
-  meta?: {
-    recap?: string;
-    live_stream_url?: string;
-  } | null;
-  home_team: {
-    name: string;
-    won_score?: number;
-    lost_score?: number;
-    meta?: {
-      logo?: string;
-    } | null;
-  };
-  away_team: {
-    name: string;
-    won_score?: number;
-    lost_score?: number;
-    meta?: {
-      logo?: string;
-    } | null;
-  };
-};
-```
-
-用途：
-
-- 表示 TPBL 官方 API 原始 response shape
-
-設計原因：
-
-保留原始 API 型別可以讓 mapper 清楚處理「外部結構 -> 內部結構」的轉換，避免直接在 UI 層讀 API 欄位。
-
-### 5. UI State Types
-
-#### `ScheduleSectionState<T>`
-
-```ts
-type ScheduleSectionState<T> = {
-  scheduleView: ScheduleView;
-  setScheduleView: (value: ScheduleView) => void;
-  currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-  totalPages: number;
-  activeGames: T[];
-  pagedGames: T[];
-  selectedMonth: string;
-  setSelectedMonth: (value: string) => void;
-  selectedTeam: string;
-  setSelectedTeam: (value: string) => void;
-  monthOptions: string[];
-  teamOptions: string[];
-};
-```
-
-用途：
-
-- 定義 section UI 可依賴的完整 state contract
-- 作為 `useSchedule` 的輸出型別
-- 提供 `ScheduleSection` 與 league wrapper 共用
-
-欄位說明：
-
-- `scheduleView`: 目前 tab 狀態
-- `currentPage`: 當前分頁
-- `totalPages`: 總頁數
-- `activeGames`: 經過 view/filter 後的全部比賽
-- `pagedGames`: 當前頁實際顯示的比賽
-- `selectedMonth`: 月份篩選值
-- `selectedTeam`: 隊伍篩選值
-- `monthOptions`: 可用月份選項
-- `teamOptions`: 可用隊伍選項
-
-設計原因：
-
-UI 不應知道 schedule state 如何被計算；它只需要依賴一個穩定輸出契約。
-
-### 6. Component Prop Types
-
-#### `TpblSectionProps`
-
-用途：
-
-- 定義 TPBL wrapper component 所需 props
-
-包含：
-
-- `isThirdSectionActive`
-- `isBclSectionActive`
-- `thirdSectionRef`
-- `schedule`
-- `todayKey`
-
-設計原因：
-
-TPBL section 除了 schedule state 外，還受首頁背景狀態與動畫狀態影響，因此需要額外 props。
-
-#### `BclSectionProps`
-
-用途：
-
-- 定義 BCL wrapper component 所需 props
-
-包含：
-
-- `isBclSectionActive`
-- `schedule`
-- `todayKey`
-
-設計原因：
-
-BCL section 需要根據 active 狀態切換 theme 與 CTA 樣式。
-
-### 7. Type Relationship Summary
-
-型別關係如下：
+路徑：
 
 ```text
-TeamWithLogo
-   └─ BaseScheduleGame
-      ├─ ScheduleGame
-      ├─ TpblGame
-      └─ BclGame
-
-TpblApiGame ----> tpblMapper ----> TpblGame
-TpblFallbackGame -> tpblMapper ----> TpblGame
-BclRawGame ------> bclMapper -----> BclGame
-
-useSchedule<T> -------------------> ScheduleSectionState<T>
+GET /api/tpbl/games
 ```
 
-這個結構的意義是：
+用途：
 
-- 外部資料型別與內部資料型別分離
-- 共享 UI 型別與 league-specific 型別並存
-- hook 輸出 state 契約穩定
+- 代理 TPBL 上游 API
+- 避免 client 直接依賴上游服務
+- 集中處理 TPBL request 的錯誤邏輯
 
-## Error Handling
+實作位置：
 
-目前錯誤處理的核心原則：
+- `app/api/tpbl/games/route.ts`
 
-- TPBL API 失敗時使用 fallback JSON
-- optional field 以型別明確表示
-- 透過 mapper 與 build-time typing 儘早暴露資料問題
+方法：
 
-## Performance
+- `GET`
 
-目前效能策略：
+回傳格式：
 
-- `useMemo` 用於 schedule 衍生資料計算
-- 分頁限制單次渲染量
-- GSAP 與 canvas 動畫隔離在 hooks
-- PLG/BCL 使用靜態資料降低 runtime 依賴
+- JSON
 
-## Folder Structure
+### 成功回應
+
+- HTTP `200`
+- body 為 TPBL 上游回傳的賽事 JSON
+
+### 錯誤回應
+
+- 若上游回傳非 200，回傳 JSON error 並沿用對應 status
+- 若 fetch 發生例外，回傳 HTTP `500` 與 `{ "error": "Failed to fetch TPBL games" }`
+
+### 前端使用方式
+
+前端不直接使用原始 API response 進行 rendering，而是先透過 `mapTpblApiGame` 將資料正規化後，再進入共用 schedule 邏輯。
+
+## Design Decisions
+
+### 1. 使用共用的 useSchedule Hook
+
+決策：
+
+- 使用單一 generic hook 統一處理 completed/upcoming、篩選與分頁
+
+理由：
+
+- 即使各聯盟資料來源不同，賽程互動模式仍高度一致
+
+效益：
+
+- 避免重複撰寫 schedule state 邏輯
+- 保持各聯盟互動行為一致
+
+### 2. 先做資料 mapping 再進入 UI
+
+決策：
+
+- 所有資料在進入 schedule components 前先完成正規化
+
+理由：
+
+- 上游 JSON 與 API payload schema 不一致
+
+效益：
+
+- 可重用元件只需依賴穩定的資料 shape
+- source-specific parsing 被限制在 mapper 檔案中
+
+### 3. 在適合的地方使用 useMemo
+
+決策：
+
+- 僅在能保護昂貴計算或穩定 reference 的地方使用 `useMemo`
+
+範例：
+
+- 將靜態 JSON 轉成 normalized games
+- 建立 completed / upcoming 等衍生賽程資料
+- 建立 canvas frame source list
+
+理由：
+
+- 降低父層 re-render 時的不必要重算
+- 在來源資料未變時穩定下游 dependency
+
+### 4. TPBL 採用 fallback JSON
+
+決策：
+
+- 先用 fallback JSON 初始化 TPBL，再在執行期用 live API hydrate
+
+理由：
+
+- TPBL API 可能失效或暫時不可用
+
+效益：
+
+- 即使上游失敗，頁面仍可顯示基本賽程內容
+- 提升整體可用性與韌性
+
+### 5. 使用 league wrapper，而不是單一超大型 config
+
+決策：
+
+- 保留共用的 `ScheduleSection`，再搭配各聯盟 wrapper component
+
+理由：
+
+- 各聯盟在 actions、theme 與 presentation rule 上仍有明顯差異
+
+效益：
+
+- 共用 rendering 邏輯維持可重用
+- 聯盟客製化邏輯保持清楚、可讀
+
+## Deployment
+
+### Vercel
+
+前端適合部署在 Vercel，作為標準 Next.js 應用。
+
+建議的 Vercel 流程：
+
+- 將 GitHub repository 連接到 Vercel
+- 為 pull request 建立 preview deployment
+- 由主分支觸發 production deployment
+- 在 Vercel 專案設定中配置 visitor API 等環境變數
+
+### GitHub Actions
+
+目前 repository 已包含 GitHub Actions workflow：
+
+- `.github/workflows/plg-scraper.yml`
+
+目前責任：
+
+- 每小時排程執行一次
+- 執行 PLG scraper
+- 若資料有更新，將新的 JSON commit 並 push 回 repository
+
+建議的部署關係：
 
 ```text
-docs/
-├─ sdd.md
-├─ architecture.md
-├─ data-flow.md
-└─ decisions.md
+GitHub Actions
+-> 更新 PLG JSON
+-> push 回 repository
+-> GitHub main branch 更新
+-> Vercel 自動部署最新版本
 ```
 
-應用程式主要結構：
+### 維運說明
 
-```text
-app/
-├─ api/
-├─ components/
-├─ domain/
-├─ hooks/
-└─ lib/
+- Vercel 負責網站 build 與 hosting
+- GitHub Actions 負責 PLG 自動化資料更新
+- TPBL 即時資料透過 API proxy route 在執行期取得
 
-data/
-└─ *.json
-```
+## Summary
+
+本系統透過可重用的 schedule interaction model 與 league-specific data pipeline，建立一個能整合多聯盟賽程的前端網站。Next.js 提供 routing 與 API proxy，React 管理賽程與動畫狀態，mapper 負責正規化不一致的上游資料，`useSchedule` 則集中處理共用互動邏輯。部署上以 Vercel 作為網站承載平台，並以 GitHub Actions 支援 PLG 資料的自動更新。

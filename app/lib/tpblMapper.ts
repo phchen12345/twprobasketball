@@ -1,5 +1,5 @@
 import { FALLBACK_LOGO, TPBL_TEAM_LOGOS } from "../constants/tpbl";
-import type { TpblApiGame, TpblFallbackGame, TpblGame } from "../components/scheduleTypes";
+import type { TpblApiGame, TpblFallbackGame, TpblGame } from "../components/schedule/scheduleTypes";
 
 function getLocalTpblLogoPath(teamName: string) {
   return TPBL_TEAM_LOGOS[teamName] ?? FALLBACK_LOGO;

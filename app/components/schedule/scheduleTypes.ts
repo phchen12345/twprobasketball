@@ -47,6 +47,7 @@ export type BclGame = BaseScheduleGame & {
 
 export type BclSectionProps = {
   isBclSectionActive: boolean;
+  bclSectionRef: RefObject<HTMLDivElement | null>;
   schedule: ScheduleSectionState<BclGame>;
   todayKey: string;
 };
@@ -120,9 +121,9 @@ export type ScheduleSectionState<T> = {
 };
 
 export type TpblSectionProps = {
-  isThirdSectionActive: boolean;
+  isTpblSectionActive: boolean;
   isBclSectionActive: boolean;
-  thirdSectionRef: RefObject<HTMLElement | null>;
+  tpblSectionRef: RefObject<HTMLElement | null>;
   schedule: ScheduleSectionState<TpblGame>;
   todayKey: string;
 };

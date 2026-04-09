@@ -9,7 +9,7 @@ export const plgScheduleTheme = {
   homeBadgeClassName: "bg-[#BB986C] text-white",
 };
 
-export function getPlgPaginationTheme(isThirdSectionActive: boolean, isBclSectionActive: boolean) {
+export function getPlgPaginationTheme(isTpblSectionActive: boolean, isBclSectionActive: boolean) {
   if (isBclSectionActive) {
     return {
       paginationClassName: "border-[#ddcf9c] bg-[#f7f1dc] text-[#8a742d] hover:bg-[#f1e7c5]",
@@ -18,7 +18,7 @@ export function getPlgPaginationTheme(isThirdSectionActive: boolean, isBclSectio
     };
   }
 
-  if (isThirdSectionActive) {
+  if (isTpblSectionActive) {
     return {
       paginationClassName: "border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81] hover:bg-[#dceaf7]",
       paginationActiveClassName:
@@ -32,16 +32,16 @@ export function getPlgPaginationTheme(isThirdSectionActive: boolean, isBclSectio
   };
 }
 
-export function getTpblScheduleTheme(isThirdSectionActive: boolean, isBclSectionActive = false) {
-  const inactiveTabClassName = isThirdSectionActive
+export function getTpblScheduleTheme(isTpblSectionActive: boolean, isBclSectionActive = false) {
+  const inactiveTabClassName = isTpblSectionActive
     ? "border border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81]"
     : "border border-[#c5a57d] bg-[#f5ede3] text-[#8F724E]";
-  const activeTabClassName = isThirdSectionActive
+  const activeTabClassName = isTpblSectionActive
     ? "bg-[#0f4c81] text-white shadow-[0_12px_32px_rgba(15,76,129,0.32)] hover:bg-[#0d426e]"
     : "bg-[#8F724E] text-white shadow-[0_12px_32px_rgba(143,114,78,0.3)] hover:bg-[#7b6243]";
   const paginationClassName = isBclSectionActive
     ? "border-[#ddcf9c] bg-[#f7f1dc] text-[#8a742d] hover:bg-[#f1e7c5]"
-    : isThirdSectionActive
+    : isTpblSectionActive
       ? "border-[#8fb3d1] bg-[#eaf2f9] text-[#0f4c81] hover:bg-[#dceaf7]"
       : "border-[#c5a57d] bg-[#f5ede3] text-[#8F724E] hover:bg-[#efdfcc]";
   const paginationActiveClassName = isBclSectionActive

@@ -1,34 +1,40 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { getPlgPaginationTheme, plgScheduleTheme } from "../domain/leagueScheduleThemes";
+import {
+  getPlgPaginationTheme,
+  plgScheduleTheme,
+} from "../../domain/leagueScheduleThemes";
 import {
   getPlgGamePresentation,
   getScheduledFooterLabel,
-} from "../domain/schedule";
+} from "../../domain/schedule";
 import type { ScheduleGame, ScheduleSectionState } from "./scheduleTypes";
 import ScheduleSection from "./ScheduleSection";
 
 type Props = {
   isBclSectionActive: boolean;
-  isThirdSectionActive: boolean;
+  isTpblSectionActive: boolean;
   schedule: ScheduleSectionState<ScheduleGame>;
   todayKey: string;
 };
 
 export default function PlgScheduleSection({
   isBclSectionActive,
-  isThirdSectionActive,
+  isTpblSectionActive,
   schedule,
   todayKey,
 }: Props) {
-  const paginationTheme = getPlgPaginationTheme(isThirdSectionActive, isBclSectionActive);
+  const paginationTheme = getPlgPaginationTheme(
+    isTpblSectionActive,
+    isBclSectionActive,
+  );
   const theme = {
     ...plgScheduleTheme,
     ...paginationTheme,
   };
   const cardClassName =
-    isBclSectionActive || isThirdSectionActive
+    isBclSectionActive || isTpblSectionActive
       ? "w-full shrink-0 rounded-[2rem] border border-white/15 bg-white/10 p-4 text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] sm:p-6 lg:p-10"
       : "w-full shrink-0 rounded-[2rem] border border-white/10 bg-[#050505] p-4 text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] sm:p-6 lg:p-10";
 

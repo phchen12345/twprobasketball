@@ -1,28 +1,28 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getBclScheduleTheme } from "../domain/leagueScheduleThemes";
+import { getBclScheduleTheme } from "../../domain/leagueScheduleThemes";
 import {
   getBclGamePresentation,
   getScheduledFooterLabel,
-} from "../domain/schedule";
+} from "../../domain/schedule";
 import type { BclSectionProps } from "./scheduleTypes";
 import ScheduleSection from "./ScheduleSection";
 
 export default function BclScheduleSection({
   isBclSectionActive,
+  bclSectionRef,
   schedule,
   todayKey,
 }: BclSectionProps) {
-  const sectionRef = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const theme = getBclScheduleTheme(isBclSectionActive);
   const isScheduleVisible = isVisible || isBclSectionActive;
 
   useEffect(() => {
-    const node = sectionRef.current;
+    const node = bclSectionRef.current;
 
     if (!node) {
       return;
@@ -46,8 +46,13 @@ export default function BclScheduleSection({
   return (
     <ScheduleSection
       id="bcl-schedule"
-      sectionRef={sectionRef}
-      outerClassName={`mx-auto max-w-[92rem] px-4 pt-12 pb-24 transition-all duration-700 ease-out sm:px-6 sm:pt-16 lg:px-8 lg:pt-20 lg:pb-28 ${
+      sectionRef={bclSectionRef}
+      outerClassName={
+        isBclSectionActive
+          ? "bg-[linear-gradient(180deg,#8a742c_0%,#6a5922_45%,#4f4219_100%)]"
+          : "bg-[linear-gradient(180deg,#002B48_0%,#002B48_52%,#003C64_52%,#003C64_100%)]"
+      }
+      containerClassName={`mx-auto max-w-[92rem] px-4 pt-12 pb-24 transition-all duration-700 ease-out sm:px-6 sm:pt-16 lg:px-8 lg:pt-20 lg:pb-28 ${
         isScheduleVisible ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"
       }`}
       cardClassName={`border-white/15 p-4 sm:p-6 lg:p-10 ${

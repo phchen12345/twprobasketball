@@ -2,31 +2,31 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getTpblScheduleTheme } from "../domain/leagueScheduleThemes";
+import { getTpblScheduleTheme } from "../../domain/leagueScheduleThemes";
 import {
   getScheduledFooterLabel,
   getTpblGamePresentation,
-} from "../domain/schedule";
+} from "../../domain/schedule";
 import type { TpblSectionProps } from "./scheduleTypes";
 import ScheduleSection from "./ScheduleSection";
 
 export default function TpblScheduleSection({
-  isThirdSectionActive,
+  isTpblSectionActive,
   isBclSectionActive,
-  thirdSectionRef,
+  tpblSectionRef,
   schedule,
   todayKey,
 }: TpblSectionProps) {
-  const theme = getTpblScheduleTheme(isThirdSectionActive, isBclSectionActive);
+  const theme = getTpblScheduleTheme(isTpblSectionActive, isBclSectionActive);
 
   return (
     <ScheduleSection
       id="tpbl-schedule"
-      sectionRef={thirdSectionRef}
+      sectionRef={tpblSectionRef}
       outerClassName={`transition-colors duration-200 ${
         isBclSectionActive
           ? "bg-[#4b421d]"
-          : isThirdSectionActive
+          : isTpblSectionActive
             ? "bg-[#003C64]"
             : "bg-[#8F724E]"
       }`}
@@ -58,7 +58,7 @@ export default function TpblScheduleSection({
                 className={`mt-3 border-transparent text-white shadow-[0_8px_20px_rgba(15,23,42,0.18)] ${
                   isBclSectionActive
                     ? "bg-[#C5A649]"
-                    : isThirdSectionActive
+                    : isTpblSectionActive
                       ? "bg-[#0f4c81]"
                       : "bg-[#8F724E]"
                 }`}

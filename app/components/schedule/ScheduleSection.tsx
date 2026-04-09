@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Select } from "@/components/ui/select";
-import type { GamePresentationMode } from "../domain/schedule";
+import type { GamePresentationMode } from "../../domain/schedule";
 import type { BaseScheduleGame, ScheduleSectionState } from "./scheduleTypes";
 import { formatWeekday } from "./scheduleTypes";
 
@@ -66,7 +66,9 @@ function TeamSide<T extends BaseScheduleGame>({
   return (
     <div
       className={`flex min-w-0 flex-col items-center gap-2 text-center ${
-        side === "away" ? "justify-end sm:flex-row sm:gap-4 sm:text-right" : "sm:flex-row sm:gap-4 sm:text-left"
+        side === "away"
+          ? "justify-end sm:flex-row sm:gap-4 sm:text-right"
+          : "sm:flex-row sm:gap-4 sm:text-left"
       }`}
     >
       <NextImage
@@ -134,8 +136,12 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
     <>
       <div className="flex flex-col gap-4 border-b border-white/20 pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">{eyebrow}</p>
-          <h2 className="mt-3 font-serif text-2xl text-white sm:text-4xl">{title}</h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">
+            {eyebrow}
+          </p>
+          <h2 className="mt-3 font-serif text-2xl text-white sm:text-4xl">
+            {title}
+          </h2>
           <p className="mt-2 text-xs text-white/60">{description}</p>
         </div>
         <p className={headerMetaClassName}>共 {activeGames.length} 場</p>
@@ -146,7 +152,11 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
           type="button"
           size="pill"
           variant={scheduleView === "upcoming" ? "accent" : "pill"}
-          className={scheduleView === "upcoming" ? theme.activeTabClassName : theme.inactiveTabClassName}
+          className={
+            scheduleView === "upcoming"
+              ? theme.activeTabClassName
+              : theme.inactiveTabClassName
+          }
           onClick={() => setScheduleView("upcoming")}
         >
           即將開賽
@@ -155,7 +165,11 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
           type="button"
           size="pill"
           variant={scheduleView === "completed" ? "accent" : "pill"}
-          className={scheduleView === "completed" ? theme.activeTabClassName : theme.inactiveTabClassName}
+          className={
+            scheduleView === "completed"
+              ? theme.activeTabClassName
+              : theme.inactiveTabClassName
+          }
           onClick={() => setScheduleView("completed")}
         >
           已完成
@@ -206,12 +220,16 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
           return (
             <article key={game.gameId} className={articleClassName}>
               {renderTopMeta ? (
-                <div className="mb-5 flex items-center justify-between gap-3">{renderTopMeta(game)}</div>
+                <div className="mb-5 flex items-center justify-between gap-3">
+                  {renderTopMeta(game)}
+                </div>
               ) : null}
 
               <div
                 className={`grid gap-5 xl:items-center ${
-                  hasActions ? "xl:grid-cols-[150px_minmax(0,1fr)_200px]" : "xl:grid-cols-[150px_minmax(0,1fr)]"
+                  hasActions
+                    ? "xl:grid-cols-[150px_minmax(0,1fr)_200px]"
+                    : "xl:grid-cols-[150px_minmax(0,1fr)]"
                 }`}
               >
                 <div className="flex items-end justify-between gap-4 border-b border-[#d7dce5] pb-4 xl:block xl:border-r xl:border-b-0 xl:pb-0 xl:pr-6">
@@ -219,7 +237,9 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
                     <p className="text-[1.75rem] font-semibold leading-none text-[#13233d] sm:text-[2rem]">
                       {formatDisplayDate(game.date)}
                     </p>
-                    <p className="pt-1 text-sm font-semibold text-[#13233d]">{formatWeekday(game.date)}</p>
+                    <p className="pt-1 text-sm font-semibold text-[#13233d]">
+                      {formatWeekday(game.date)}
+                    </p>
                   </div>
                   <p className="mt-2 text-[1.75rem] font-medium leading-none text-[#13233d] md:mt-0 sm:text-[2rem]">
                     {game.time}
@@ -231,7 +251,11 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
                     hasActions ? "xl:border-r xl:px-8" : "xl:px-4"
                   }`}
                 >
-                  <TeamSide game={game} side="away" homeBadgeClassName={theme.homeBadgeClassName} />
+                  <TeamSide
+                    game={game}
+                    side="away"
+                    homeBadgeClassName={theme.homeBadgeClassName}
+                  />
 
                   <div className="flex flex-col items-center justify-center text-center">
                     <span
@@ -261,12 +285,18 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
                     {presentation.footerBadge}
                   </div>
 
-                  <TeamSide game={game} side="home" homeBadgeClassName={theme.homeBadgeClassName} />
+                  <TeamSide
+                    game={game}
+                    side="home"
+                    homeBadgeClassName={theme.homeBadgeClassName}
+                  />
                 </div>
 
                 {hasActions ? (
                   <div className="border-t border-[#d7dce5] pt-4 sm:flex sm:justify-end xl:block xl:border-t-0 xl:pt-0 xl:pl-4">
-                    <div className="flex min-h-[88px] flex-col justify-center gap-3">{actions}</div>
+                    <div className="flex min-h-[88px] flex-col justify-center gap-3">
+                      {actions}
+                    </div>
                   </div>
                 ) : null}
               </div>
@@ -286,26 +316,32 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
         >
           上一頁
         </Button>
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-          <Button
-            key={page}
-            type="button"
-            size="pill"
-            variant={currentPage === page ? "slate" : "ivory"}
-            className={`min-w-10 ${
-              currentPage === page ? theme.paginationActiveClassName : theme.paginationClassName
-            }`}
-            onClick={() => setCurrentPage(page)}
-          >
-            {page}
-          </Button>
-        ))}
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+          (page) => (
+            <Button
+              key={page}
+              type="button"
+              size="pill"
+              variant={currentPage === page ? "slate" : "ivory"}
+              className={`min-w-10 ${
+                currentPage === page
+                  ? theme.paginationActiveClassName
+                  : theme.paginationClassName
+              }`}
+              onClick={() => setCurrentPage(page)}
+            >
+              {page}
+            </Button>
+          ),
+        )}
         <Button
           type="button"
           size="pill"
           variant="ivory"
           className={theme.paginationClassName}
-          onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
+          onClick={() =>
+            setCurrentPage((page) => Math.min(totalPages, page + 1))
+          }
           disabled={currentPage === totalPages}
         >
           下一頁
@@ -317,7 +353,11 @@ export default function ScheduleSection<T extends BaseScheduleGame>({
   return (
     <section ref={sectionRef} id={id} className={outerClassName}>
       <div className={containerClassName}>
-        {useCard ? <Card className={cardClassName}>{body}</Card> : <div className={cardClassName}>{body}</div>}
+        {useCard ? (
+          <Card className={cardClassName}>{body}</Card>
+        ) : (
+          <div className={cardClassName}>{body}</div>
+        )}
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import type { PlgRawGame, ScheduleGame } from "../components/scheduleTypes";
+import type { PlgRawGame, ScheduleGame } from "../components/schedule/scheduleTypes";
 
 export function mapPlgRawGame(game: PlgRawGame): ScheduleGame {
   return {

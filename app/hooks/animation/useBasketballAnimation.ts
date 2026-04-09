@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { ActiveNav } from "../components/scheduleTypes";
+import { useState } from "react";
+import { ActiveNav } from "../../components/schedule/scheduleTypes";
 import { BasketballAnimationRefs, useGsapScrollAnimation } from "./useGsapScrollAnimation";
 import { useCanvasFrames } from "./useCanvasFrames";
 
@@ -16,7 +16,7 @@ export function useBasketballAnimation({ refs }: Params) {
   const [isPastAnimation, setIsPastAnimation] = useState(false);
   const [backgroundReveal, setBackgroundReveal] = useState(0);
   const [activeNav, setActiveNav] = useState<ActiveNav>(null);
-  const [isThirdSectionActive, setIsThirdSectionActive] = useState(false);
+  const [isTpblSectionActive, setIsTpblSectionActive] = useState(false);
   const [isBclSectionActive, setIsBclSectionActive] = useState(false);
 
   useGsapScrollAnimation({
@@ -25,19 +25,16 @@ export function useBasketballAnimation({ refs }: Params) {
     onIntroReadyChange: setIsPastAnimation,
     onBackgroundRevealChange: setBackgroundReveal,
     onActiveNavChange: setActiveNav,
-    onThirdSectionThemeChange: setIsThirdSectionActive,
+    onTpblSectionThemeChange: setIsTpblSectionActive,
     onBclSectionThemeChange: setIsBclSectionActive,
   });
 
-  return useMemo(
-    () => ({
-      isReady,
-      isPastAnimation,
-      backgroundReveal,
-      activeNav,
-      isThirdSectionActive,
-      isBclSectionActive,
-    }),
-    [activeNav, backgroundReveal, isBclSectionActive, isPastAnimation, isReady, isThirdSectionActive],
-  );
+  return {
+    isReady,
+    isPastAnimation,
+    backgroundReveal,
+    activeNav,
+    isTpblSectionActive,
+    isBclSectionActive,
+  };
 }

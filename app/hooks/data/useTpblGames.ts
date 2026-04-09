@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import tpblScheduleData from "../../data/tpbl_schedule_2025_26_openers.json";
-import { TpblApiGame, TpblFallbackGame, TpblGame } from "../components/scheduleTypes";
-import { mapFallbackTpblGame, mapTpblApiGame } from "../lib/tpblMapper";
+import tpblScheduleData from "../../../data/tpbl_schedule_2025_26_openers.json";
+import { TpblApiGame, TpblFallbackGame, TpblGame } from "../../components/schedule/scheduleTypes";
+import { mapFallbackTpblGame, mapTpblApiGame } from "../../lib/tpblMapper";
 
 const TPBL_GAMES_API_PATH = "/api/tpbl/games";
 

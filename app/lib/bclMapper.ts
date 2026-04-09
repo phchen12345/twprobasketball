@@ -1,4 +1,4 @@
-import type { BclGame, BclRawGame } from "../components/scheduleTypes";
+import type { BclGame, BclRawGame } from "../components/schedule/scheduleTypes";
 
 const BCL_TEAM_LOGOS: Record<string, string> = {
   "香港 南華籃球隊": "/bcl-logos/sca.webp",

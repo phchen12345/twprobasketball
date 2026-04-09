@@ -1,8 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
-import type { BclGame, ScheduleGame, TpblGame } from "../components/scheduleTypes";
-import { getTeamNames } from "../domain/schedule";
+import type { BclGame, ScheduleGame, TpblGame } from "../../components/schedule/scheduleTypes";
+import { getTeamNames } from "../../domain/schedule";
 import { useSchedule } from "./useSchedule";
 
 type Params = {
@@ -17,12 +16,9 @@ export function useLeagueSchedules({ plgGames, tpblGames, bclGames, todayKey }: 
   const tpblSchedule = useSchedule(tpblGames, todayKey, { getTeams: getTeamNames });
   const bclSchedule = useSchedule(bclGames, todayKey, { getTeams: getTeamNames });
 
-  return useMemo(
-    () => ({
-      plgSchedule,
-      tpblSchedule,
-      bclSchedule,
-    }),
-    [bclSchedule, plgSchedule, tpblSchedule],
-  );
+  return {
+    plgSchedule,
+    tpblSchedule,
+    bclSchedule,
+  };
 }

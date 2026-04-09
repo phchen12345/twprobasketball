@@ -1,4 +1,4 @@
-import HomePageExperience from "./components/HomePageExperience";
+import HomePageExperience from "./components/experience/HomePageExperience";
 
 export default function HomePage() {
   const jsonLd = {

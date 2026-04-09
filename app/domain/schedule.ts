@@ -1,4 +1,4 @@
-import type { BaseScheduleGame, BclGame, ScheduleGame, TpblGame } from "../components/scheduleTypes";
+import type { BaseScheduleGame, BclGame, ScheduleGame, TpblGame } from "../components/schedule/scheduleTypes";
 
 const COMPLETION_GRACE_MS = 5 * 60 * 60 * 1000;
 

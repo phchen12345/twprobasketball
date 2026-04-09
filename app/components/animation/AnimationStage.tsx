@@ -2,7 +2,7 @@
 
 import NextImage from "next/image";
 import { RefObject } from "react";
-import logoImage from "../../Logo.jpg";
+import logoImage from "../../../Logo.jpg";
 
 type Props = {
   stageRef: RefObject<HTMLDivElement | null>;

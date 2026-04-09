@@ -3,7 +3,7 @@
 import { RefObject, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ActiveNav } from "../components/scheduleTypes";
+import { ActiveNav } from "../../components/schedule/scheduleTypes";
 import { BASKETBALL_ANIMATION_CONFIG } from "./basketballAnimation.constants";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,7 +12,7 @@ export type BasketballAnimationRefs = {
   sectionRef: RefObject<HTMLDivElement | null>;
   stageRef: RefObject<HTMLDivElement | null>;
   contentSectionRef: RefObject<HTMLDivElement | null>;
-  thirdSectionRef: RefObject<HTMLElement | null>;
+  tpblSectionRef: RefObject<HTMLElement | null>;
   bclSectionRef: RefObject<HTMLElement | null>;
   canvasRef: RefObject<HTMLCanvasElement | null>;
 };
@@ -23,7 +23,7 @@ type Params = {
   onIntroReadyChange: (isPastAnimation: boolean) => void;
   onBackgroundRevealChange: (progress: number) => void;
   onActiveNavChange: (activeNav: ActiveNav) => void;
-  onThirdSectionThemeChange: (isActive: boolean) => void;
+  onTpblSectionThemeChange: (isActive: boolean) => void;
   onBclSectionThemeChange: (isActive: boolean) => void;
 };
 
@@ -33,10 +33,10 @@ export function useGsapScrollAnimation({
   onIntroReadyChange,
   onBackgroundRevealChange,
   onActiveNavChange,
-  onThirdSectionThemeChange,
+  onTpblSectionThemeChange,
   onBclSectionThemeChange,
 }: Params) {
-  const { canvasRef, sectionRef, stageRef, contentSectionRef, thirdSectionRef, bclSectionRef } = refs;
+  const { canvasRef, sectionRef, stageRef, contentSectionRef, tpblSectionRef, bclSectionRef } = refs;
   const frameState = useRef({ frame: 0 });
   const lastPastAnimation = useRef(false);
   const lastActiveNav = useRef<ActiveNav>(null);
@@ -48,10 +48,10 @@ export function useGsapScrollAnimation({
     const section = sectionRef.current;
     const stage = stageRef.current;
     const contentSection = contentSectionRef.current;
-    const thirdSection = thirdSectionRef.current;
+    const tpblSection = tpblSectionRef.current;
     const bclSection = bclSectionRef.current;
 
-    if (!canvas || !section || !stage || !contentSection || !thirdSection || !bclSection) {
+    if (!canvas || !section || !stage || !contentSection || !tpblSection || !bclSection) {
       return;
     }
 
@@ -72,7 +72,7 @@ export function useGsapScrollAnimation({
     const setThemeState = (value: boolean) => {
       if (lastThemeState.current !== value) {
         lastThemeState.current = value;
-        onThirdSectionThemeChange(value);
+        onTpblSectionThemeChange(value);
       }
     };
 
@@ -120,8 +120,8 @@ export function useGsapScrollAnimation({
       onLeaveBack: () => setActiveNav(null),
     });
 
-    const thirdSectionThemeTrigger = ScrollTrigger.create({
-      trigger: thirdSection,
+    const tpblSectionThemeTrigger = ScrollTrigger.create({
+      trigger: tpblSection,
       start: BASKETBALL_ANIMATION_CONFIG.tpblThemeStart,
       end: BASKETBALL_ANIMATION_CONFIG.tpblThemeEnd,
       onEnter: () => setThemeState(true),
@@ -131,7 +131,7 @@ export function useGsapScrollAnimation({
     });
 
     const tpblNavTrigger = ScrollTrigger.create({
-      trigger: thirdSection,
+      trigger: tpblSection,
       start: BASKETBALL_ANIMATION_CONFIG.tpblNavStart,
       end: BASKETBALL_ANIMATION_CONFIG.tpblNavEnd,
       onEnter: () => setActiveNav("tpbl"),
@@ -169,7 +169,7 @@ export function useGsapScrollAnimation({
       tpblNavTrigger.kill();
       bclNavTrigger.kill();
       bclThemeTrigger.kill();
-      thirdSectionThemeTrigger.kill();
+      tpblSectionThemeTrigger.kill();
       backgroundTrigger.kill();
       tween.scrollTrigger?.kill();
       tween.kill();
@@ -179,13 +179,13 @@ export function useGsapScrollAnimation({
     onActiveNavChange,
     onBackgroundRevealChange,
     onIntroReadyChange,
-    onThirdSectionThemeChange,
+    onTpblSectionThemeChange,
     onBclSectionThemeChange,
     canvasRef,
     sectionRef,
     stageRef,
     contentSectionRef,
-    thirdSectionRef,
+    tpblSectionRef,
     bclSectionRef,
   ]);
 }

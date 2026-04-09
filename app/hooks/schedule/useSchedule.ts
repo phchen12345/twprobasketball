@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ScheduleView } from "../components/scheduleTypes";
-import { getMonthKey, isCompletedGame } from "../domain/schedule";
+import { ScheduleView } from "../../components/schedule/scheduleTypes";
+import { getMonthKey, isCompletedGame } from "../../domain/schedule";
 
 const GAMES_PER_PAGE = 6;
 

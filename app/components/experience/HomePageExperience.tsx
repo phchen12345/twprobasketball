@@ -1,23 +1,23 @@
 "use client";
 
 import { useRef } from "react";
-import BclScheduleSection from "./BclScheduleSection";
-import PlgScheduleSection from "./PlgScheduleSection";
-import PlgSceneContainer from "./PlgSceneContainer";
-import ScrollHeader from "./ScrollHeader";
-import TpblScheduleSection from "./TpblScheduleSection";
-import VisitorCounter from "./VisitorCounter";
-import AnimationStage from "./AnimationStage";
-import { useBasketballAnimation } from "../hooks/useBasketballAnimation";
-import { useLeagueData } from "../hooks/useLeagueData";
-import { useLeagueSchedules } from "../hooks/useLeagueSchedules";
-import { useTodayKey } from "../hooks/useTodayKey";
+import AnimationStage from "../animation/AnimationStage";
+import PlgSceneContainer from "../animation/PlgSceneContainer";
+import BclScheduleSection from "../schedule/BclScheduleSection";
+import PlgScheduleSection from "../schedule/PlgScheduleSection";
+import TpblScheduleSection from "../schedule/TpblScheduleSection";
+import ScrollHeader from "../navigation/ScrollHeader";
+import VisitorCounter from "../metrics/VisitorCounter";
+import { useBasketballAnimation } from "../../hooks/animation/useBasketballAnimation";
+import { useLeagueData } from "../../hooks/data/useLeagueData";
+import { useLeagueSchedules } from "../../hooks/schedule/useLeagueSchedules";
+import { useTodayKey } from "../../hooks/schedule/useTodayKey";
 
 export default function HomePageExperience() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const contentSectionRef = useRef<HTMLDivElement | null>(null);
-  const thirdSectionRef = useRef<HTMLElement | null>(null);
+  const tpblSectionRef = useRef<HTMLElement | null>(null);
   const bclSectionRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const todayKey = useTodayKey();
@@ -28,13 +28,13 @@ export default function HomePageExperience() {
     isPastAnimation,
     backgroundReveal,
     activeNav,
-    isThirdSectionActive,
+    isTpblSectionActive,
   } = useBasketballAnimation({
     refs: {
       sectionRef,
       stageRef,
       contentSectionRef,
-      thirdSectionRef,
+      tpblSectionRef,
       bclSectionRef,
       canvasRef,
     },
@@ -55,7 +55,11 @@ export default function HomePageExperience() {
       <ScrollHeader isPastAnimation={isPastAnimation} activeNav={activeNav} />
       <VisitorCounter />
 
-      <AnimationStage stageRef={stageRef} canvasRef={canvasRef} isReady={isReady} />
+      <AnimationStage
+        stageRef={stageRef}
+        canvasRef={canvasRef}
+        isReady={isReady}
+      />
 
       <div
         className={`relative overflow-hidden transition-colors duration-500 ${
@@ -68,7 +72,9 @@ export default function HomePageExperience() {
       >
         <div
           className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${
-            isThirdSectionActive || isBclSectionActive ? "opacity-100" : "opacity-0"
+            isTpblSectionActive || isBclSectionActive
+              ? "opacity-100"
+              : "opacity-0"
           }`}
           style={{
             background: isBclSectionActive
@@ -81,39 +87,31 @@ export default function HomePageExperience() {
           <PlgSceneContainer
             contentSectionRef={contentSectionRef}
             backgroundReveal={backgroundReveal}
-            isThirdSectionActive={isThirdSectionActive}
+            isTpblSectionActive={isTpblSectionActive}
             isPastAnimation={isPastAnimation}
           >
             <PlgScheduleSection
               isBclSectionActive={isBclSectionActive}
-              isThirdSectionActive={isThirdSectionActive}
+              isTpblSectionActive={isTpblSectionActive}
               schedule={plgSchedule}
               todayKey={todayKey}
             />
           </PlgSceneContainer>
 
           <TpblScheduleSection
-            isThirdSectionActive={isThirdSectionActive}
+            isTpblSectionActive={isTpblSectionActive}
             isBclSectionActive={isBclSectionActive}
-            thirdSectionRef={thirdSectionRef}
+            tpblSectionRef={tpblSectionRef}
             schedule={tpblSchedule}
             todayKey={todayKey}
           />
 
-          <div
-            ref={bclSectionRef}
-            className={
-              isBclSectionActive
-                ? "bg-[linear-gradient(180deg,#8a742c_0%,#6a5922_45%,#4f4219_100%)]"
-                : "bg-[linear-gradient(180deg,#002B48_0%,#002B48_52%,#003C64_52%,#003C64_100%)]"
-            }
-          >
-            <BclScheduleSection
-              isBclSectionActive={isBclSectionActive}
-              schedule={bclSchedule}
-              todayKey={todayKey}
-            />
-          </div>
+          <BclScheduleSection
+            isBclSectionActive={isBclSectionActive}
+            bclSectionRef={bclSectionRef}
+            schedule={bclSchedule}
+            todayKey={todayKey}
+          />
         </div>
       </div>
     </div>
