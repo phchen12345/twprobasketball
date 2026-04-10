@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: "/jasper-logo.jpg",
+        url: "/web_logo.webp",
         width: 1200,
         height: 630,
         alt: siteName,
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteName}｜TPBL、PLG、BCL 賽程整理`,
     description: siteDescription,
-    images: ["/jasper-logo.jpg"],
+    images: ["/web_logo.webp"],
   },
   robots: {
     index: true,
@@ -63,9 +63,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/jasper-logo.jpg",
-    shortcut: "/jasper-logo.jpg",
-    apple: "/jasper-logo.jpg",
+    icon: "/web_logo.webp",
+    shortcut: "/web_logo.webp",
+    apple: "/web_logo.webp",
   },
 };
 

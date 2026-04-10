@@ -2,7 +2,6 @@
 
 import NextImage from "next/image";
 import { Button } from "@/components/ui/button";
-import topBarLogoImage from "../../../Logo2.jpg";
 import { ActiveNav } from "../schedule/scheduleTypes";
 
 type Props = {
@@ -13,13 +12,19 @@ type Props = {
 export default function ScrollHeader({ isPastAnimation, activeNav }: Props) {
   const items = [
     { href: "#plg-schedule", label: "PLG 賽程", active: activeNav === "plg" },
-    { href: "#tpbl-schedule", label: "TPBL 賽程", active: activeNav === "tpbl" },
+    {
+      href: "#tpbl-schedule",
+      label: "TPBL 賽程",
+      active: activeNav === "tpbl",
+    },
     { href: "#bcl-schedule", label: "BCL 賽程", active: activeNav === "bcl" },
   ];
 
   return (
     <header className="fixed inset-x-0 top-0 z-40">
-      <div className={`transition-all duration-500 ease-out ${isPastAnimation ? "pt-3" : "pt-2"}`}>
+      <div
+        className={`transition-all duration-500 ease-out ${isPastAnimation ? "pt-3" : "pt-2"}`}
+      >
         <div
           className={
             isPastAnimation
@@ -31,14 +36,16 @@ export default function ScrollHeader({ isPastAnimation, activeNav }: Props) {
             href="#"
             className={
               isPastAnimation
-                ? "block w-[42px] shrink-0 transition-all duration-500 ease-out sm:w-[52px]"
-                : "block w-[56px] shrink-0 transition-all duration-500 ease-out sm:w-[77px] lg:w-[91px]"
+                ? "block w-[36px] shrink-0 transition-all duration-500 ease-out sm:w-[44px]"
+                : "block w-[48px] shrink-0 transition-all duration-500 ease-out sm:w-[64px] lg:w-[76px]"
             }
           >
             <NextImage
-              src={topBarLogoImage}
+              src="/web_newlogo.webp"
               alt="JASPER logo"
               className="h-auto w-full object-contain"
+              width={512}
+              height={512}
               priority
             />
           </a>

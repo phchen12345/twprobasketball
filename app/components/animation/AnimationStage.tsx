@@ -2,7 +2,6 @@
 
 import NextImage from "next/image";
 import { RefObject } from "react";
-import logoImage from "../../../Logo.jpg";
 
 type Props = {
   stageRef: RefObject<HTMLDivElement | null>;
@@ -26,9 +25,11 @@ export default function AnimationStage({ stageRef, canvasRef, isReady }: Props) 
         <canvas ref={canvasRef} className="h-full w-full" />
         <div className="absolute right-0 bottom-0 z-20 w-[98px] sm:w-[126px] lg:w-[154px]">
           <NextImage
-            src={logoImage}
+            src="/logo.webp"
             alt="JASPER logo"
             className="h-auto w-full object-contain opacity-50 transition-opacity duration-300 hover:opacity-90 drop-shadow-[0_10px_30px_rgba(0,0,0,0.55)]"
+            width={783}
+            height={328}
             priority
           />
         </div>
