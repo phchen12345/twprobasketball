@@ -75,21 +75,31 @@ export default function TpblScheduleSection({
       renderActions={(game) => (
         <>
           {game.replayUrl ? (
-            <a href={game.replayUrl} target="_blank" rel="noreferrer" className="inline-flex">
+            <a
+              href={game.replayUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex"
+            >
               <Button
                 type="button"
                 size="pill"
                 variant="ivory"
                 className={`pointer-events-none ${theme.paginationClassName}`}
               >
-                觀看重播
+                觀看直播
               </Button>
             </a>
           ) : (
             <span className="h-5" />
           )}
           {game.recapUrl ? (
-            <a href={game.recapUrl} target="_blank" rel="noreferrer" className="inline-flex">
+            <a
+              href={game.recapUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex"
+            >
               <Button
                 type="button"
                 size="pill"
