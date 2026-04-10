@@ -5,7 +5,7 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "SportsOrganization",
     name: "台灣籃球職業聯賽賽程",
-    url: "https://twprobasketball.vercel.app",
+    url: "https://taiwanprobasketball.vercel.app",
     description:
       "提供台灣籃球職業聯賽賽程整理，包含 TPBL、PLG 與 BCL Asia-East 賽程、比賽時間、場館與直播資訊。",
     sport: "Basketball",

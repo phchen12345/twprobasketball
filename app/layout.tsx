@@ -6,7 +6,7 @@ const siteDescription =
   "提供台灣籃球職業聯賽賽程整理，包含 TPBL、PLG 與 BCL Asia-East 賽程、比賽時間、場館與直播資訊。";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://twprobasketball.vercel.app"),
+  metadataBase: new URL("https://taiwanprobasketball.vercel.app"),
   title: {
     default: `${siteName}｜TPBL、PLG、BCL 賽程整理`,
     template: `%s｜${siteName}`,
