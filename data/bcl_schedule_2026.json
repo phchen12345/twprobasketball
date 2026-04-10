@@ -35,7 +35,9 @@
       "matchup": "香港 南華籃球隊 vs 桃園璞園領航猿",
       "live_url": "https://www.youtube.com/watch?v=2dzm46Ufqhk",
       "away_team": "桃園璞園領航猿",
-      "home_team": "香港 南華籃球隊"
+      "home_team": "香港 南華籃球隊",
+      "away_score": 79,
+      "home_score": 76
     },
     {
       "game_id": "BCLAE-04",
