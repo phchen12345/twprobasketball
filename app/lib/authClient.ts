@@ -158,35 +158,25 @@ export async function fetchFavoriteTeams(accessToken: string) {
   return data.favoriteTeams;
 }
 
-export async function fetchReadNotificationKeys(accessToken: string) {
-  const data = await requestJson<{
-    readNotifications: Array<{ key: string; readAt: string }>;
-  }>("/api/notifications/reads", {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
+export async function fetchLastReadAt(accessToken: string) {
+  const data = await requestJson<{ lastReadAt: string | null }>(
+    "/api/notifications/last-read",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     },
-  });
+  );
 
-  return data.readNotifications.map((notification) => notification.key);
+  return data.lastReadAt;
 }
 
-export async function markNotificationsRead(
-  accessToken: string,
-  keys: string[],
-) {
-  const csrfToken = readCsrfToken();
-
-  if (!API_BASE_URL) {
-    throw new Error("Backend API base URL is not configured");
-  }
-
-  const response = await fetch(`${API_BASE_URL}/api/notifications/reads`, {
+export async function markAllNotificationsRead(accessToken: string) {
+  const response = await fetch(`${API_BASE_URL}/api/notifications/read-all`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
     },
-    body: JSON.stringify({ keys }),
   });
 
   if (!response.ok) {

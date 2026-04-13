@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   fetchFavoriteTeams,
-  fetchReadNotificationKeys,
-  markNotificationsRead,
+  fetchLastReadAt,
+  markAllNotificationsRead,
 } from "@/app/lib/authClient";
 import {
   getFavoriteTeamGamesByDate,
@@ -15,17 +15,13 @@ import { useAuth } from "../auth/AuthProvider";
 
 export type TeamNotificationsStatus = "idle" | "loading" | "success" | "error";
 
-function getNotificationKey(game: TeamNotificationGame) {
-  return `${game.date}:${game.league}:${game.gameId}`;
-}
-
 export function useTeamNotifications() {
   const { accessToken, user } = useAuth();
+
   const [status, setStatus] = useState<TeamNotificationsStatus>("idle");
   const [games, setGames] = useState<TeamNotificationGame[]>([]);
-  const [readNotificationKeys, setReadNotificationKeys] = useState<Set<string>>(
-    () => new Set(),
-  );
+  const [lastReadAt, setLastReadAt] = useState<string | null>(null);
+
   const tomorrowDateKey = useMemo(() => getTomorrowDateKey(), []);
 
   useEffect(() => {
@@ -35,17 +31,18 @@ export function useTeamNotifications() {
       if (!accessToken || !user) {
         setStatus("idle");
         setGames([]);
-        setReadNotificationKeys(new Set());
+        setLastReadAt(null);
         return;
       }
 
       setStatus("loading");
 
       try {
-        const [favoriteTeams, readKeys] = await Promise.all([
+        const [favoriteTeams, lastRead] = await Promise.all([
           fetchFavoriteTeams(accessToken),
-          fetchReadNotificationKeys(accessToken),
+          fetchLastReadAt(accessToken),
         ]);
+
         const tomorrowGames = getFavoriteTeamGamesByDate(
           favoriteTeams,
           tomorrowDateKey,
@@ -53,15 +50,7 @@ export function useTeamNotifications() {
 
         if (!cancelled) {
           setGames(tomorrowGames);
-          setReadNotificationKeys((current) => {
-            const next = new Set(current);
-
-            readKeys.forEach((key) => {
-              next.add(key);
-            });
-
-            return next;
-          });
+          setLastReadAt(lastRead);
           setStatus("success");
         }
       } catch {
@@ -79,44 +68,17 @@ export function useTeamNotifications() {
     };
   }, [accessToken, tomorrowDateKey, user]);
 
-  const unreadCount = games.filter(
-    (game) => !readNotificationKeys.has(getNotificationKey(game)),
-  ).length;
+  const unreadCount = games.filter((game) => {
+    if (!lastReadAt) return true;
+    return new Date(game.date) > new Date(lastReadAt);
+  }).length;
 
-  function markCurrentNotificationsRead() {
-    if (!accessToken || games.length === 0) {
-      return;
-    }
+  async function markCurrentNotificationsRead() {
+    if (!accessToken) return;
 
-    const unreadKeys = games
-      .map(getNotificationKey)
-      .filter((key) => !readNotificationKeys.has(key));
+    await markAllNotificationsRead(accessToken);
 
-    if (unreadKeys.length === 0) {
-      return;
-    }
-
-    setReadNotificationKeys((currentKeys) => {
-      const nextKeys = new Set(currentKeys);
-
-      unreadKeys.forEach((key) => {
-        nextKeys.add(key);
-      });
-
-      return nextKeys;
-    });
-
-    void markNotificationsRead(accessToken, unreadKeys).catch(() => {
-      setReadNotificationKeys((currentKeys) => {
-        const nextKeys = new Set(currentKeys);
-
-        unreadKeys.forEach((key) => {
-          nextKeys.delete(key);
-        });
-
-        return nextKeys;
-      });
-    });
+    setLastReadAt(new Date().toISOString());
   }
 
   return {

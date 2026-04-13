@@ -46,12 +46,11 @@ export function TeamNotificationsMenu({
     };
   }, []);
 
-  // ⭐⭐ 核心修正：等 isOpen 更新後才標記已讀 ⭐⭐
   useEffect(() => {
     if (isOpen) {
       markCurrentNotificationsRead();
     }
-  }, [isOpen, markCurrentNotificationsRead]);
+  }, [isOpen]);
 
   if (!isAuthenticated) {
     return null;
