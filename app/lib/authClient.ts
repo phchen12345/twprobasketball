@@ -172,10 +172,13 @@ export async function fetchLastReadAt(accessToken: string) {
 }
 
 export async function markAllNotificationsRead(accessToken: string) {
+  const csrfToken = readCsrfToken();
+
   const response = await fetch(`${API_BASE_URL}/api/notifications/read-all`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
+      ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
     },
   });
 
