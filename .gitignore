@@ -5,3 +5,4 @@ npm-debug.log*
 .env
 .env.*
 !.env.example
+client_secret_*.json

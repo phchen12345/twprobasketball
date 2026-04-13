@@ -2,6 +2,7 @@
 
 import NextImage from "next/image";
 import { Button } from "@/components/ui/button";
+import { AuthMenu } from "../auth/AuthMenu";
 import { ActiveNav } from "../schedule/scheduleTypes";
 
 type Props = {
@@ -73,6 +74,8 @@ export default function ScrollHeader({ isPastAnimation, activeNav }: Props) {
               </a>
             ))}
           </nav>
+
+          <AuthMenu />
         </div>
       </div>
     </header>
