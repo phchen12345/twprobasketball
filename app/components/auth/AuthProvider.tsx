@@ -10,45 +10,48 @@ import {
 } from "react";
 import {
   AuthUser,
-  clearAccessToken,
-  fetchCurrentUser,
-  getStoredAccessToken,
   loginWithGoogleIdToken,
-  storeAccessToken,
+  logoutAuthSession,
+  readCsrfToken,
+  refreshAuthSession,
 } from "@/app/lib/authClient";
 
 type AuthContextValue = {
   user: AuthUser | null;
   isLoading: boolean;
+  accessToken: string | null;
   loginWithGoogle: (idToken: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
 
     async function loadUser() {
-      const token = getStoredAccessToken();
+      const csrfToken = readCsrfToken();
 
-      if (!token) {
+      if (!csrfToken) {
         setIsLoading(false);
         return;
       }
 
       try {
-        const currentUser = await fetchCurrentUser(token);
+        const refreshed = await refreshAuthSession(csrfToken);
 
         if (!cancelled) {
-          setUser(currentUser);
+          setAccessToken(refreshed.accessToken);
+          setUser(refreshed.user);
         }
       } catch {
-        clearAccessToken();
+        setAccessToken(null);
+        setUser(null);
       } finally {
         if (!cancelled) {
           setIsLoading(false);
@@ -66,12 +69,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const loginWithGoogle = useCallback(async (idToken: string) => {
     const result = await loginWithGoogleIdToken(idToken);
 
-    storeAccessToken(result.accessToken);
+    setAccessToken(result.accessToken);
     setUser(result.user);
   }, []);
 
-  const logout = useCallback(() => {
-    clearAccessToken();
+  const logout = useCallback(async () => {
+    const csrfToken = readCsrfToken();
+
+    if (csrfToken) {
+      await logoutAuthSession(csrfToken).catch(() => undefined);
+    }
+
+    setAccessToken(null);
     setUser(null);
   }, []);
 
@@ -79,10 +88,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     () => ({
       user,
       isLoading,
+      accessToken,
       loginWithGoogle,
       logout,
     }),
-    [isLoading, loginWithGoogle, logout, user],
+    [accessToken, isLoading, loginWithGoogle, logout, user],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,7 +1,5 @@
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL?.replace(/\/$/, "") ||
-  process.env.NEXT_PUBLIC_VISITOR_API_BASE_URL?.replace(/\/$/, "") ||
-  "";
+  process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL?.replace(/\/$/, "") || "";
 
 export type AuthUser = {
   id: string;
@@ -13,23 +11,20 @@ export type AuthUser = {
 
 export type GoogleLoginResponse = {
   accessToken: string;
+  csrfToken: string;
   user: AuthUser;
 };
 
-export function getStoredAccessToken() {
+export function readCsrfToken() {
   if (typeof window === "undefined") {
     return null;
   }
 
-  return window.localStorage.getItem("basketball_access_token");
-}
+  const cookie = document.cookie
+    .split("; ")
+    .find((part) => part.startsWith("basketball_csrf_token="));
 
-export function storeAccessToken(token: string) {
-  window.localStorage.setItem("basketball_access_token", token);
-}
-
-export function clearAccessToken() {
-  window.localStorage.removeItem("basketball_access_token");
+  return cookie ? decodeURIComponent(cookie.split("=")[1]) : null;
 }
 
 async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
@@ -39,6 +34,7 @@ async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
 
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       ...init?.headers,
@@ -67,4 +63,32 @@ export async function fetchCurrentUser(accessToken: string) {
   });
 
   return data.user;
+}
+
+export async function refreshAuthSession(csrfToken: string) {
+  return requestJson<GoogleLoginResponse>("/api/auth/refresh", {
+    method: "POST",
+    headers: {
+      "X-CSRF-Token": csrfToken,
+    },
+  });
+}
+
+export async function logoutAuthSession(csrfToken: string) {
+  if (!API_BASE_URL) {
+    throw new Error("Backend API base URL is not configured");
+  }
+
+  const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrfToken,
+    },
+  });
+
+  if (!response.ok && response.status !== 401 && response.status !== 403) {
+    throw new Error(`Request failed with ${response.status}`);
+  }
 }
