@@ -9,7 +9,9 @@ type TeamNotificationsMenuProps = {
   isCompact?: boolean;
 };
 
-export function TeamNotificationsMenu({ isCompact = false }: TeamNotificationsMenuProps) {
+export function TeamNotificationsMenu({
+  isCompact = false,
+}: TeamNotificationsMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const {
@@ -47,16 +49,14 @@ export function TeamNotificationsMenu({ isCompact = false }: TeamNotificationsMe
   }
 
   function handleToggleMenu() {
-    setIsOpen((current) => {
-      const nextIsOpen = !current;
-
-      if (nextIsOpen) {
-        markCurrentNotificationsRead();
-      }
-
-      return nextIsOpen;
-    });
+    setIsOpen((current) => !current);
   }
+
+  useEffect(() => {
+    if (isOpen) {
+      markCurrentNotificationsRead();
+    }
+  }, [isOpen]);
 
   return (
     <div ref={menuRef} className="relative shrink-0">
@@ -67,7 +67,11 @@ export function TeamNotificationsMenu({ isCompact = false }: TeamNotificationsMe
       />
 
       {isOpen ? (
-        <NotificationDropdown games={games} isCompact={isCompact} status={status} />
+        <NotificationDropdown
+          games={games}
+          isCompact={isCompact}
+          status={status}
+        />
       ) : null}
     </div>
   );
