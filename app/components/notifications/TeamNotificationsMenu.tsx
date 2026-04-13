@@ -49,14 +49,16 @@ export function TeamNotificationsMenu({
   }
 
   function handleToggleMenu() {
-    setIsOpen((current) => !current);
-  }
+    setIsOpen((current) => {
+      const nextIsOpen = !current;
 
-  useEffect(() => {
-    if (isOpen) {
-      markCurrentNotificationsRead();
-    }
-  }, [isOpen]);
+      if (nextIsOpen) {
+        markCurrentNotificationsRead();
+      }
+
+      return nextIsOpen;
+    });
+  }
 
   return (
     <div ref={menuRef} className="relative shrink-0">
