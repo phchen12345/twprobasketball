@@ -46,11 +46,22 @@ export function useTeamNotifications() {
           fetchFavoriteTeams(accessToken),
           fetchReadNotificationKeys(accessToken),
         ]);
-        const tomorrowGames = getFavoriteTeamGamesByDate(favoriteTeams, tomorrowDateKey);
+        const tomorrowGames = getFavoriteTeamGamesByDate(
+          favoriteTeams,
+          tomorrowDateKey,
+        );
 
         if (!cancelled) {
           setGames(tomorrowGames);
-          setReadNotificationKeys(new Set(readKeys));
+          setReadNotificationKeys((current) => {
+            const next = new Set(current);
+
+            readKeys.forEach((key) => {
+              next.add(key);
+            });
+
+            return next;
+          });
           setStatus("success");
         }
       } catch {
