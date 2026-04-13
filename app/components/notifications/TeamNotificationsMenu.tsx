@@ -14,6 +14,7 @@ export function TeamNotificationsMenu({
 }: TeamNotificationsMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
+
   const {
     games,
     isAuthenticated,
@@ -22,6 +23,7 @@ export function TeamNotificationsMenu({
     unreadCount,
   } = useTeamNotifications();
 
+  // 點外面關閉 + ESC 關閉
   useEffect(() => {
     function handlePointerDown(event: PointerEvent) {
       if (!menuRef.current?.contains(event.target as Node)) {
@@ -44,20 +46,19 @@ export function TeamNotificationsMenu({
     };
   }, []);
 
+  // ⭐⭐ 核心修正：等 isOpen 更新後才標記已讀 ⭐⭐
+  useEffect(() => {
+    if (isOpen) {
+      markCurrentNotificationsRead();
+    }
+  }, [isOpen, markCurrentNotificationsRead]);
+
   if (!isAuthenticated) {
     return null;
   }
 
   function handleToggleMenu() {
-    setIsOpen((current) => {
-      const nextIsOpen = !current;
-
-      if (nextIsOpen) {
-        markCurrentNotificationsRead();
-      }
-
-      return nextIsOpen;
-    });
+    setIsOpen((current) => !current);
   }
 
   return (
