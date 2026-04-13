@@ -13,6 +13,40 @@ import { useAuth } from "../auth/AuthProvider";
 
 type Status = "idle" | "loading" | "success" | "error";
 
+const READ_NOTIFICATIONS_STORAGE_KEY = "basketball-read-team-notifications";
+
+function getNotificationKey(game: TeamNotificationGame) {
+  return `${game.date}:${game.league}:${game.gameId}`;
+}
+
+function readStoredNotificationKeys() {
+  if (typeof window === "undefined") {
+    return new Set<string>();
+  }
+
+  try {
+    const storedKeys = window.localStorage.getItem(READ_NOTIFICATIONS_STORAGE_KEY);
+
+    if (!storedKeys) {
+      return new Set<string>();
+    }
+
+    const parsedKeys = JSON.parse(storedKeys);
+
+    if (!Array.isArray(parsedKeys)) {
+      return new Set<string>();
+    }
+
+    return new Set(parsedKeys.filter((key): key is string => typeof key === "string"));
+  } catch {
+    return new Set<string>();
+  }
+}
+
+function storeReadNotificationKeys(keys: Set<string>) {
+  window.localStorage.setItem(READ_NOTIFICATIONS_STORAGE_KEY, JSON.stringify([...keys]));
+}
+
 function BellIcon() {
   return (
     <svg
@@ -74,8 +108,15 @@ export function TeamNotificationsMenu({ isCompact = false }: TeamNotificationsMe
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [games, setGames] = useState<TeamNotificationGame[]>([]);
+  const [readNotificationKeys, setReadNotificationKeys] = useState<Set<string>>(
+    () => new Set(),
+  );
   const menuRef = useRef<HTMLDivElement | null>(null);
   const tomorrowDateKey = useMemo(() => getTomorrowDateKey(), []);
+
+  useEffect(() => {
+    setReadNotificationKeys(readStoredNotificationKeys());
+  }, []);
 
   useEffect(() => {
     function handlePointerDown(event: PointerEvent) {
@@ -138,7 +179,31 @@ export function TeamNotificationsMenu({ isCompact = false }: TeamNotificationsMe
     return null;
   }
 
-  const unreadCount = games.length;
+  const unreadCount = games.filter(
+    (game) => !readNotificationKeys.has(getNotificationKey(game)),
+  ).length;
+
+  function handleToggleMenu() {
+    setIsOpen((current) => {
+      const nextIsOpen = !current;
+
+      if (nextIsOpen && games.length > 0) {
+        setReadNotificationKeys((currentKeys) => {
+          const nextKeys = new Set(currentKeys);
+
+          games.forEach((game) => {
+            nextKeys.add(getNotificationKey(game));
+          });
+
+          storeReadNotificationKeys(nextKeys);
+
+          return nextKeys;
+        });
+      }
+
+      return nextIsOpen;
+    });
+  }
 
   return (
     <div ref={menuRef} className="relative shrink-0">
@@ -149,7 +214,7 @@ export function TeamNotificationsMenu({ isCompact = false }: TeamNotificationsMe
         aria-label={`通知，${unreadCount} 則明日賽程`}
         aria-expanded={isOpen}
         aria-haspopup="menu"
-        onClick={() => setIsOpen((current) => !current)}
+        onClick={handleToggleMenu}
       >
         <BellIcon />
         {unreadCount > 0 ? (
