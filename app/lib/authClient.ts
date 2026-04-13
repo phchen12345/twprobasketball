@@ -153,17 +153,13 @@ export async function addFavoriteTeam(
 ) {
   const csrfToken = readCsrfToken();
 
-  if (!csrfToken) {
-    throw new Error("Missing CSRF token");
-  }
-
   const data = await requestJson<{ favoriteTeam: FavoriteTeam }>(
     "/api/me/favorite-teams",
     {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "X-CSRF-Token": csrfToken,
+        ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
       },
       body: JSON.stringify(team),
     },
@@ -175,10 +171,6 @@ export async function addFavoriteTeam(
 export async function removeFavoriteTeam(accessToken: string, favoriteTeamId: string) {
   const csrfToken = readCsrfToken();
 
-  if (!csrfToken) {
-    throw new Error("Missing CSRF token");
-  }
-
   if (!API_BASE_URL) {
     throw new Error("Backend API base URL is not configured");
   }
@@ -188,7 +180,7 @@ export async function removeFavoriteTeam(accessToken: string, favoriteTeamId: st
     credentials: "include",
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      "X-CSRF-Token": csrfToken,
+      ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
     },
   });
 
