@@ -10,10 +10,12 @@ import {
 } from "react";
 import {
   AuthUser,
+  clearCsrfToken,
   loginWithGoogleIdToken,
   logoutAuthSession,
   readCsrfToken,
   refreshAuthSession,
+  storeCsrfToken,
 } from "@/app/lib/authClient";
 
 type AuthContextValue = {
@@ -46,10 +48,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const refreshed = await refreshAuthSession(csrfToken);
 
         if (!cancelled) {
+          storeCsrfToken(refreshed.csrfToken);
           setAccessToken(refreshed.accessToken);
           setUser(refreshed.user);
         }
       } catch {
+        clearCsrfToken();
         setAccessToken(null);
         setUser(null);
       } finally {
@@ -69,6 +73,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const loginWithGoogle = useCallback(async (idToken: string) => {
     const result = await loginWithGoogleIdToken(idToken);
 
+    storeCsrfToken(result.csrfToken);
     setAccessToken(result.accessToken);
     setUser(result.user);
   }, []);
@@ -80,6 +85,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await logoutAuthSession(csrfToken).catch(() => undefined);
     }
 
+    clearCsrfToken();
     setAccessToken(null);
     setUser(null);
   }, []);
