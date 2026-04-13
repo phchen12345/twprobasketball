@@ -2,6 +2,7 @@ import plgScheduleData from "../../data/plg_schedule_2025_26.json";
 import tpblScheduleData from "../../data/tpbl_schedule_2025_26_openers.json";
 import { FALLBACK_LOGO, TPBL_TEAM_LOGOS } from "../constants/tpbl";
 import { normalizePlgTeamName } from "./plgTeams";
+import { createFallbackTeamId, resolveTeamId } from "./teamIdentity";
 
 type RawTeam = {
   name: string;
@@ -15,12 +16,8 @@ export type SelectableTeam = {
   teamLogo: string | null;
 };
 
-function createTeamId(teamName: string) {
-  return teamName
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^\p{L}\p{N}-]/gu, "");
+export function createTeamId(teamName: string) {
+  return createFallbackTeamId(teamName);
 }
 
 function normalizeTeamName(league: string, teamName: string) {
@@ -33,7 +30,7 @@ function addTeam(
   team: RawTeam,
 ) {
   const teamName = normalizeTeamName(league, team.name.trim());
-  const teamId = createTeamId(teamName);
+  const teamId = resolveTeamId(teamName);
   const key = `${league}:${teamId}`;
 
   if (!teams.has(key)) {

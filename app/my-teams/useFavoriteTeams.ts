@@ -8,6 +8,7 @@ import {
   removeFavoriteTeam,
 } from "../lib/authClient";
 import { SelectableTeam } from "../lib/teams";
+import { getCanonicalFavoriteTeamId } from "../lib/teamIdentity";
 
 type FavoriteTeamsStatus = "idle" | "loading" | "success" | "error";
 
@@ -17,7 +18,11 @@ type FavoriteTeamsError = {
 };
 
 function getTeamKey(team: Pick<SelectableTeam, "league" | "teamId">) {
-  return `${team.league}:${team.teamId}`;
+  return team.teamId;
+}
+
+function getFavoriteTeamKey(team: FavoriteTeam) {
+  return getCanonicalFavoriteTeamId(team);
 }
 
 function createOptimisticFavorite(team: SelectableTeam): FavoriteTeam {
@@ -84,7 +89,7 @@ export function useFavoriteTeams({
 
   const favoriteByKey = useMemo(() => {
     return new Map(
-      favoriteTeams.map((team) => [`${team.league}:${team.teamId}`, team]),
+      favoriteTeams.map((team) => [getFavoriteTeamKey(team), team]),
     );
   }, [favoriteTeams]);
 

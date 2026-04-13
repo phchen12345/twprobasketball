@@ -3,6 +3,7 @@
 import NextImage from "next/image";
 import { Button } from "@/components/ui/button";
 import { AuthMenu } from "../auth/AuthMenu";
+import { TeamNotificationsMenu } from "../notifications/TeamNotificationsMenu";
 import { ActiveNav } from "../schedule/scheduleTypes";
 
 type Props = {
@@ -79,7 +80,10 @@ export default function ScrollHeader({ isPastAnimation, activeNav }: Props) {
             ))}
           </nav>
 
-          <AuthMenu />
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+            <TeamNotificationsMenu isCompact={isPastAnimation} />
+            <AuthMenu />
+          </div>
         </div>
       </div>
     </header>
