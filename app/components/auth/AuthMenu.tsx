@@ -35,7 +35,11 @@ export function AuthMenu() {
 
   if (isLoading) {
     return (
-      <Button variant="pill" size="pill" className="h-9 px-3 text-[11px]">
+      <Button
+        variant="pill"
+        size="pill"
+        className="h-8 px-2 text-[10px] sm:h-9 sm:px-3 sm:text-[11px]"
+      >
         載入中
       </Button>
     );
@@ -46,11 +50,12 @@ export function AuthMenu() {
   }
 
   return (
-    <div ref={menuRef} className="relative">
+    <div ref={menuRef} className="relative shrink-0">
       <Button
         variant="pill"
         size="pill"
-        className="h-9 gap-2 px-3 text-[11px] uppercase tracking-[0.14em]"
+        className="h-8 gap-2 px-2 sm:h-9 sm:px-3"
+        aria-label={user.name || user.email}
         aria-expanded={isOpen}
         aria-haspopup="menu"
         onClick={() => setIsOpen((current) => !current)}
@@ -63,8 +68,14 @@ export function AuthMenu() {
             height={24}
             className="size-6 rounded-full"
           />
-        ) : null}
-        <span className="max-w-[104px] truncate">{user.name || user.email}</span>
+        ) : (
+          <span className="text-[10px] font-semibold uppercase">
+            {(user.name || user.email).slice(0, 1)}
+          </span>
+        )}
+        <span className="hidden max-w-[104px] truncate text-[11px] uppercase tracking-[0.14em] lg:inline">
+          {user.name || user.email}
+        </span>
       </Button>
 
       {isOpen ? (
@@ -72,7 +83,9 @@ export function AuthMenu() {
           role="menu"
           className="absolute right-0 mt-2 w-44 rounded-lg border border-white/15 bg-[#0f1117]/95 p-1.5 text-white shadow-[0_18px_48px_rgba(0,0,0,0.3)] backdrop-blur-xl"
         >
-          <div className="px-2 py-1.5 text-xs text-white/65">{user.email}</div>
+          <div className="truncate px-2 py-1.5 text-xs text-white/65">
+            {user.email}
+          </div>
           <Button
             variant="ghost"
             size="sm"
