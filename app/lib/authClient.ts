@@ -136,14 +136,14 @@ export async function logoutAuthSession(csrfToken: string) {
 }
 
 export async function verifyAdminAccess(accessToken: string) {
-  return requestJson<{ ok: true; user: { id: string; email: string; role: string } }>(
-    "/api/admin/me",
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+  return requestJson<{
+    ok: true;
+    user: { id: string; email: string; role: string };
+  }>("/api/admin/me", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
     },
-  );
+  });
 }
 
 export async function fetchFavoriteTeams(accessToken: string) {
@@ -171,7 +171,10 @@ export async function fetchReadNotificationKeys(accessToken: string) {
   return data.readNotifications.map((notification) => notification.key);
 }
 
-export async function markNotificationsRead(accessToken: string, keys: string[]) {
+export async function markNotificationsRead(
+  accessToken: string,
+  keys: string[],
+) {
   const csrfToken = readCsrfToken();
 
   if (!API_BASE_URL) {
@@ -180,11 +183,9 @@ export async function markNotificationsRead(accessToken: string, keys: string[])
 
   const response = await fetch(`${API_BASE_URL}/api/notifications/reads`, {
     method: "POST",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
-      ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
     },
     body: JSON.stringify({ keys }),
   });
@@ -220,21 +221,27 @@ export async function addFavoriteTeam(
   return data.favoriteTeam;
 }
 
-export async function removeFavoriteTeam(accessToken: string, favoriteTeamId: string) {
+export async function removeFavoriteTeam(
+  accessToken: string,
+  favoriteTeamId: string,
+) {
   const csrfToken = readCsrfToken();
 
   if (!API_BASE_URL) {
     throw new Error("Backend API base URL is not configured");
   }
 
-  const response = await fetch(`${API_BASE_URL}/api/me/favorite-teams/${favoriteTeamId}`, {
-    method: "DELETE",
-    credentials: "include",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
+  const response = await fetch(
+    `${API_BASE_URL}/api/me/favorite-teams/${favoriteTeamId}`,
+    {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     throw new Error(`Request failed with ${response.status}`);
