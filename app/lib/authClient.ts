@@ -15,6 +15,15 @@ export type GoogleLoginResponse = {
   user: AuthUser;
 };
 
+export type FavoriteTeam = {
+  id: string;
+  league: string;
+  teamId: string;
+  teamName: string;
+  teamLogo: string | null;
+  createdAt: string;
+};
+
 const CSRF_STORAGE_KEY = "basketball_csrf_token";
 
 export function readCsrfToken() {
@@ -118,4 +127,72 @@ export async function verifyAdminAccess(accessToken: string) {
       },
     },
   );
+}
+
+export async function fetchFavoriteTeams(accessToken: string) {
+  const data = await requestJson<{ favoriteTeams: FavoriteTeam[] }>(
+    "/api/me/favorite-teams",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
+
+  return data.favoriteTeams;
+}
+
+export async function addFavoriteTeam(
+  accessToken: string,
+  team: {
+    league: string;
+    teamId: string;
+    teamName: string;
+    teamLogo?: string | null;
+  },
+) {
+  const csrfToken = readCsrfToken();
+
+  if (!csrfToken) {
+    throw new Error("Missing CSRF token");
+  }
+
+  const data = await requestJson<{ favoriteTeam: FavoriteTeam }>(
+    "/api/me/favorite-teams",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-CSRF-Token": csrfToken,
+      },
+      body: JSON.stringify(team),
+    },
+  );
+
+  return data.favoriteTeam;
+}
+
+export async function removeFavoriteTeam(accessToken: string, favoriteTeamId: string) {
+  const csrfToken = readCsrfToken();
+
+  if (!csrfToken) {
+    throw new Error("Missing CSRF token");
+  }
+
+  if (!API_BASE_URL) {
+    throw new Error("Backend API base URL is not configured");
+  }
+
+  const response = await fetch(`${API_BASE_URL}/api/me/favorite-teams/${favoriteTeamId}`, {
+    method: "DELETE",
+    credentials: "include",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "X-CSRF-Token": csrfToken,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Request failed with ${response.status}`);
+  }
 }

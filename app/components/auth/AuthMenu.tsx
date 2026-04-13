@@ -87,6 +87,17 @@ export function AuthMenu() {
           <div className="truncate px-2 py-1.5 text-xs text-white/65">
             {user.email}
           </div>
+          <Link href="/my-teams" className="block">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-9 w-full justify-start px-2 text-xs"
+              role="menuitem"
+              onClick={() => setIsOpen(false)}
+            >
+              我的球隊
+            </Button>
+          </Link>
           {user.role === "admin" ? (
             <Link href="/admin" className="block">
               <Button
