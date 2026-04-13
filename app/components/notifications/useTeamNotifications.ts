@@ -68,10 +68,7 @@ export function useTeamNotifications() {
     };
   }, [accessToken, tomorrowDateKey, user]);
 
-  const unreadCount = games.filter((game) => {
-    if (!lastReadAt) return true;
-    return new Date(game.date) > new Date(lastReadAt);
-  }).length;
+  const unreadCount = lastReadAt ? 0 : games.length;
 
   async function markCurrentNotificationsRead() {
     if (!accessToken) return;
