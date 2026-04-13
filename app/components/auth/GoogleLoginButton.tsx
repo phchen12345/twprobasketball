@@ -1,23 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "./AuthProvider";
+
+type TokenClient = {
+  requestAccessToken: () => void;
+};
 
 declare global {
   interface Window {
     google?: {
       accounts: {
-        id: {
-          initialize: (options: {
+        oauth2: {
+          initTokenClient: (options: {
             client_id: string;
-            callback: (response: { credential?: string }) => void;
-          }) => void;
-          prompt: (callback?: (notification: {
-            isDisplayed: () => boolean;
-            isNotDisplayed: () => boolean;
-            isSkippedMoment: () => boolean;
-          }) => void) => void;
+            scope: string;
+            callback: (response: { access_token?: string; error?: string }) => void;
+          }) => TokenClient;
         };
       };
     };
@@ -28,6 +28,7 @@ const GOOGLE_SCRIPT_SRC = "https://accounts.google.com/gsi/client";
 
 export function GoogleLoginButton() {
   const { loginWithGoogle } = useAuth();
+  const tokenClientRef = useRef<TokenClient | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,20 +44,21 @@ export function GoogleLoginButton() {
     const googleClientId = clientId;
 
     function initializeGoogleLogin() {
-      if (!window.google) {
+      if (!window.google?.accounts.oauth2) {
         return;
       }
 
-      window.google.accounts.id.initialize({
+      tokenClientRef.current = window.google.accounts.oauth2.initTokenClient({
         client_id: googleClientId,
+        scope: "openid email profile",
         callback: (response) => {
-          if (!response.credential) {
+          if (!response.access_token || response.error) {
             setIsPending(false);
             setError("登入失敗");
             return;
           }
 
-          void loginWithGoogle(response.credential)
+          void loginWithGoogle(response.access_token)
             .catch(() => {
               setError("驗證失敗");
             })
@@ -92,20 +94,14 @@ export function GoogleLoginButton() {
   }, [loginWithGoogle]);
 
   function handleGoogleLogin() {
-    if (!window.google || !isReady) {
+    if (!tokenClientRef.current || !isReady) {
       setError("尚未就緒");
       return;
     }
 
     setError(null);
     setIsPending(true);
-
-    window.google.accounts.id.prompt((notification) => {
-      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-        setIsPending(false);
-        setError("請允許登入視窗");
-      }
-    });
+    tokenClientRef.current.requestAccessToken();
   }
 
   if (error) {

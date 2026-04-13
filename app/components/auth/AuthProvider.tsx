@@ -11,7 +11,7 @@ import {
 import {
   AuthUser,
   clearCsrfToken,
-  loginWithGoogleIdToken,
+  loginWithGoogleToken,
   logoutAuthSession,
   readCsrfToken,
   refreshAuthSession,
@@ -22,7 +22,7 @@ type AuthContextValue = {
   user: AuthUser | null;
   isLoading: boolean;
   accessToken: string | null;
-  loginWithGoogle: (idToken: string) => Promise<void>;
+  loginWithGoogle: (googleAccessToken: string) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -70,8 +70,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  const loginWithGoogle = useCallback(async (idToken: string) => {
-    const result = await loginWithGoogleIdToken(idToken);
+  const loginWithGoogle = useCallback(async (googleAccessToken: string) => {
+    const result = await loginWithGoogleToken(googleAccessToken);
 
     storeCsrfToken(result.csrfToken);
     setAccessToken(result.accessToken);

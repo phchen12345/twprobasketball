@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import NextImage from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "./AuthProvider";
 import { GoogleLoginButton } from "./GoogleLoginButton";
@@ -86,6 +87,19 @@ export function AuthMenu() {
           <div className="truncate px-2 py-1.5 text-xs text-white/65">
             {user.email}
           </div>
+          {user.role === "admin" ? (
+            <Link href="/admin" className="block">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-9 w-full justify-start px-2 text-xs"
+                role="menuitem"
+                onClick={() => setIsOpen(false)}
+              >
+                管理後台
+              </Button>
+            </Link>
+          ) : null}
           <Button
             variant="ghost"
             size="sm"

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Eye, LoaderCircle } from "lucide-react";
+import { useAuth } from "../auth/AuthProvider";
 
 const BACKEND_API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL?.replace(/\/$/, "");
 const VISITOR_API_URL = BACKEND_API_BASE_URL
@@ -19,14 +20,21 @@ type CounterResponse = {
 };
 
 export default function VisitorCounter() {
+  const { user, isLoading } = useAuth();
   const [count, setCount] = useState<number | null>(null);
   const [hasError, setHasError] = useState(false);
+  const isAdmin = user?.role === "admin";
+  const isHidden = isLoading || !isAdmin;
 
   useEffect(() => {
     let cancelled = false;
 
     async function loadVisitorCount() {
       try {
+        if (isLoading || !isAdmin) {
+          return;
+        }
+
         if (!VISITOR_API_URL || !VISITOR_READ_API_URL) {
           throw new Error("Visitor API URL is not configured");
         }
@@ -67,30 +75,35 @@ export default function VisitorCounter() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [isAdmin, isLoading]);
 
   return (
-    <div className="fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6">
+    <div
+      className={`fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6 ${
+        isHidden ? "hidden" : ""
+      }`}
+      aria-hidden={isHidden}
+    >
       <div className="min-w-[132px] rounded-xl border border-white/15 bg-[#0b0d12]/88 px-3 py-2.5 text-white shadow-[0_18px_48px_rgba(0,0,0,0.28)] backdrop-blur-xl">
         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/65">
           <Eye className="h-3.5 w-3.5" />
-          訪問人數
+          瀏覽人數
         </div>
 
         <div className="mt-2 flex items-end gap-2">
           {count === null && !hasError ? (
             <>
               <LoaderCircle className="h-4 w-4 animate-spin text-white/70" />
-              <span className="text-xs text-white/70">讀取中</span>
+              <span className="text-xs text-white/70">載入中</span>
             </>
           ) : hasError ? (
-            <span className="text-xs text-white/70">暫時無法取得</span>
+            <span className="text-xs text-white/70">無法載入</span>
           ) : (
             <>
               <span className="text-xl font-semibold leading-none text-white">
                 {count?.toLocaleString("zh-TW")}
               </span>
-              <span className="text-xs text-white/60">人次</span>
+              <span className="text-xs text-white/60">次</span>
             </>
           )}
         </div>

@@ -64,10 +64,10 @@ async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-export async function loginWithGoogleIdToken(idToken: string) {
+export async function loginWithGoogleToken(accessToken: string) {
   return requestJson<GoogleLoginResponse>("/api/auth/google", {
     method: "POST",
-    body: JSON.stringify({ idToken }),
+    body: JSON.stringify({ accessToken }),
   });
 }
 
@@ -107,4 +107,15 @@ export async function logoutAuthSession(csrfToken: string) {
   if (!response.ok && response.status !== 401 && response.status !== 403) {
     throw new Error(`Request failed with ${response.status}`);
   }
+}
+
+export async function verifyAdminAccess(accessToken: string) {
+  return requestJson<{ ok: true; user: { id: string; email: string; role: string } }>(
+    "/api/admin/me",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
 }
