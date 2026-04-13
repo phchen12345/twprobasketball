@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import { Eye, LoaderCircle } from "lucide-react";
 
-const VISITOR_API_BASE_URL = process.env.NEXT_PUBLIC_VISITOR_API_BASE_URL?.replace(/\/$/, "");
-const VISITOR_API_URL =
-  process.env.NEXT_PUBLIC_VISITOR_API_URL ||
-  (VISITOR_API_BASE_URL ? `${VISITOR_API_BASE_URL}/api/visitors/increment` : undefined);
-const VISITOR_READ_API_URL =
-  process.env.NEXT_PUBLIC_VISITOR_READ_API_URL ||
-  (VISITOR_API_BASE_URL ? `${VISITOR_API_BASE_URL}/api/visitors` : undefined);
+const BACKEND_API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL?.replace(/\/$/, "");
+const VISITOR_API_URL = BACKEND_API_BASE_URL
+  ? `${BACKEND_API_BASE_URL}/api/visitors/increment`
+  : undefined;
+const VISITOR_READ_API_URL = BACKEND_API_BASE_URL
+  ? `${BACKEND_API_BASE_URL}/api/visitors`
+  : undefined;
 const VISITOR_COOLDOWN_KEY = "twprobasketball_last_visit_at";
 const VISITOR_COOLDOWN_MS = 30 * 60 * 1000;
 
