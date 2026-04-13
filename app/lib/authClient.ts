@@ -159,6 +159,41 @@ export async function fetchFavoriteTeams(accessToken: string) {
   return data.favoriteTeams;
 }
 
+export async function fetchReadNotificationKeys(accessToken: string) {
+  const data = await requestJson<{
+    readNotifications: Array<{ key: string; readAt: string }>;
+  }>("/api/notifications/reads", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return data.readNotifications.map((notification) => notification.key);
+}
+
+export async function markNotificationsRead(accessToken: string, keys: string[]) {
+  const csrfToken = readCsrfToken();
+
+  if (!API_BASE_URL) {
+    throw new Error("Backend API base URL is not configured");
+  }
+
+  const response = await fetch(`${API_BASE_URL}/api/notifications/reads`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+      ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
+    },
+    body: JSON.stringify({ keys }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Request failed with ${response.status}`);
+  }
+}
+
 export async function addFavoriteTeam(
   accessToken: string,
   team: {

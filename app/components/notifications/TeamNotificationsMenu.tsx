@@ -3,7 +3,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import NextImage from "next/image";
 import { Button } from "@/components/ui/button";
-import { fetchFavoriteTeams } from "@/app/lib/authClient";
+import {
+  fetchFavoriteTeams,
+  fetchReadNotificationKeys,
+  markNotificationsRead,
+} from "@/app/lib/authClient";
 import {
   getFavoriteTeamGamesByDate,
   getTomorrowDateKey,
@@ -13,38 +17,8 @@ import { useAuth } from "../auth/AuthProvider";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-const READ_NOTIFICATIONS_STORAGE_KEY = "basketball-read-team-notifications";
-
 function getNotificationKey(game: TeamNotificationGame) {
   return `${game.date}:${game.league}:${game.gameId}`;
-}
-
-function readStoredNotificationKeys() {
-  if (typeof window === "undefined") {
-    return new Set<string>();
-  }
-
-  try {
-    const storedKeys = window.localStorage.getItem(READ_NOTIFICATIONS_STORAGE_KEY);
-
-    if (!storedKeys) {
-      return new Set<string>();
-    }
-
-    const parsedKeys = JSON.parse(storedKeys);
-
-    if (!Array.isArray(parsedKeys)) {
-      return new Set<string>();
-    }
-
-    return new Set(parsedKeys.filter((key): key is string => typeof key === "string"));
-  } catch {
-    return new Set<string>();
-  }
-}
-
-function storeReadNotificationKeys(keys: Set<string>) {
-  window.localStorage.setItem(READ_NOTIFICATIONS_STORAGE_KEY, JSON.stringify([...keys]));
 }
 
 function BellIcon() {
@@ -115,10 +89,6 @@ export function TeamNotificationsMenu({ isCompact = false }: TeamNotificationsMe
   const tomorrowDateKey = useMemo(() => getTomorrowDateKey(), []);
 
   useEffect(() => {
-    setReadNotificationKeys(readStoredNotificationKeys());
-  }, []);
-
-  useEffect(() => {
     function handlePointerDown(event: PointerEvent) {
       if (!menuRef.current?.contains(event.target as Node)) {
         setIsOpen(false);
@@ -147,17 +117,22 @@ export function TeamNotificationsMenu({ isCompact = false }: TeamNotificationsMe
       if (!accessToken || !user) {
         setStatus("idle");
         setGames([]);
+        setReadNotificationKeys(new Set());
         return;
       }
 
       setStatus("loading");
 
       try {
-        const favoriteTeams = await fetchFavoriteTeams(accessToken);
+        const [favoriteTeams, readKeys] = await Promise.all([
+          fetchFavoriteTeams(accessToken),
+          fetchReadNotificationKeys(accessToken),
+        ]);
         const tomorrowGames = getFavoriteTeamGamesByDate(favoriteTeams, tomorrowDateKey);
 
         if (!cancelled) {
           setGames(tomorrowGames);
+          setReadNotificationKeys(new Set(readKeys));
           setStatus("success");
         }
       } catch {
@@ -187,17 +162,35 @@ export function TeamNotificationsMenu({ isCompact = false }: TeamNotificationsMe
     setIsOpen((current) => {
       const nextIsOpen = !current;
 
-      if (nextIsOpen && games.length > 0) {
+      if (nextIsOpen && accessToken && games.length > 0) {
+        const unreadKeys = games
+          .map(getNotificationKey)
+          .filter((key) => !readNotificationKeys.has(key));
+
+        if (unreadKeys.length === 0) {
+          return nextIsOpen;
+        }
+
         setReadNotificationKeys((currentKeys) => {
           const nextKeys = new Set(currentKeys);
 
-          games.forEach((game) => {
-            nextKeys.add(getNotificationKey(game));
+          unreadKeys.forEach((key) => {
+            nextKeys.add(key);
           });
 
-          storeReadNotificationKeys(nextKeys);
-
           return nextKeys;
+        });
+
+        void markNotificationsRead(accessToken, unreadKeys).catch(() => {
+          setReadNotificationKeys((currentKeys) => {
+            const nextKeys = new Set(currentKeys);
+
+            unreadKeys.forEach((key) => {
+              nextKeys.delete(key);
+            });
+
+            return nextKeys;
+          });
         });
       }
 
