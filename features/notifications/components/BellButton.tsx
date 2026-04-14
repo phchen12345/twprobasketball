@@ -33,7 +33,7 @@ export function BellButton({ isOpen, onClick, unreadCount }: BellButtonProps) {
       variant="pill"
       size="pill"
       className="relative h-8 px-2 sm:h-9 sm:px-3"
-      aria-label={`通知，${unreadCount} 則明日賽程`}
+      aria-label={`通知，${unreadCount} 則一週內賽程`}
       aria-expanded={isOpen}
       aria-haspopup="menu"
       onClick={onClick}

@@ -1,28 +1,45 @@
 ﻿"use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchFavoriteTeams } from "@/lib/api/favorite";
 import {
   fetchLastReadAt,
   markAllNotificationsRead,
 } from "@/lib/api/notification";
 import {
-  getFavoriteTeamGamesByDate,
-  getTomorrowDateKey,
+  getFavoriteTeamGamesInNotificationWindow,
   TeamNotificationGame,
 } from "@/domain/teams/teamNotifications";
 import { useAuth } from "@/context/AuthProvider";
+import { useTpblGames } from "@/hooks/data/useTpblGames";
 
 export type TeamNotificationsStatus = "idle" | "loading" | "success" | "error";
 
+function getUnreadCount(games: TeamNotificationGame[], lastReadAt: string | null) {
+  if (!lastReadAt) {
+    return games.length;
+  }
+
+  const lastReadTime = new Date(lastReadAt).getTime();
+
+  if (Number.isNaN(lastReadTime)) {
+    return games.length;
+  }
+
+  return games.filter((game) => {
+    const visibleFromTime = new Date(game.visibleFrom).getTime();
+
+    return Number.isNaN(visibleFromTime) || visibleFromTime > lastReadTime;
+  }).length;
+}
+
 export function useTeamNotifications() {
   const { accessToken, user } = useAuth();
+  const tpblGames = useTpblGames();
 
   const [status, setStatus] = useState<TeamNotificationsStatus>("idle");
   const [games, setGames] = useState<TeamNotificationGame[]>([]);
   const [lastReadAt, setLastReadAt] = useState<string | null>(null);
-
-  const tomorrowDateKey = useMemo(() => getTomorrowDateKey(), []);
 
   useEffect(() => {
     let cancelled = false;
@@ -43,13 +60,13 @@ export function useTeamNotifications() {
           fetchLastReadAt(accessToken),
         ]);
 
-        const tomorrowGames = getFavoriteTeamGamesByDate(
-          favoriteTeams,
-          tomorrowDateKey,
-        );
+        const notificationGames =
+          getFavoriteTeamGamesInNotificationWindow(favoriteTeams, new Date(), {
+            tpblGames,
+          });
 
         if (!cancelled) {
-          setGames(tomorrowGames);
+          setGames(notificationGames);
           setLastReadAt(lastRead);
           setStatus("success");
         }
@@ -66,9 +83,9 @@ export function useTeamNotifications() {
     return () => {
       cancelled = true;
     };
-  }, [accessToken, tomorrowDateKey, user]);
+  }, [accessToken, tpblGames, user]);
 
-  const unreadCount = lastReadAt ? 0 : games.length;
+  const unreadCount = getUnreadCount(games, lastReadAt);
 
   async function markCurrentNotificationsRead() {
     if (!accessToken) return;

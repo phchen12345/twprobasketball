@@ -5,6 +5,7 @@ import type {
   BaseScheduleGame,
   BclRawGame,
   PlgRawGame,
+  TpblGame,
   TpblFallbackGame,
 } from "@/features/schedule/components/types/scheduleTypes";
 import type { FavoriteTeam } from "@/lib/types/favorite";
@@ -18,6 +19,7 @@ export type TeamNotificationGame = {
   league: string;
   date: string;
   time: string;
+  visibleFrom: string;
   venue: string;
   awayTeamName: string;
   awayTeamLogo: string;
@@ -37,11 +39,26 @@ function toDateKey(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
-export function getTomorrowDateKey(now = new Date()) {
-  const tomorrow = new Date(now);
-  tomorrow.setDate(tomorrow.getDate() + 1);
+function getScheduledAt(game: Pick<LeagueGame, "date" | "time">) {
+  return new Date(`${game.date}T${game.time}:00`);
+}
 
-  return toDateKey(tomorrow);
+function isWithinNotificationWindow(game: LeagueGame, now: Date) {
+  const scheduledAt = getScheduledAt(game);
+  const windowEnd = new Date(now);
+  windowEnd.setDate(windowEnd.getDate() + 7);
+
+  const expiresAt = new Date(scheduledAt);
+  expiresAt.setHours(expiresAt.getHours() + 2);
+
+  return scheduledAt <= windowEnd && expiresAt > now;
+}
+
+function getVisibleFrom(game: LeagueGame) {
+  const visibleFrom = getScheduledAt(game);
+  visibleFrom.setDate(visibleFrom.getDate() - 7);
+
+  return visibleFrom.toISOString();
 }
 
 function getFavoriteKeys(favoriteTeams: FavoriteTeam[]) {
@@ -58,6 +75,7 @@ function mapNotificationGame(game: LeagueGame): TeamNotificationGame {
     league: game.league,
     date: game.date,
     time: game.time,
+    visibleFrom: getVisibleFrom(game),
     venue: game.venue,
     awayTeamName: game.awayTeam.name,
     awayTeamLogo: game.awayTeam.logo,
@@ -66,9 +84,12 @@ function mapNotificationGame(game: LeagueGame): TeamNotificationGame {
   };
 }
 
-export function getFavoriteTeamGamesByDate(
+export function getFavoriteTeamGamesInNotificationWindow(
   favoriteTeams: FavoriteTeam[],
-  dateKey: string,
+  now = new Date(),
+  options: {
+    tpblGames?: TpblGame[];
+  } = {},
 ) {
   const favoriteKeys = getFavoriteKeys(favoriteTeams);
 
@@ -83,12 +104,15 @@ export function getFavoriteTeamGamesByDate(
     }),
   );
 
-  const tpblGames: LeagueGame[] = (
-    tpblScheduleData.games as TpblFallbackGame[]
-  ).map((game) => ({
-    ...mapFallbackTpblGame(game),
-    league: "TPBL",
-  }));
+  const tpblGames: LeagueGame[] = options.tpblGames
+    ? options.tpblGames.map((game) => ({
+        ...game,
+        league: "TPBL",
+      }))
+    : (tpblScheduleData.games as TpblFallbackGame[]).map((game) => ({
+        ...mapFallbackTpblGame(game),
+        league: "TPBL",
+      }));
 
   const bclGames: LeagueGame[] = (bclScheduleData.games as BclRawGame[]).map(
     (game) => ({
@@ -98,10 +122,14 @@ export function getFavoriteTeamGamesByDate(
   );
 
   return [...plgGames, ...tpblGames, ...bclGames]
-    .filter((game) => game.date === dateKey)
+    .filter((game) => isWithinNotificationWindow(game, now))
     .filter((game) =>
       getGameTeamKeys(game).some((teamKey) => favoriteKeys.has(teamKey)),
     )
-    .sort((a, b) => a.time.localeCompare(b.time))
+    .sort((a, b) => {
+      const dateCompare = a.date.localeCompare(b.date);
+
+      return dateCompare === 0 ? a.time.localeCompare(b.time) : dateCompare;
+    })
     .map(mapNotificationGame);
 }

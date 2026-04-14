@@ -9,7 +9,9 @@ function NotificationItem({ game }: { game: TeamNotificationGame }) {
     <li className="rounded-md border border-white/10 bg-white/5 px-3 py-2">
       <div className="flex items-center justify-between gap-3 text-[11px] text-white/55">
         <span>{game.league}</span>
-        <span>{game.time}</span>
+        <span>
+          {game.date} {game.time}
+        </span>
       </div>
       <div className="mt-2 flex min-w-0 items-center gap-2">
         <NextImage
@@ -32,7 +34,7 @@ function NotificationItem({ game }: { game: TeamNotificationGame }) {
           className="size-7 shrink-0 object-contain"
         />
       </div>
-      <div className="mt-1 truncate text-[11px] text-white/55">
+      <div className="mt-2 truncate text-center text-[11px] text-white/55">
         {game.venue}
       </div>
     </li>
@@ -53,7 +55,7 @@ export function NotificationDropdown({
   return (
     <div
       role="menu"
-      className={`mt-2 w-[min(22rem,calc(100vw-1rem))] rounded-lg border border-white/15 bg-[#0f1117]/95 p-3 text-white shadow-[0_18px_48px_rgba(0,0,0,0.3)] backdrop-blur-xl ${
+      className={`mt-2 max-h-[min(28rem,calc(100vh-5rem))] w-[min(22rem,calc(100vw-1rem))] overflow-y-auto rounded-lg border border-white/15 bg-[#0f1117]/95 p-3 text-white shadow-[0_18px_48px_rgba(0,0,0,0.3)] backdrop-blur-xl ${
         isCompact
           ? "fixed left-1/2 -translate-x-1/2"
           : "absolute right-0 translate-x-0"
@@ -80,7 +82,7 @@ export function NotificationDropdown({
         </ul>
       ) : (
         <div className="px-2 py-3 text-xs text-white/60">
-          明日沒有收藏球隊賽程。
+          一週內沒有收藏球隊賽程。
         </div>
       )}
     </div>
