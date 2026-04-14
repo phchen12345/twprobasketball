@@ -15,6 +15,7 @@ import { getCanonicalFavoriteTeamId, resolveTeamId } from "./teamIdentity";
 import { mapFallbackTpblGame } from "../mappers/tpblMapper";
 
 export type TeamNotificationGame = {
+  notificationKey: string;
   gameId: string;
   league: string;
   date: string;
@@ -61,6 +62,10 @@ function getVisibleFrom(game: LeagueGame) {
   return visibleFrom.toISOString();
 }
 
+function getNotificationKey(game: LeagueGame) {
+  return `${game.league}${game.gameId.replace(/[^a-zA-Z0-9]/g, "")}`;
+}
+
 function getFavoriteKeys(favoriteTeams: FavoriteTeam[]) {
   return new Set(favoriteTeams.map(getCanonicalFavoriteTeamId));
 }
@@ -71,6 +76,7 @@ function getGameTeamKeys(game: LeagueGame) {
 
 function mapNotificationGame(game: LeagueGame): TeamNotificationGame {
   return {
+    notificationKey: getNotificationKey(game),
     gameId: game.gameId,
     league: game.league,
     date: game.date,

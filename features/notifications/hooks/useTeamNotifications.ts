@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { fetchFavoriteTeams } from "@/lib/api/favorite";
 import {
-  fetchLastReadAt,
-  markAllNotificationsRead,
+  fetchNotificationReadKeys,
+  markNotificationsRead,
 } from "@/lib/api/notification";
 import {
   getFavoriteTeamGamesInNotificationWindow,
@@ -15,22 +15,10 @@ import { useTpblGames } from "@/hooks/data/useTpblGames";
 
 export type TeamNotificationsStatus = "idle" | "loading" | "success" | "error";
 
-function getUnreadCount(games: TeamNotificationGame[], lastReadAt: string | null) {
-  if (!lastReadAt) {
-    return games.length;
-  }
+function getUnreadCount(games: TeamNotificationGame[], readKeys: string[]) {
+  const readKeySet = new Set(readKeys);
 
-  const lastReadTime = new Date(lastReadAt).getTime();
-
-  if (Number.isNaN(lastReadTime)) {
-    return games.length;
-  }
-
-  return games.filter((game) => {
-    const visibleFromTime = new Date(game.visibleFrom).getTime();
-
-    return Number.isNaN(visibleFromTime) || visibleFromTime > lastReadTime;
-  }).length;
+  return games.filter((game) => !readKeySet.has(game.notificationKey)).length;
 }
 
 export function useTeamNotifications() {
@@ -39,7 +27,7 @@ export function useTeamNotifications() {
 
   const [status, setStatus] = useState<TeamNotificationsStatus>("idle");
   const [games, setGames] = useState<TeamNotificationGame[]>([]);
-  const [lastReadAt, setLastReadAt] = useState<string | null>(null);
+  const [readKeys, setReadKeys] = useState<string[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -48,16 +36,16 @@ export function useTeamNotifications() {
       if (!accessToken || !user) {
         setStatus("idle");
         setGames([]);
-        setLastReadAt(null);
+        setReadKeys([]);
         return;
       }
 
       setStatus("loading");
 
       try {
-        const [favoriteTeams, lastRead] = await Promise.all([
+        const [favoriteTeams, nextReadKeys] = await Promise.all([
           fetchFavoriteTeams(accessToken),
-          fetchLastReadAt(accessToken),
+          fetchNotificationReadKeys(accessToken),
         ]);
 
         const notificationGames =
@@ -67,7 +55,7 @@ export function useTeamNotifications() {
 
         if (!cancelled) {
           setGames(notificationGames);
-          setLastReadAt(lastRead);
+          setReadKeys(nextReadKeys);
           setStatus("success");
         }
       } catch {
@@ -85,14 +73,20 @@ export function useTeamNotifications() {
     };
   }, [accessToken, tpblGames, user]);
 
-  const unreadCount = getUnreadCount(games, lastReadAt);
+  const unreadCount = getUnreadCount(games, readKeys);
 
   async function markCurrentNotificationsRead() {
     if (!accessToken) return;
 
-    await markAllNotificationsRead(accessToken);
+    const notificationKeys = games.map((game) => game.notificationKey);
 
-    setLastReadAt(new Date().toISOString());
+    if (notificationKeys.length === 0) return;
+
+    await markNotificationsRead(accessToken, notificationKeys);
+
+    setReadKeys((current) =>
+      Array.from(new Set([...current, ...notificationKeys])),
+    );
   }
 
   return {
