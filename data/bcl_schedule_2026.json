@@ -47,7 +47,9 @@
       "matchup": "桃園璞園領航猿 vs 新北國王",
       "live_url": "https://www.youtube.com/watch?v=8KmT9ZjtkHU",
       "away_team": "新北國王",
-      "home_team": "桃園璞園領航猿"
+      "home_team": "桃園璞園領航猿",
+      "away_score": 85,
+      "home_score": 110
     },
     {
       "game_id": "BCLAE-05",
