@@ -1,4 +1,4 @@
-﻿import { FALLBACK_LOGO, TPBL_TEAM_LOGOS } from "@/constants/tpbl";
+﻿import { FALLBACK_LOGO, TPBL_TEAM_LOGOS } from "@/domain/teams/teamLogos";
 import type {
   TpblApiGame,
   TpblFallbackGame,

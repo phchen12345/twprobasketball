@@ -41,7 +41,8 @@ export function AuthMenu() {
         size="pill"
         className="h-8 px-2 text-[10px] sm:h-9 sm:px-3 sm:text-[11px]"
       >
-        頛銝?      </Button>
+        載入中
+      </Button>
     );
   }
 
@@ -94,7 +95,7 @@ export function AuthMenu() {
               role="menuitem"
               onClick={() => setIsOpen(false)}
             >
-              ????
+              我的球隊
             </Button>
           </Link>
           {user.role === "admin" ? (
@@ -106,7 +107,7 @@ export function AuthMenu() {
                 role="menuitem"
                 onClick={() => setIsOpen(false)}
               >
-                蝞∠?敺
+                管理後台
               </Button>
             </Link>
           ) : null}
@@ -120,7 +121,7 @@ export function AuthMenu() {
               void logout();
             }}
           >
-            ?餃
+            登出
           </Button>
         </div>
       ) : null}

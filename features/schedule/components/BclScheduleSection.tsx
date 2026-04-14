@@ -63,8 +63,8 @@ export default function BclScheduleSection({
       articleClassName="overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white px-4 py-5 shadow-[0_12px_36px_rgba(15,23,42,0.08)] sm:px-6 sm:py-6 lg:px-7"
       schedule={schedule}
       eyebrow="2026 Asia-East Qualifiers"
-      title="BCL 鞈賜?"
-      description="鞈?靘?嚗CL Asia-East 摰鞈賜??渡?"
+      title="BCL 賽程"
+      description="資料來源：BCL Asia-East 官方賽程整理"
       headerMetaClassName="text-sm text-white/70"
       theme={theme}
       getPresentation={(game) => {
@@ -103,7 +103,7 @@ export default function BclScheduleSection({
               variant="ivory"
               className={`pointer-events-none ${theme.paginationClassName}`}
             >
-              閫???
+              觀看直播
             </Button>
           </a>
         ) : (

@@ -43,8 +43,8 @@ export default function PlgScheduleSection({
       useCard={false}
       schedule={schedule}
       eyebrow="2025-26 Regular Season"
-      title="P. LEAGUE+ 鞈賜?"
-      description="鞈?靘?嚗. LEAGUE+ 摰鞈賜??渡?"
+      title="P. LEAGUE+ 賽程"
+      description="資料來源：P. LEAGUE+ 官方賽程整理"
       headerMetaClassName="text-sm text-white/60"
       cardClassName={cardClassName}
       theme={theme}

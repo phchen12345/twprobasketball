@@ -5,7 +5,8 @@ export function MyTeamsHeader() {
   return (
     <Link href="/">
       <Button variant="pill" size="pill">
-        ????      </Button>
+        回首頁
+      </Button>
     </Link>
   );
 }

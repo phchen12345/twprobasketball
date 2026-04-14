@@ -23,7 +23,7 @@ export function TeamNotificationsMenu({
     unreadCount,
   } = useTeamNotifications();
 
-  // 暺??ａ???+ ESC ??
+  // 點外面關閉 + ESC 關閉
   useEffect(() => {
     function handlePointerDown(event: PointerEvent) {
       if (!menuRef.current?.contains(event.target as Node)) {

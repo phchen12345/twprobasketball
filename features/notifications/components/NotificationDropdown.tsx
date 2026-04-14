@@ -60,14 +60,15 @@ export function NotificationDropdown({
       }`}
     >
       <div className="px-2 pb-2 pt-1">
-        <div className="text-xs font-semibold tracking-[0.12em]">?</div>
+        <div className="text-xs font-semibold tracking-[0.12em]">通知</div>
       </div>
 
       {status === "loading" ? (
-        <div className="px-2 py-3 text-xs text-white/60">頛?銝?..</div>
+        <div className="px-2 py-3 text-xs text-white/60">載入通知中...</div>
       ) : status === "error" ? (
         <div className="px-2 py-3 text-xs text-[#fca5a5]">
-          ?頛憭望?嚗?蝔??岫??        </div>
+          通知載入失敗，請稍後再試。
+        </div>
       ) : games.length > 0 ? (
         <ul className="space-y-2" role="list">
           {games.map((game) => (
@@ -79,7 +80,8 @@ export function NotificationDropdown({
         </ul>
       ) : (
         <div className="px-2 py-3 text-xs text-white/60">
-          ?瘝??嗉???鞈賜???        </div>
+          明日沒有收藏球隊賽程。
+        </div>
       )}
     </div>
   );

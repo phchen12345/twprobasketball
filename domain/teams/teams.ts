@@ -1,6 +1,6 @@
 ﻿import plgScheduleData from "@/data/plg_schedule_2025_26.json";
 import tpblScheduleData from "@/data/tpbl_schedule_2025_26_openers.json";
-import { FALLBACK_LOGO, TPBL_TEAM_LOGOS } from "@/constants/tpbl";
+import { FALLBACK_LOGO, TPBL_TEAM_LOGOS } from "./teamLogos";
 import { normalizePlgTeamName } from "./plgTeams";
 import { createFallbackTeamId, resolveTeamId } from "./teamIdentity";
 

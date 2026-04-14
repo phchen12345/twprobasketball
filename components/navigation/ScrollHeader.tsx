@@ -13,13 +13,13 @@ type Props = {
 
 export default function ScrollHeader({ isPastAnimation, activeNav }: Props) {
   const items = [
-    { href: "#plg-schedule", label: "PLG 鞈賜?", active: activeNav === "plg" },
+    { href: "#plg-schedule", label: "PLG 賽程", active: activeNav === "plg" },
     {
       href: "#tpbl-schedule",
-      label: "TPBL 鞈賜?",
+      label: "TPBL 賽程",
       active: activeNav === "tpbl",
     },
-    { href: "#bcl-schedule", label: "BCL 鞈賜?", active: activeNav === "bcl" },
+    { href: "#bcl-schedule", label: "BCL 賽程", active: activeNav === "bcl" },
   ];
 
   return (
