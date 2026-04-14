@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AuthProvider } from "./components/auth/AuthProvider";
+import { AuthProvider } from "@/context/AuthProvider";
 import "./globals.css";
 
 const siteName = "台灣籃球職業聯賽賽程";

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 
 const TPBL_API_URL = process.env.TPBL_API_URL;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;

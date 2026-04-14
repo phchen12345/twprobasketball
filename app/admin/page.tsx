@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "../components/auth/AuthProvider";
-import { verifyAdminAccess } from "../lib/authClient";
+import { useAuth } from "@/context/AuthProvider";
+import { verifyAdminAccess } from "@/lib/api/user";
 
 type AdminState = "loading" | "authorized";
 

@@ -1,32 +1,31 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { getSelectableTeams } from "../lib/teams";
-import { useAuth } from "../components/auth/AuthProvider";
-import { useFavoriteTeams } from "./useFavoriteTeams";
-import { MyTeamsError } from "./MyTeamsError";
-import { MyTeamsHeader } from "./MyTeamsHeader";
-import { MyTeamsIntro } from "./MyTeamsIntro";
-import { TeamGrid } from "./TeamGrid";
-import { TeamGridSkeleton } from "./TeamGridSkeleton";
+import { getSelectableTeams } from "@/domain/teams/teams";
+import { useAuth } from "@/context/AuthProvider";
+import { MyTeamsError } from "./components/MyTeamsError";
+import { MyTeamsHeader } from "./components/MyTeamsHeader";
+import { MyTeamsIntro } from "./components/MyTeamsIntro";
+import { TeamGrid } from "./components/TeamGrid";
+import { TeamGridSkeleton } from "./components/TeamGridSkeleton";
+import { useFavoriteTeams } from "./hooks/useFavoriteTeams";
 
 export default function MyTeamsPage() {
   const router = useRouter();
   const { accessToken, isLoading: isAuthLoading, user } = useAuth();
   const teams = useMemo(() => getSelectableTeams(), []);
-  const {
-    error,
-    isTeamFavorite,
-    isTeamPending,
-    status,
-    toggleFavorite,
-  } = useFavoriteTeams({
-    accessToken,
-    enabled: Boolean(accessToken && user),
-  });
+  const { error, isTeamFavorite, isTeamPending, status, toggleFavorite } =
+    useFavoriteTeams({
+      accessToken,
+      enabled: Boolean(accessToken && user),
+    });
   const shouldShowSkeleton =
-    isAuthLoading || !accessToken || !user || status === "idle" || status === "loading";
+    isAuthLoading ||
+    !accessToken ||
+    !user ||
+    status === "idle" ||
+    status === "loading";
 
   useEffect(() => {
     if (!isAuthLoading && (!accessToken || !user)) {
