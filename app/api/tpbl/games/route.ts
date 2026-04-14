@@ -5,6 +5,11 @@ const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 30;
 const UPSTREAM_TIMEOUT_MS = 8_000;
 const RESPONSE_CACHE_CONTROL = "public, s-maxage=60, stale-while-revalidate=300";
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Access-Control-Allow-Headers": "Accept, Content-Type",
+};
 
 type RateLimitEntry = {
   count: number;
@@ -55,17 +60,28 @@ function applyRateLimit(key: string) {
 function buildHeaders(remaining: number, resetAt: number) {
   return {
     "Cache-Control": RESPONSE_CACHE_CONTROL,
+    ...CORS_HEADERS,
     "X-RateLimit-Limit": String(RATE_LIMIT_MAX_REQUESTS),
     "X-RateLimit-Remaining": String(Math.max(0, remaining)),
     "X-RateLimit-Reset": String(Math.ceil(resetAt / 1000)),
   };
 }
 
+export function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: CORS_HEADERS,
+  });
+}
+
 export async function GET(request: NextRequest) {
   if (!TPBL_API_URL) {
     return NextResponse.json(
       { error: "TPBL_API_URL is not configured" },
-      { status: 500 },
+      {
+        status: 500,
+        headers: CORS_HEADERS,
+      },
     );
   }
 
