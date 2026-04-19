@@ -691,6 +691,8 @@
       "time": "17:00",
       "venue": "國立成功大學",
       "matchup": "領航猿 vs 獵鷹",
+      "away_score": 43,
+      "home_score": 43,
       "away_team": {
         "name": "領航猿",
         "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_2_1730454167.png"
