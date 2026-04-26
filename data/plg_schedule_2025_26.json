@@ -725,6 +725,8 @@
       "time": "17:00",
       "venue": "新竹市立體育館",
       "matchup": "勇士 vs 洋基工程",
+      "away_score": 44,
+      "home_score": 29,
       "away_team": {
         "name": "勇士",
         "logo": "https://d36fypkbmmogz6.cloudfront.net/upload/p_team/logo_1_1730454157.png"
