@@ -20,7 +20,7 @@ type CounterResponse = {
 };
 
 export default function VisitorCounter() {
-  const { user, isLoading } = useAuth();
+  const { accessToken, user, isLoading } = useAuth();
   const [count, setCount] = useState<number | null>(null);
   const [hasError, setHasError] = useState(false);
   const isAdmin = user?.role === "admin";
@@ -31,7 +31,7 @@ export default function VisitorCounter() {
 
     async function loadVisitorCount() {
       try {
-        if (isLoading || !isAdmin) {
+        if (isLoading || !isAdmin || !accessToken) {
           return;
         }
 
@@ -47,6 +47,9 @@ export default function VisitorCounter() {
         const response = await fetch(shouldIncrement ? VISITOR_API_URL : VISITOR_READ_API_URL, {
           method: shouldIncrement ? "POST" : "GET",
           cache: "no-store",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
 
         if (!response.ok) {
@@ -75,7 +78,7 @@ export default function VisitorCounter() {
     return () => {
       cancelled = true;
     };
-  }, [isAdmin, isLoading]);
+  }, [accessToken, isAdmin, isLoading]);
 
   return (
     <div

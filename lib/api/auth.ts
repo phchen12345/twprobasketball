@@ -4,6 +4,7 @@ import type { GoogleLoginResponse } from "../types/auth";
 export async function loginWithGoogleToken(accessToken: string) {
   return requestJson<GoogleLoginResponse>("/api/auth/google", {
     method: "POST",
+    credentials: "include",
     body: JSON.stringify({ accessToken }),
   });
 }
@@ -11,6 +12,7 @@ export async function loginWithGoogleToken(accessToken: string) {
 export async function refreshAuthSession(csrfToken: string) {
   return requestJson<GoogleLoginResponse>("/api/auth/refresh", {
     method: "POST",
+    credentials: "include",
     headers: {
       "X-CSRF-Token": csrfToken,
     },

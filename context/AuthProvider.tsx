@@ -8,7 +8,6 @@ import {
   useMemo,
   useState,
 } from "react";
-import { fetchCurrentUser } from "@/lib/api/user";
 import {
   loginWithGoogleToken,
   logoutAuthSession,
@@ -19,11 +18,6 @@ import {
   readCsrfToken,
   storeCsrfToken,
 } from "@/lib/storage/csrf";
-import {
-  clearStoredAccessToken,
-  readStoredAccessToken,
-  storeAccessToken,
-} from "@/lib/storage/token";
 import type { AuthUser } from "@/lib/types/user";
 
 type AuthContextValue = {
@@ -45,24 +39,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     let cancelled = false;
 
     async function loadUser() {
-      const storedAccessToken = readStoredAccessToken();
-
-      if (storedAccessToken) {
-        try {
-          const currentUser = await fetchCurrentUser(storedAccessToken);
-
-          if (!cancelled) {
-            setAccessToken(storedAccessToken);
-            setUser(currentUser);
-            setIsLoading(false);
-          }
-
-          return;
-        } catch {
-          clearStoredAccessToken();
-        }
-      }
-
       const csrfToken = readCsrfToken();
 
       if (!csrfToken) {
@@ -75,13 +51,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         if (!cancelled) {
           storeCsrfToken(refreshed.csrfToken);
-          storeAccessToken(refreshed.accessToken);
           setAccessToken(refreshed.accessToken);
           setUser(refreshed.user);
         }
       } catch {
         clearCsrfToken();
-        clearStoredAccessToken();
         setAccessToken(null);
         setUser(null);
       } finally {
@@ -102,7 +76,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const result = await loginWithGoogleToken(googleAccessToken);
 
     storeCsrfToken(result.csrfToken);
-    storeAccessToken(result.accessToken);
     setAccessToken(result.accessToken);
     setUser(result.user);
   }, []);
@@ -115,7 +88,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     clearCsrfToken();
-    clearStoredAccessToken();
     setAccessToken(null);
     setUser(null);
   }, []);
