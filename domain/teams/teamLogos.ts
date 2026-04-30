@@ -1,4 +1,4 @@
-export const FALLBACK_LOGO = "/favicon.ico";
+export const FALLBACK_LOGO = "/tpbl-logos/tpbl-placeholder.webp";
 
 export const TPBL_TEAM_LOGOS: Record<string, string> = {
   高雄全家海神: "/tpbl-logos/aquas.webp",

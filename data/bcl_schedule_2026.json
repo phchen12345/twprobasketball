@@ -59,7 +59,9 @@
       "matchup": "桃園璞園領航猿 vs 香港 南華籃球隊",
       "live_url": "https://www.youtube.com/watch?v=SZX88-r0c4M",
       "away_team": "香港 南華籃球隊",
-      "home_team": "桃園璞園領航猿"
+      "home_team": "桃園璞園領航猿",
+      "away_score": 80,
+      "home_score": 99
     },
     {
       "game_id": "BCLAE-06",
@@ -69,7 +71,9 @@
       "matchup": "新北國王 vs 香港 南華籃球隊",
       "live_url": "https://www.youtube.com/watch?v=FTcnrk4C-d4",
       "away_team": "香港 南華籃球隊",
-      "home_team": "新北國王"
+      "home_team": "新北國王",
+      "away_score": 99,
+      "home_score": 107
     },
     {
       "game_id": "BCLAE-07",
@@ -79,7 +83,9 @@
       "matchup": "新北國王 vs 蒙古 烏蘭巴托野馬",
       "live_url": "https://www.youtube.com/watch?v=rbrzRwdciZc",
       "away_team": "蒙古 烏蘭巴托野馬",
-      "home_team": "新北國王"
+      "home_team": "新北國王",
+      "away_score": 79,
+      "home_score": 80
     },
     {
       "game_id": "BCLAE-08",
@@ -89,7 +95,9 @@
       "matchup": "桃園璞園領航猿 vs 蒙古 烏蘭巴托野馬",
       "live_url": "https://www.youtube.com/watch?v=oCW20FgLFnk",
       "away_team": "蒙古 烏蘭巴托野馬",
-      "home_team": "桃園璞園領航猿"
+      "home_team": "桃園璞園領航猿",
+      "away_score": 78,
+      "home_score": 82
     },
     {
       "game_id": "BCLAE-09",
@@ -99,7 +107,9 @@
       "matchup": "新北國王 vs 桃園璞園領航猿",
       "live_url": "https://www.youtube.com/watch?v=JO0eLHhHGWo",
       "away_team": "桃園璞園領航猿",
-      "home_team": "新北國王"
+      "home_team": "新北國王",
+      "away_score": 98,
+      "home_score": 63
     },
     {
       "game_id": "BCLAE-10",
