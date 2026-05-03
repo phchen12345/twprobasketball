@@ -12,14 +12,15 @@ import type { BclSectionProps } from "./types/scheduleTypes";
 import ScheduleSection from "./ScheduleSection";
 
 export default function BclScheduleSection({
-  isBclSectionActive,
+  themeMode,
   bclSectionRef,
   schedule,
   todayKey,
 }: BclSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const theme = getBclScheduleTheme(isBclSectionActive);
-  const isScheduleVisible = isVisible || isBclSectionActive;
+  const isBclTheme = themeMode === "bcl";
+  const theme = getBclScheduleTheme(themeMode);
+  const isScheduleVisible = isVisible || isBclTheme;
 
   useEffect(() => {
     const node = bclSectionRef.current;
@@ -48,7 +49,7 @@ export default function BclScheduleSection({
       id="bcl-schedule"
       sectionRef={bclSectionRef}
       outerClassName={
-        isBclSectionActive
+        isBclTheme
           ? "bg-[linear-gradient(180deg,#8a742c_0%,#6a5922_45%,#4f4219_100%)]"
           : "bg-[linear-gradient(180deg,#002B48_0%,#002B48_52%,#003C64_52%,#003C64_100%)]"
       }
@@ -58,7 +59,7 @@ export default function BclScheduleSection({
           : "translate-y-24 opacity-0"
       }`}
       cardClassName={`border-white/15 p-4 sm:p-6 lg:p-10 ${
-        isBclSectionActive ? "bg-[#5e4f1f]/84" : "bg-[#0b3150]/78"
+        isBclTheme ? "bg-[#5e4f1f]/84" : "bg-[#0b3150]/78"
       }`}
       articleClassName="overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white px-4 py-5 shadow-[0_12px_36px_rgba(15,23,42,0.08)] sm:px-6 sm:py-6 lg:px-7"
       schedule={schedule}
@@ -77,7 +78,7 @@ export default function BclScheduleSection({
               <Badge
                 variant="accent"
                 className={`mt-3 border-transparent text-white shadow-[0_8px_20px_rgba(15,23,42,0.18)] ${
-                  isBclSectionActive ? "bg-[#C5A649]" : "bg-[#24508f]"
+                  isBclTheme ? "bg-[#C5A649]" : "bg-[#24508f]"
                 }`}
               >
                 Final

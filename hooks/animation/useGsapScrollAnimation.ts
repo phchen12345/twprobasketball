@@ -24,7 +24,6 @@ type Params = {
   onBackgroundRevealChange: (progress: number) => void;
   onActiveNavChange: (activeNav: ActiveNav) => void;
   onTpblSectionThemeChange: (isActive: boolean) => void;
-  onBclSectionThemeChange: (isActive: boolean) => void;
 };
 
 export function useGsapScrollAnimation({
@@ -34,7 +33,6 @@ export function useGsapScrollAnimation({
   onBackgroundRevealChange,
   onActiveNavChange,
   onTpblSectionThemeChange,
-  onBclSectionThemeChange,
 }: Params) {
   const {
     canvasRef,
@@ -48,7 +46,6 @@ export function useGsapScrollAnimation({
   const lastPastAnimation = useRef(false);
   const lastActiveNav = useRef<ActiveNav>(null);
   const lastThemeState = useRef(false);
-  const lastBclThemeState = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -87,13 +84,6 @@ export function useGsapScrollAnimation({
       if (lastThemeState.current !== value) {
         lastThemeState.current = value;
         onTpblSectionThemeChange(value);
-      }
-    };
-
-    const setBclThemeState = (value: boolean) => {
-      if (lastBclThemeState.current !== value) {
-        lastBclThemeState.current = value;
-        onBclSectionThemeChange(value);
       }
     };
 
@@ -164,16 +154,6 @@ export function useGsapScrollAnimation({
       onLeaveBack: () => setActiveNav("tpbl"),
     });
 
-    const bclThemeTrigger = ScrollTrigger.create({
-      trigger: bclSection,
-      start: BASKETBALL_ANIMATION_CONFIG.bclNavStart,
-      end: BASKETBALL_ANIMATION_CONFIG.bclNavEnd,
-      onEnter: () => setBclThemeState(true),
-      onEnterBack: () => setBclThemeState(true),
-      onLeave: () => setBclThemeState(false),
-      onLeaveBack: () => setBclThemeState(false),
-    });
-
     const resizeHandler = () => drawFrame(frameState.current.frame);
     window.addEventListener("resize", resizeHandler);
 
@@ -182,7 +162,6 @@ export function useGsapScrollAnimation({
       plgNavTrigger.kill();
       tpblNavTrigger.kill();
       bclNavTrigger.kill();
-      bclThemeTrigger.kill();
       tpblSectionThemeTrigger.kill();
       backgroundTrigger.kill();
       tween.scrollTrigger?.kill();
@@ -194,7 +173,6 @@ export function useGsapScrollAnimation({
     onBackgroundRevealChange,
     onIntroReadyChange,
     onTpblSectionThemeChange,
-    onBclSectionThemeChange,
     canvasRef,
     sectionRef,
     stageRef,

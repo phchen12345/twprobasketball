@@ -11,22 +11,21 @@ import type { TpblSectionProps } from "./types/scheduleTypes";
 import ScheduleSection from "./ScheduleSection";
 
 export default function TpblScheduleSection({
-  isTpblSectionActive,
-  isBclSectionActive,
+  themeMode,
   tpblSectionRef,
   schedule,
   todayKey,
 }: TpblSectionProps) {
-  const theme = getTpblScheduleTheme(isTpblSectionActive, isBclSectionActive);
+  const theme = getTpblScheduleTheme(themeMode);
 
   return (
     <ScheduleSection
       id="tpbl-schedule"
       sectionRef={tpblSectionRef}
       outerClassName={`transition-colors duration-200 ${
-        isBclSectionActive
+        themeMode === "bcl"
           ? "bg-[#4b421d]"
-          : isTpblSectionActive
+          : themeMode === "tpbl"
             ? "bg-[#003C64]"
             : "bg-[#8F724E]"
       }`}
@@ -56,9 +55,9 @@ export default function TpblScheduleSection({
               <Badge
                 variant="accent"
                 className={`mt-3 border-transparent text-white shadow-[0_8px_20px_rgba(15,23,42,0.18)] ${
-                  isBclSectionActive
+                  themeMode === "bcl"
                     ? "bg-[#C5A649]"
-                    : isTpblSectionActive
+                    : themeMode === "tpbl"
                       ? "bg-[#0f4c81]"
                       : "bg-[#8F724E]"
                 }`}

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import {
   getPlgPaginationTheme,
   plgScheduleTheme,
+  type ScheduleThemeMode,
 } from "@/domain/schedules/leagueScheduleThemes";
 import {
   getPlgGamePresentation,
@@ -13,28 +14,23 @@ import type { ScheduleGame, ScheduleSectionState } from "./types/scheduleTypes";
 import ScheduleSection from "./ScheduleSection";
 
 type Props = {
-  isBclSectionActive: boolean;
-  isTpblSectionActive: boolean;
+  themeMode: ScheduleThemeMode;
   schedule: ScheduleSectionState<ScheduleGame>;
   todayKey: string;
 };
 
 export default function PlgScheduleSection({
-  isBclSectionActive,
-  isTpblSectionActive,
+  themeMode,
   schedule,
   todayKey,
 }: Props) {
-  const paginationTheme = getPlgPaginationTheme(
-    isTpblSectionActive,
-    isBclSectionActive,
-  );
+  const paginationTheme = getPlgPaginationTheme(themeMode);
   const theme = {
     ...plgScheduleTheme,
     ...paginationTheme,
   };
   const cardClassName =
-    isBclSectionActive || isTpblSectionActive
+    themeMode !== "plg"
       ? "w-full shrink-0 rounded-[2rem] border border-white/15 bg-white/10 p-4 text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] sm:p-6 lg:p-10"
       : "w-full shrink-0 rounded-[2rem] border border-white/10 bg-[#050505] p-4 text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] sm:p-6 lg:p-10";
 

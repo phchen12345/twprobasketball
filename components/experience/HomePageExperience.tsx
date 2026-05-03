@@ -8,6 +8,7 @@ import PlgScheduleSection from "@/features/schedule/components/PlgScheduleSectio
 import TpblScheduleSection from "@/features/schedule/components/TpblScheduleSection";
 import ScrollHeader from "../navigation/ScrollHeader";
 import VisitorCounter from "../metrics/VisitorCounter";
+import type { ScheduleThemeMode } from "@/domain/schedules/leagueScheduleThemes";
 import { useBasketballAnimation } from "@/hooks/animation/useBasketballAnimation";
 import { useLeagueData } from "@/hooks/data/useLeagueData";
 import { useLeagueSchedules } from "@/hooks/schedule/useLeagueSchedules";
@@ -48,7 +49,16 @@ export default function HomePageExperience() {
   });
 
   const isPlgBackgroundComplete = backgroundReveal >= 0.999;
-  const isBclSectionActive = activeNav === "bcl";
+  const themeMode: ScheduleThemeMode =
+    activeNav === "bcl" ? "bcl" : isTpblSectionActive ? "tpbl" : "plg";
+  const scheduleBackground =
+    themeMode === "bcl"
+      ? "linear-gradient(180deg, #7a6627 0%, #7a6627 52%, #5c4d1d 52%, #5c4d1d 100%)"
+      : themeMode === "tpbl"
+        ? "linear-gradient(180deg, #002B48 0%, #002B48 52%, #003C64 52%, #003C64 100%)"
+        : isPlgBackgroundComplete
+          ? "#8F724E"
+          : "#e4e4e7";
 
   return (
     <div ref={sectionRef} className="relative">
@@ -62,52 +72,32 @@ export default function HomePageExperience() {
       />
 
       <div
-        className={`relative overflow-hidden transition-colors duration-500 ${
-          isBclSectionActive
-            ? "bg-[#5c4d1d]"
-            : isPlgBackgroundComplete
-              ? "bg-[#8F724E]"
-              : "bg-zinc-200"
-        }`}
+        className="relative overflow-hidden transition-colors duration-500"
+        style={{ background: scheduleBackground }}
       >
-        <div
-          className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${
-            isTpblSectionActive || isBclSectionActive
-              ? "opacity-100"
-              : "opacity-0"
-          }`}
-          style={{
-            background: isBclSectionActive
-              ? "linear-gradient(180deg, #7a6627 0%, #7a6627 52%, #5c4d1d 52%, #5c4d1d 100%)"
-              : "linear-gradient(180deg, #002B48 0%, #002B48 52%, #003C64 52%, #003C64 100%)",
-          }}
-        />
-
         <div className="relative z-10">
           <PlgSceneContainer
             contentSectionRef={contentSectionRef}
             backgroundReveal={backgroundReveal}
-            isTpblSectionActive={isTpblSectionActive}
+            themeMode={themeMode}
             isPastAnimation={isPastAnimation}
           >
             <PlgScheduleSection
-              isBclSectionActive={isBclSectionActive}
-              isTpblSectionActive={isTpblSectionActive}
+              themeMode={themeMode}
               schedule={plgSchedule}
               todayKey={todayKey}
             />
           </PlgSceneContainer>
 
           <TpblScheduleSection
-            isTpblSectionActive={isTpblSectionActive}
-            isBclSectionActive={isBclSectionActive}
+            themeMode={themeMode}
             tpblSectionRef={tpblSectionRef}
             schedule={tpblSchedule}
             todayKey={todayKey}
           />
 
           <BclScheduleSection
-            isBclSectionActive={isBclSectionActive}
+            themeMode={themeMode}
             bclSectionRef={bclSectionRef}
             schedule={bclSchedule}
             todayKey={todayKey}

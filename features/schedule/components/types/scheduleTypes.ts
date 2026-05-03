@@ -1,5 +1,7 @@
 ﻿import type { Dispatch, RefObject, SetStateAction } from "react";
 
+import type { ScheduleThemeMode } from "@/domain/schedules/leagueScheduleThemes";
+
 export type ActiveNav = "plg" | "tpbl" | "bcl" | null;
 export type ScheduleView = "completed" | "upcoming";
 
@@ -46,7 +48,7 @@ export type BclGame = BaseScheduleGame & {
 };
 
 export type BclSectionProps = {
-  isBclSectionActive: boolean;
+  themeMode: ScheduleThemeMode;
   bclSectionRef: RefObject<HTMLDivElement | null>;
   schedule: ScheduleSectionState<BclGame>;
   todayKey: string;
@@ -121,8 +123,7 @@ export type ScheduleSectionState<T> = {
 };
 
 export type TpblSectionProps = {
-  isTpblSectionActive: boolean;
-  isBclSectionActive: boolean;
+  themeMode: ScheduleThemeMode;
   tpblSectionRef: RefObject<HTMLElement | null>;
   schedule: ScheduleSectionState<TpblGame>;
   todayKey: string;
