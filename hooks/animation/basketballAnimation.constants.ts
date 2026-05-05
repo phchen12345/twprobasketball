@@ -9,8 +9,6 @@ export const BASKETBALL_ANIMATION_CONFIG = {
   backgroundRevealEnd: "top 50%",
   plgNavStart: "top 45%",
   plgNavEnd: "bottom 45%",
-  tpblThemeStart: "top 45%",
-  tpblThemeEnd: "bottom top",
   tpblNavStart: "top 45%",
   tpblNavEnd: "bottom 45%",
   bclNavStart: "top 5%",

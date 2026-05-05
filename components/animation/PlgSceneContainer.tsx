@@ -4,7 +4,7 @@ import { ReactNode, RefObject } from "react";
 import type { ScheduleThemeMode } from "@/domain/schedules/leagueScheduleThemes";
 
 type Props = {
-  contentSectionRef: RefObject<HTMLDivElement | null>;
+  plgSectionRef: RefObject<HTMLDivElement | null>;
   backgroundReveal: number;
   themeMode: ScheduleThemeMode;
   isPastAnimation: boolean;
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function PlgSceneContainer({
-  contentSectionRef,
+  plgSectionRef,
   backgroundReveal,
   themeMode,
   isPastAnimation,
@@ -24,7 +24,7 @@ export default function PlgSceneContainer({
 
   return (
     <div
-      ref={contentSectionRef}
+      ref={plgSectionRef}
       id="plg-schedule"
       className={`relative overflow-hidden ${isPlgTheme ? "bg-black" : "bg-transparent"}`}
     >

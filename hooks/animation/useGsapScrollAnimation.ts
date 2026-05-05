@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 export type BasketballAnimationRefs = {
   sectionRef: RefObject<HTMLDivElement | null>;
   stageRef: RefObject<HTMLDivElement | null>;
-  contentSectionRef: RefObject<HTMLDivElement | null>;
+  plgSectionRef: RefObject<HTMLDivElement | null>;
   tpblSectionRef: RefObject<HTMLElement | null>;
   bclSectionRef: RefObject<HTMLElement | null>;
   canvasRef: RefObject<HTMLCanvasElement | null>;
@@ -23,7 +23,6 @@ type Params = {
   onIntroReadyChange: (isPastAnimation: boolean) => void;
   onBackgroundRevealChange: (progress: number) => void;
   onActiveNavChange: (activeNav: ActiveNav) => void;
-  onTpblSectionThemeChange: (isActive: boolean) => void;
 };
 
 export function useGsapScrollAnimation({
@@ -32,26 +31,24 @@ export function useGsapScrollAnimation({
   onIntroReadyChange,
   onBackgroundRevealChange,
   onActiveNavChange,
-  onTpblSectionThemeChange,
 }: Params) {
   const {
     canvasRef,
     sectionRef,
     stageRef,
-    contentSectionRef,
+    plgSectionRef,
     tpblSectionRef,
     bclSectionRef,
   } = refs;
   const frameState = useRef({ frame: 0 });
   const lastPastAnimation = useRef(false);
   const lastActiveNav = useRef<ActiveNav>(null);
-  const lastThemeState = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const section = sectionRef.current;
     const stage = stageRef.current;
-    const contentSection = contentSectionRef.current;
+    const plgSection = plgSectionRef.current;
     const tpblSection = tpblSectionRef.current;
     const bclSection = bclSectionRef.current;
 
@@ -59,7 +56,7 @@ export function useGsapScrollAnimation({
       !canvas ||
       !section ||
       !stage ||
-      !contentSection ||
+      !plgSection ||
       !tpblSection ||
       !bclSection
     ) {
@@ -80,13 +77,6 @@ export function useGsapScrollAnimation({
       }
     };
 
-    const setThemeState = (value: boolean) => {
-      if (lastThemeState.current !== value) {
-        lastThemeState.current = value;
-        onTpblSectionThemeChange(value);
-      }
-    };
-
     const tween = gsap.to(frameState.current, {
       frame: BASKETBALL_ANIMATION_CONFIG.frameCount - 1,
       ease: "none",
@@ -104,7 +94,7 @@ export function useGsapScrollAnimation({
     });
 
     const backgroundTrigger = ScrollTrigger.create({
-      trigger: contentSection,
+      trigger: plgSection,
       start: BASKETBALL_ANIMATION_CONFIG.backgroundRevealStart,
       end: BASKETBALL_ANIMATION_CONFIG.backgroundRevealEnd,
       scrub: true,
@@ -115,23 +105,13 @@ export function useGsapScrollAnimation({
     });
 
     const plgNavTrigger = ScrollTrigger.create({
-      trigger: contentSection,
+      trigger: plgSection,
       start: BASKETBALL_ANIMATION_CONFIG.plgNavStart,
       end: BASKETBALL_ANIMATION_CONFIG.plgNavEnd,
       onEnter: () => setActiveNav("plg"),
       onEnterBack: () => setActiveNav("plg"),
       onLeave: () => setActiveNav(null),
       onLeaveBack: () => setActiveNav(null),
-    });
-
-    const tpblSectionThemeTrigger = ScrollTrigger.create({
-      trigger: tpblSection,
-      start: BASKETBALL_ANIMATION_CONFIG.tpblThemeStart,
-      end: BASKETBALL_ANIMATION_CONFIG.tpblThemeEnd,
-      onEnter: () => setThemeState(true),
-      onEnterBack: () => setThemeState(true),
-      onLeave: () => setThemeState(true),
-      onLeaveBack: () => setThemeState(false),
     });
 
     const tpblNavTrigger = ScrollTrigger.create({
@@ -162,7 +142,6 @@ export function useGsapScrollAnimation({
       plgNavTrigger.kill();
       tpblNavTrigger.kill();
       bclNavTrigger.kill();
-      tpblSectionThemeTrigger.kill();
       backgroundTrigger.kill();
       tween.scrollTrigger?.kill();
       tween.kill();
@@ -172,11 +151,10 @@ export function useGsapScrollAnimation({
     onActiveNavChange,
     onBackgroundRevealChange,
     onIntroReadyChange,
-    onTpblSectionThemeChange,
     canvasRef,
     sectionRef,
     stageRef,
-    contentSectionRef,
+    plgSectionRef,
     tpblSectionRef,
     bclSectionRef,
   ]);

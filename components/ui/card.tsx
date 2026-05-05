@@ -13,11 +13,3 @@ export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
     />
   );
 }
-
-export function CardHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("flex flex-col gap-4", className)} {...props} />;
-}
-
-export function CardContent({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("", className)} {...props} />;
-}

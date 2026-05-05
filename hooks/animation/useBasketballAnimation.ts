@@ -19,7 +19,6 @@ export function useBasketballAnimation({ refs }: Params) {
   const [isPastAnimation, setIsPastAnimation] = useState(false);
   const [backgroundReveal, setBackgroundReveal] = useState(0);
   const [activeNav, setActiveNav] = useState<ActiveNav>(null);
-  const [isTpblSectionActive, setIsTpblSectionActive] = useState(false);
 
   useGsapScrollAnimation({
     refs,
@@ -27,7 +26,6 @@ export function useBasketballAnimation({ refs }: Params) {
     onIntroReadyChange: setIsPastAnimation,
     onBackgroundRevealChange: setBackgroundReveal,
     onActiveNavChange: setActiveNav,
-    onTpblSectionThemeChange: setIsTpblSectionActive,
   });
 
   return {
@@ -35,6 +33,5 @@ export function useBasketballAnimation({ refs }: Params) {
     isPastAnimation,
     backgroundReveal,
     activeNav,
-    isTpblSectionActive,
   };
 }

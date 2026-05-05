@@ -37,7 +37,6 @@ app/components/
   animation/
     AnimationStage.tsx
     PlgSceneContainer.tsx
-    RotatingBasketball.tsx
 
   experience/
     HomePageExperience.tsx

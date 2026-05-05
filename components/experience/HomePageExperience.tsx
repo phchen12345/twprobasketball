@@ -17,7 +17,7 @@ import { useTodayKey } from "@/hooks/schedule/useTodayKey";
 export default function HomePageExperience() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
-  const contentSectionRef = useRef<HTMLDivElement | null>(null);
+  const plgSectionRef = useRef<HTMLDivElement | null>(null);
   const tpblSectionRef = useRef<HTMLElement | null>(null);
   const bclSectionRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -29,12 +29,11 @@ export default function HomePageExperience() {
     isPastAnimation,
     backgroundReveal,
     activeNav,
-    isTpblSectionActive,
   } = useBasketballAnimation({
     refs: {
       sectionRef,
       stageRef,
-      contentSectionRef,
+      plgSectionRef,
       tpblSectionRef,
       bclSectionRef,
       canvasRef,
@@ -49,8 +48,7 @@ export default function HomePageExperience() {
   });
 
   const isPlgBackgroundComplete = backgroundReveal >= 0.999;
-  const themeMode: ScheduleThemeMode =
-    activeNav === "bcl" ? "bcl" : isTpblSectionActive ? "tpbl" : "plg";
+  const themeMode: ScheduleThemeMode = activeNav ?? "plg";
   const scheduleBackground =
     themeMode === "bcl"
       ? "linear-gradient(180deg, #7a6627 0%, #7a6627 52%, #5c4d1d 52%, #5c4d1d 100%)"
@@ -77,7 +75,7 @@ export default function HomePageExperience() {
       >
         <div className="relative z-10">
           <PlgSceneContainer
-            contentSectionRef={contentSectionRef}
+            plgSectionRef={plgSectionRef}
             backgroundReveal={backgroundReveal}
             themeMode={themeMode}
             isPastAnimation={isPastAnimation}
