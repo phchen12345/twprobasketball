@@ -1,6 +1,6 @@
-import HomePageExperience from "@/components/experience/HomePageExperience";
+import HomePage from "@/components/experience/HomePage";
 
-export default function HomePage() {
+export default function Page() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -18,7 +18,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HomePageExperience />
+      <HomePage />
     </>
   );
 }

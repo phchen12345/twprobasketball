@@ -14,7 +14,7 @@ import { useLeagueData } from "@/hooks/data/useLeagueData";
 import { useLeagueSchedules } from "@/hooks/schedule/useLeagueSchedules";
 import { useTodayKey } from "@/hooks/schedule/useTodayKey";
 
-export default function HomePageExperience() {
+export default function HomePage() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const plgSectionRef = useRef<HTMLDivElement | null>(null);

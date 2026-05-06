@@ -11,7 +11,7 @@ export const BASKETBALL_ANIMATION_CONFIG = {
   plgNavEnd: "bottom 45%",
   tpblNavStart: "top 45%",
   tpblNavEnd: "bottom 45%",
-  bclNavStart: "top 5%",
+  bclNavStart: "top 45%",
   bclNavEnd: "bottom top",
 } as const;
 
