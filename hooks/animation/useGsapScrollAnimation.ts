@@ -134,11 +134,38 @@ export function useGsapScrollAnimation({
       onLeaveBack: () => setActiveNav("tpbl"),
     });
 
-    const resizeHandler = () => drawFrame(frameState.current.frame);
+    let refreshFrameId: number | null = null;
+    const scheduleScrollRefresh = () => {
+      if (refreshFrameId !== null) {
+        return;
+      }
+
+      refreshFrameId = window.requestAnimationFrame(() => {
+        refreshFrameId = null;
+        drawFrame(frameState.current.frame);
+        ScrollTrigger.refresh();
+      });
+    };
+
+    const resizeHandler = scheduleScrollRefresh;
     window.addEventListener("resize", resizeHandler);
 
+    const resizeObserver =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(scheduleScrollRefresh);
+
+    resizeObserver?.observe(plgSection);
+    resizeObserver?.observe(tpblSection);
+    resizeObserver?.observe(bclSection);
+
     return () => {
+      if (refreshFrameId !== null) {
+        window.cancelAnimationFrame(refreshFrameId);
+      }
+
       window.removeEventListener("resize", resizeHandler);
+      resizeObserver?.disconnect();
       plgNavTrigger.kill();
       tpblNavTrigger.kill();
       bclNavTrigger.kill();

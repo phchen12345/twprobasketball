@@ -26,3 +26,33 @@ test("user can browse schedule sections on the home page", async ({ page }) => {
     await expect(page.locator("article").first()).toBeVisible();
   }
 });
+
+for (const viewport of [
+  { name: "mobile", width: 390, height: 844 },
+  { name: "tablet", width: 768, height: 1024 },
+]) {
+  test(`BCL completed games keep the BCL theme at the page bottom on ${viewport.name}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({
+      width: viewport.width,
+      height: viewport.height,
+    });
+    await page.goto("/");
+
+    const bclSection = page.locator("#bcl-schedule");
+    await bclSection.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+
+    await bclSection.getByRole("button").nth(1).click();
+    await page.evaluate(() => {
+      window.scrollTo(0, document.documentElement.scrollHeight);
+    });
+
+    await expect
+      .poll(() =>
+        bclSection.evaluate((node) => getComputedStyle(node).backgroundImage),
+      )
+      .toContain("rgb(138, 116, 44)");
+  });
+}
