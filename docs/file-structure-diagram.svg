@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2300" height="1500" viewBox="0 0 2300 1500" role="img" aria-labelledby="title desc">
+  <title id="title">&#x6A94;&#x6848;&#x7D50;&#x69CB;&#x5716;</title>
+  <desc id="desc">basketball-next-site &#x7684;&#x6A94;&#x6848;&#x7D50;&#x69CB;&#x5716;&#xFF0C;&#x5C55;&#x793A;&#x8CC7;&#x6599;&#x593E;&#x8207;&#x8CAC;&#x4EFB;&#x908A;&#x754C;&#x3002;</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { fill: #0f172a; font: 700 52px Arial, sans-serif; }
+      .subtitle { fill: #475569; font: 400 24px Arial, sans-serif; }
+      .group { fill: #ffffff; stroke: #cbd5e1; stroke-width: 3; rx: 24; }
+      .group-title { fill: #0f172a; font: 700 30px Arial, sans-serif; }
+      .box { stroke: #334155; stroke-width: 3; rx: 18; }
+      .route { fill: #e0f2fe; }
+      .ui { fill: #ede9fe; }
+      .feature { fill: #f3e8ff; }
+      .hook { fill: #dcfce7; }
+      .domain { fill: #fef3c7; }
+      .lib { fill: #fee2e2; }
+      .asset { fill: #e2e8f0; }
+      .test { fill: #f1f5f9; }
+      .box-title { fill: #0f172a; font: 700 25px Arial, sans-serif; }
+      .box-text { fill: #475569; font: 400 19px Arial, sans-serif; }
+      .rule { fill: #0f172a; font: 700 21px Arial, sans-serif; }
+      .muted { fill: #64748b; font: 400 18px Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="2300" height="1500" />
+  <text class="title" x="80" y="90">&#x6A94;&#x6848;&#x7D50;&#x69CB;&#x5716;</text>
+  <text class="subtitle" x="82" y="130">basketball-next-site&#xFF1A;&#x8CC7;&#x6599;&#x593E;&#x3001;&#x8CAC;&#x4EFB;&#x908A;&#x754C;&#x8207;&#x4EE3;&#x8868;&#x6027;&#x6A94;&#x6848;</text>
+
+  <rect class="group" x="70" y="190" width="505" height="1050" />
+  <text class="group-title" x="110" y="245">&#x8DEF;&#x7531;&#x5C64;</text>
+
+  <rect class="box route" x="110" y="300" width="425" height="165" />
+  <text class="box-title" x="140" y="350">app/</text>
+  <text class="box-text" x="140" y="387">&#x53EA;&#x653E; Next.js &#x8DEF;&#x7531;&#x6A94;&#x6848;</text>
+  <text class="box-text" x="140" y="420">page.tsx, layout.tsx</text>
+
+  <rect class="box route" x="110" y="515" width="425" height="165" />
+  <text class="box-title" x="140" y="565">app/api/</text>
+  <text class="box-text" x="140" y="602">API &#x8DEF;&#x7531;&#x8655;&#x7406;&#x5668;</text>
+  <text class="box-text" x="140" y="635">tpbl/games/route.ts</text>
+
+  <rect class="box route" x="110" y="730" width="425" height="190" />
+  <text class="box-title" x="140" y="780">app/my-teams/</text>
+  <text class="box-text" x="140" y="817">&#x6211;&#x7684;&#x7403;&#x968A;&#x9801;&#x9762;</text>
+  <text class="box-text" x="140" y="850">components/, hooks/, styles/</text>
+  <text class="box-text" x="140" y="883">&#x50C5;&#x4F9B;&#x6B64;&#x8DEF;&#x7531;&#x4F7F;&#x7528;</text>
+
+  <rect class="group" x="625" y="190" width="505" height="1050" />
+  <text class="group-title" x="665" y="245">UI &#x8207;&#x529F;&#x80FD;&#x5C64;</text>
+
+  <rect class="box ui" x="665" y="300" width="425" height="165" />
+  <text class="box-title" x="695" y="350">components/</text>
+  <text class="box-text" x="695" y="387">&#x5171;&#x7528; UI &#x8207;&#x5171;&#x7528;&#x9AD4;&#x9A57;&#x5143;&#x4EF6;</text>
+  <text class="box-text" x="695" y="420">auth, navigation, animation</text>
+
+  <rect class="box feature" x="665" y="515" width="425" height="190" />
+  <text class="box-title" x="695" y="565">features/</text>
+  <text class="box-text" x="695" y="602">&#x529F;&#x80FD;&#x6A21;&#x7D44;&#x8207;&#x529F;&#x80FD; UI</text>
+  <text class="box-text" x="695" y="635">schedule/</text>
+  <text class="box-text" x="695" y="668">notifications/</text>
+
+  <rect class="box hook" x="665" y="755" width="425" height="165" />
+  <text class="box-title" x="695" y="805">hooks/</text>
+  <text class="box-text" x="695" y="842">&#x53EF;&#x91CD;&#x7528;&#x524D;&#x7AEF;&#x72C0;&#x614B;</text>
+  <text class="box-text" x="695" y="875">animation/, data/, schedule/</text>
+
+  <rect class="group" x="1180" y="190" width="505" height="1050" />
+  <text class="group-title" x="1220" y="245">&#x9818;&#x57DF;&#x8207;&#x5171;&#x7528;&#x5DE5;&#x5177;</text>
+
+  <rect class="box domain" x="1220" y="300" width="425" height="165" />
+  <text class="box-title" x="1250" y="350">domain/</text>
+  <text class="box-text" x="1250" y="387">&#x9818;&#x57DF;&#x908F;&#x8F2F;&#x8207;&#x8CC7;&#x6599;&#x8F49;&#x63DB;</text>
+  <text class="box-text" x="1250" y="420">mappers/, schedules/, teams/</text>
+
+  <rect class="box lib" x="1220" y="515" width="425" height="190" />
+  <text class="box-title" x="1250" y="565">lib/</text>
+  <text class="box-text" x="1250" y="602">API clients, storage helpers</text>
+  <text class="box-text" x="1250" y="635">&#x5171;&#x7528;&#x578B;&#x5225;&#x8207;&#x5DE5;&#x5177;</text>
+  <text class="box-text" x="1250" y="668">api/, storage/, types/</text>
+
+  <rect class="box test" x="1220" y="755" width="425" height="165" />
+  <text class="box-title" x="1250" y="805">context/</text>
+  <text class="box-text" x="1250" y="842">&#x5168;&#x7AD9;&#x524D;&#x7AEF;&#x72C0;&#x614B;</text>
+  <text class="box-text" x="1250" y="875">AuthProvider.tsx</text>
+
+  <rect class="group" x="1735" y="190" width="505" height="1050" />
+  <text class="group-title" x="1775" y="245">&#x8CC7;&#x6599;&#x3001;&#x8CC7;&#x7522;&#x3001;&#x6E2C;&#x8A66;</text>
+
+  <rect class="box asset" x="1775" y="300" width="425" height="165" />
+  <text class="box-title" x="1805" y="350">data/</text>
+  <text class="box-text" x="1805" y="387">&#x5167;&#x5EFA;&#x8CFD;&#x7A0B; JSON</text>
+  <text class="box-text" x="1805" y="420">&#x8CC7;&#x6599;&#x4F86;&#x6E90;&#xFF0C;&#x4E0D;&#x662F;&#x8DEF;&#x7531;&#x5C64;</text>
+
+  <rect class="box asset" x="1775" y="515" width="425" height="165" />
+  <text class="box-title" x="1805" y="565">public/</text>
+  <text class="box-text" x="1805" y="602">&#x975C;&#x614B;&#x5716;&#x7247;&#x8207;&#x7DB2;&#x7AD9;&#x8CC7;&#x7522;</text>
+  <text class="box-text" x="1805" y="635">logos, favicon, og image</text>
+
+  <rect class="box test" x="1775" y="730" width="425" height="190" />
+  <text class="box-title" x="1805" y="780">&#x6E2C;&#x8A66;&#x8207;&#x5DE5;&#x5177;</text>
+  <text class="box-text" x="1805" y="817">e2e/, *.test.tsx, *.test.ts</text>
+  <text class="box-text" x="1805" y="850">jest.config.ts</text>
+  <text class="box-text" x="1805" y="883">playwright.config.ts, scripts/</text>
+
+  <rect class="group" x="70" y="1300" width="2170" height="120" />
+  <text class="rule" x="110" y="1344">&#x8CAC;&#x4EFB;&#x908A;&#x754C;</text>
+  <text class="muted" x="110" y="1382">app/ &#x8CA0;&#x8CAC;&#x8DEF;&#x7531;&#x3002;components/ &#x653E;&#x5171;&#x7528; UI&#x3002;features/ &#x653E;&#x529F;&#x80FD; UI&#x3002;hooks/ &#x653E;&#x53EF;&#x91CD;&#x7528;&#x524D;&#x7AEF;&#x72C0;&#x614B;&#x3002;domain/ &#x653E; mapper &#x8207;&#x696D;&#x52D9;&#x898F;&#x5247;&#x3002;lib/ &#x653E; API client&#x3001;&#x5132;&#x5B58;&#x8207;&#x5171;&#x7528;&#x578B;&#x5225;&#x3002;data/ &#x662F;&#x8CC7;&#x6599;&#x4F86;&#x6E90;&#x3002;</text>
+</svg>

@@ -1,0 +1,288 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1772" height="1000" viewBox="0 0 1772 1000" role="img" aria-labelledby="title desc">
+  <title id="title">AnimationStage 圖片生成資料流</title>
+  <desc id="desc">public frames to constants to canvas hooks to GSAP ScrollTrigger to AnimationStage to browser rendering</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.12" />
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L11,5 L1,9 Z" fill="#334155" />
+    </marker>
+    <style>
+      .page { fill: #fbfdff; }
+      .title { fill: #0f172a; font: 800 42px "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif; letter-spacing: 0; }
+      .subtitle { fill: #475569; font: 400 20px "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif; letter-spacing: 0; }
+      .lane-title { font: 800 22px "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif; letter-spacing: 0; }
+      .lane { fill: #ffffff; stroke-width: 1.6; stroke-dasharray: 3 4; rx: 16; }
+      .card { fill: #ffffff; stroke-width: 1.8; rx: 12; filter: url(#shadow); }
+      .card-soft { fill-opacity: 0.92; }
+      .node-title { fill: #0f172a; font: 800 18px "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif; letter-spacing: 0; }
+      .node-text { fill: #334155; font: 400 14px "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif; letter-spacing: 0; }
+      .node-code { fill: #0f172a; font: 700 15px Consolas, "Microsoft JhengHei", monospace; letter-spacing: 0; }
+      .arrow { fill: none; stroke: #334155; stroke-width: 3.2; marker-end: url(#arrow); }
+      .arrow-soft { fill: none; stroke: #475569; stroke-width: 2.6; marker-end: url(#arrow); }
+      .arrow-label { fill: #475569; font: 700 13px "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif; letter-spacing: 0; }
+      .bottom-wrap { fill: #ffffff; stroke: #93c5fd; stroke-width: 1.4; rx: 10; }
+      .bottom-title { fill: #0f172a; font: 800 21px "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif; letter-spacing: 0; }
+      .step-title { font: 800 16px "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif; letter-spacing: 0; }
+      .step-text { fill: #334155; font: 400 13px "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif; letter-spacing: 0; }
+      .num { fill: #ffffff; font: 800 15px Arial, sans-serif; }
+      .icon-stroke { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .icon-fill { fill: currentColor; }
+    </style>
+  </defs>
+
+  <rect class="page" width="1772" height="1000" />
+  <text class="title" x="40" y="68">AnimationStage 圖片生成資料流</text>
+  <text class="subtitle" x="42" y="108">public frames → constants → canvas hooks → GSAP ScrollTrigger → AnimationStage → 畫面呈現</text>
+
+  <g transform="translate(90 141)" style="color:#ef3b68">
+    <rect x="0" y="0" width="23" height="19" rx="3" fill="none" stroke="#ef3b68" stroke-width="2.2" />
+    <path d="M5 5h13M5 10h13M5 15h9" stroke="#ef3b68" stroke-width="2" stroke-linecap="round" />
+    <text class="lane-title" x="36" y="19" fill="#ef3b68">靜態素材</text>
+  </g>
+  <g transform="translate(397 141)">
+    <path d="M8 19c0-11 11-11 11-19M8 19c0 8 13 8 13 0M20 0v19" stroke="#138a43" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <circle cx="8" cy="19" r="3" fill="#138a43" />
+    <circle cx="19" cy="1" r="3" fill="#138a43" />
+    <text class="lane-title" x="36" y="19" fill="#138a43">影格設定</text>
+  </g>
+  <g transform="translate(667 141)">
+    <path d="M7 4l-6 8 6 8M18 4l6 8-6 8" stroke="#0f9488" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <text class="lane-title" x="36" y="19" fill="#0f9488">canvas hooks</text>
+  </g>
+  <g transform="translate(982 141)">
+    <path d="M2 7l12-6 12 6-12 6-12-6ZM2 16l12 6 12-6M2 25l12 6 12-6" stroke="#0a66d8" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <text class="lane-title" x="39" y="22" fill="#0a66d8">ScrollTrigger</text>
+  </g>
+  <g transform="translate(1255 141)">
+    <rect x="0" y="2" width="27" height="22" rx="4" fill="none" stroke="#7e3fba" stroke-width="2.4" />
+    <path d="M0 9h27" stroke="#7e3fba" stroke-width="2" />
+    <text class="lane-title" x="40" y="22" fill="#7e3fba">舞台組裝</text>
+  </g>
+  <g transform="translate(1508 141)">
+    <rect x="0" y="0" width="8" height="8" rx="1.5" fill="none" stroke="#f26a00" stroke-width="2" />
+    <rect x="15" y="0" width="8" height="8" rx="1.5" fill="none" stroke="#f26a00" stroke-width="2" />
+    <rect x="0" y="15" width="8" height="8" rx="1.5" fill="none" stroke="#f26a00" stroke-width="2" />
+    <rect x="15" y="15" width="8" height="8" rx="1.5" fill="none" stroke="#f26a00" stroke-width="2" />
+    <text class="lane-title" x="38" y="22" fill="#f26a00">畫面輸出</text>
+  </g>
+
+  <rect class="lane" x="26" y="180" width="284" height="520" stroke="#fb7185" />
+  <rect class="lane" x="332" y="180" width="260" height="520" stroke="#86efac" />
+  <rect class="lane" x="614" y="180" width="270" height="520" stroke="#5eead4" />
+  <rect class="lane" x="906" y="180" width="290" height="520" stroke="#93c5fd" />
+  <rect class="lane" x="1218" y="180" width="230" height="520" stroke="#c084fc" />
+  <rect class="lane" x="1470" y="180" width="276" height="520" stroke="#fdba74" />
+
+  <rect class="card" x="41" y="238" width="254" height="136" stroke="#ef3b68" />
+  <g transform="translate(64 267)" style="color:#ef3b68">
+    <path d="M12 2h31l17 17v45H12z" fill="none" stroke="#ef3b68" stroke-width="2.6" stroke-linejoin="round" />
+    <path d="M43 2v18h17M22 35h26M22 46h26M22 57h17" stroke="#ef3b68" stroke-width="2.6" stroke-linecap="round" />
+  </g>
+  <text class="node-code" x="132" y="287">public/</text>
+  <text class="node-code" x="132" y="313">basketball-</text>
+  <text class="node-code" x="132" y="338">animation</text>
+  <text class="node-text" x="132" y="362">001~080.webp</text>
+
+  <rect class="card" x="41" y="485" width="254" height="108" stroke="#ef3b68" />
+  <g transform="translate(62 511)">
+    <rect x="0" y="0" width="55" height="48" rx="6" fill="none" stroke="#ef3b68" stroke-width="2.6" />
+    <path d="M8 36l13-14 11 11 7-8 8 11M36 13h9" stroke="#ef3b68" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="17" cy="15" r="5" fill="none" stroke="#ef3b68" stroke-width="2.4" />
+  </g>
+  <text class="node-code" x="132" y="530">/logo.webp</text>
+  <text class="node-text" x="132" y="558">JASPER logo overlay</text>
+
+  <rect class="card card-soft" x="350" y="230" width="224" height="142" stroke="#138a43" fill="#f0fdf4" />
+  <g transform="translate(371 255)">
+    <ellipse cx="26" cy="10" rx="24" ry="8" fill="none" stroke="#138a43" stroke-width="2.5" />
+    <path d="M2 10v42c0 5 11 9 24 9s24-4 24-9V10M2 24c0 5 11 9 24 9s24-4 24-9M2 38c0 5 11 9 24 9s24-4 24-9" fill="none" stroke="#138a43" stroke-width="2.5" />
+  </g>
+  <text class="node-code" x="435" y="266">constants</text>
+  <text class="node-text" x="435" y="296">frameCount: 80</text>
+  <text class="node-text" x="435" y="324">maxCanvasWidth: 1280</text>
+  <text class="node-text" x="435" y="352">introScrollDistance: 1176</text>
+
+  <rect class="card card-soft" x="350" y="515" width="224" height="120" stroke="#138a43" fill="#f0fdf4" />
+  <g transform="translate(374 543)">
+    <path d="M18 8c0 11-11 11-11 24M18 8c0-8 13-8 13 0M7 32c0 8 13 8 13 0M31 8v24" stroke="#138a43" stroke-width="3" fill="none" stroke-linecap="round" />
+    <circle cx="18" cy="8" r="4" fill="#138a43" />
+    <circle cx="7" cy="32" r="4" fill="#138a43" />
+  </g>
+  <text class="node-code" x="435" y="552">buildFrameSrc</text>
+  <text class="node-text" x="435" y="581">padStart(3, "0")</text>
+  <text class="node-text" x="435" y="609">產生每張影格路徑</text>
+
+  <rect class="card card-soft" x="633" y="230" width="232" height="145" stroke="#0f9488" fill="#f0fdfa" />
+  <g transform="translate(655 260)">
+    <rect x="0" y="0" width="43" height="43" rx="8" fill="#0f9488" />
+    <path d="M15 11l-8 11 8 11M28 11l8 11-8 11" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <text class="node-code" x="717" y="266">useCanvasFrames</text>
+  <text class="node-text" x="717" y="296">useMemo 建 frameSources</text>
+  <text class="node-text" x="717" y="324">new Image() 預載影格</text>
+  <text class="node-text" x="717" y="352">第一張完成後 isReady</text>
+
+  <rect class="card card-soft" x="633" y="470" width="232" height="160" stroke="#0f9488" fill="#f0fdfa" />
+  <g transform="translate(655 501)">
+    <rect x="0" y="0" width="45" height="45" rx="6" fill="none" stroke="#0f9488" stroke-width="2.5" />
+    <path d="M7 33l11-12 9 9 6-7 5 8M33 12h6" stroke="#0f9488" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <text class="node-code" x="717" y="507">drawFrame(index)</text>
+  <text class="node-text" x="717" y="537">讀取 loadedImages[index]</text>
+  <text class="node-text" x="717" y="565">依父層寬度調整 canvas</text>
+  <text class="node-text" x="717" y="593">clearRect + drawImage</text>
+
+  <rect class="card" x="924" y="225" width="254" height="112" stroke="#0a66d8" />
+  <g transform="translate(947 252)">
+    <path d="M2 10l24-10 24 10-24 10L2 10ZM2 25l24 10 24-10M2 40l24 10 24-10" stroke="#0a66d8" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <text class="node-code" x="1016" y="259">useBasketball</text>
+  <text class="node-code" x="1016" y="284">Animation</text>
+  <text class="node-text" x="1016" y="313">組合 canvas 與 scroll hooks</text>
+  <text class="node-text" x="1016" y="331">回傳 animation state</text>
+
+  <rect class="card" x="924" y="385" width="254" height="168" stroke="#0a66d8" />
+  <g transform="translate(948 416)">
+    <rect x="6" y="8" width="48" height="42" rx="6" fill="none" stroke="#0a66d8" stroke-width="2.5" />
+    <path d="M16 2v12M44 2v12M6 22h48M18 33h1M30 33h1M42 33h1M18 43h1M30 43h1M42 43h1" stroke="#0a66d8" stroke-width="2.8" stroke-linecap="round" />
+  </g>
+  <text class="node-code" x="1016" y="417">useGsapScroll</text>
+  <text class="node-code" x="1016" y="442">Animation</text>
+  <text class="node-text" x="1016" y="470">gsap.to frameState.frame</text>
+  <text class="node-text" x="1016" y="493">ScrollTrigger pin stage</text>
+  <text class="node-text" x="1016" y="516">onUpdate 呼叫 drawFrame</text>
+  <text class="node-text" x="1016" y="539">resize 重新繪製目前影格</text>
+
+  <rect class="card" x="924" y="594" width="254" height="82" stroke="#0a66d8" />
+  <g transform="translate(950 615)">
+    <rect x="0" y="0" width="46" height="38" rx="5" fill="none" stroke="#0a66d8" stroke-width="2.4" />
+    <path d="M10 13h26M10 25h17" stroke="#0a66d8" stroke-width="2.6" stroke-linecap="round" />
+  </g>
+  <text class="node-code" x="1016" y="624">state outputs</text>
+  <text class="node-text" x="1016" y="644">isPastAnimation</text>
+  <text class="node-text" x="1016" y="663">reveal / activeNav</text>
+
+  <rect class="card" x="1234" y="270" width="198" height="126" stroke="#7e3fba" />
+  <g transform="translate(1253 299)">
+    <rect x="0" y="0" width="52" height="44" rx="6" fill="none" stroke="#7e3fba" stroke-width="2.4" />
+    <path d="M0 14h52M17 14v30M29 25h14M29 35h14" stroke="#7e3fba" stroke-width="2.4" stroke-linecap="round" />
+  </g>
+  <text class="node-code" x="1320" y="307">HomePage</text>
+  <text class="node-code" x="1320" y="333">Experience</text>
+  <text class="node-text" x="1320" y="362">建立 refs</text>
+  <text class="node-text" x="1320" y="382">傳入 animation hooks</text>
+
+  <rect class="card" x="1234" y="470" width="198" height="140" stroke="#7e3fba" />
+  <g transform="translate(1253 501)">
+    <rect x="0" y="0" width="53" height="45" rx="5" fill="none" stroke="#7e3fba" stroke-width="2.4" />
+    <path d="M0 15h53M18 15v30M29 27h15M29 37h12" stroke="#7e3fba" stroke-width="2.4" stroke-linecap="round" />
+  </g>
+  <text class="node-code" x="1320" y="510">AnimationStage</text>
+  <text class="node-text" x="1320" y="540">stageRef</text>
+  <text class="node-text" x="1320" y="566">canvasRef</text>
+  <text class="node-text" x="1320" y="592">isReady</text>
+
+  <rect class="card" x="1487" y="230" width="244" height="114" stroke="#f26a00" />
+  <g transform="translate(1511 257)">
+    <rect x="0" y="0" width="52" height="48" rx="7" fill="none" stroke="#f26a00" stroke-width="2.5" />
+    <path d="M8 36l12-13 10 10 7-9 8 12" stroke="#f26a00" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <text class="node-code" x="1580" y="267">canvas</text>
+  <text class="node-text" x="1580" y="296">每次 scroll 更新影格</text>
+  <text class="node-text" x="1580" y="324">畫到 2D context</text>
+
+  <rect class="card" x="1487" y="390" width="244" height="132" stroke="#f26a00" />
+  <g transform="translate(1511 420)">
+    <rect x="0" y="0" width="52" height="48" rx="7" fill="none" stroke="#f26a00" stroke-width="2.5" />
+    <path d="M12 14h28M12 25h20M12 36h28" stroke="#f26a00" stroke-width="2.7" stroke-linecap="round" />
+  </g>
+  <text class="node-code" x="1580" y="431">stage overlay</text>
+  <text class="node-text" x="1580" y="460">Loading sequence...</text>
+  <text class="node-text" x="1580" y="488">logo / gradient / hero</text>
+
+  <rect class="card" x="1487" y="575" width="244" height="86" stroke="#f26a00" />
+  <g transform="translate(1512 594)">
+    <rect x="0" y="0" width="18" height="18" rx="3" fill="none" stroke="#f26a00" stroke-width="2.2" />
+    <rect x="28" y="0" width="18" height="18" rx="3" fill="none" stroke="#f26a00" stroke-width="2.2" />
+    <rect x="0" y="28" width="18" height="18" rx="3" fill="none" stroke="#f26a00" stroke-width="2.2" />
+    <rect x="28" y="28" width="18" height="18" rx="3" fill="none" stroke="#f26a00" stroke-width="2.2" />
+  </g>
+  <text class="node-code" x="1580" y="604">browser output</text>
+  <text class="node-text" x="1580" y="633">首屏動畫舞台完成</text>
+
+  <path class="arrow" d="M295 306 H350" />
+  <path class="arrow" d="M574 300 H633" />
+  <path class="arrow-soft" d="M574 575 C595 575 604 548 633 548" />
+  <path class="arrow" d="M865 303 H924" />
+  <path class="arrow-soft" d="M1178 478 C1200 478 1203 336 1234 336" />
+  <path class="arrow" d="M1432 540 H1487" />
+  <path class="arrow-soft" d="M865 550 C885 550 898 469 924 469" />
+  <path class="arrow-soft" d="M1178 469 C1201 469 1208 540 1234 540" />
+  <path class="arrow-soft" d="M1178 636 C1210 636 1210 380 1234 380" />
+  <path class="arrow-soft" d="M1432 540 C1458 540 1458 287 1487 287" />
+  <path class="arrow-soft" d="M1432 540 C1458 540 1458 456 1487 456" />
+
+  <rect class="bottom-wrap" x="26" y="744" width="1720" height="214" />
+  <g transform="translate(52 767)">
+    <circle cx="14" cy="14" r="13" fill="none" stroke="#0a66d8" stroke-width="3" />
+    <path d="M14 14l10-10M20 4h4v4M9 19l4-4" stroke="#0a66d8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <text class="bottom-title" x="43" y="21">流程重點</text>
+  </g>
+
+  <g transform="translate(43 823)">
+    <rect x="0" y="0" width="250" height="100" rx="10" fill="#fff7fb" stroke="#fb7185" stroke-width="1.6" />
+    <circle cx="33" cy="35" r="16" fill="#fb7185" />
+    <text class="num" x="29" y="41">1</text>
+    <text class="step-title" x="64" y="35" fill="#ef3b68">素材來源</text>
+    <text class="step-text" x="64" y="66">80 張 webp + logo</text>
+    <path d="M210 26h22v41h-22zM216 37h10M216 49h10M216 61h6" fill="none" stroke="#ef3b68" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(319 823)">
+    <rect x="0" y="0" width="250" height="100" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.6" />
+    <circle cx="33" cy="35" r="16" fill="#22c55e" />
+    <text class="num" x="29" y="41">2</text>
+    <text class="step-title" x="64" y="35" fill="#138a43">constants</text>
+    <text class="step-text" x="64" y="66">frameCount / src builder</text>
+    <path d="M211 28c0 11-11 11-11 23M211 28c0-8 13-8 13 0M224 28v31" stroke="#138a43" stroke-width="2.8" fill="none" stroke-linecap="round" />
+  </g>
+  <g transform="translate(595 823)">
+    <rect x="0" y="0" width="250" height="100" rx="10" fill="#f0fdfa" stroke="#14b8a6" stroke-width="1.6" />
+    <circle cx="33" cy="35" r="16" fill="#0f9488" />
+    <text class="num" x="29" y="41">3</text>
+    <text class="step-title" x="64" y="35" fill="#0f9488">preload</text>
+    <text class="step-text" x="64" y="66">Image[] / isReady</text>
+    <rect x="209" y="27" width="33" height="33" rx="5" fill="#0f9488" />
+    <path d="M220 35l-7 9 7 9M231 35l7 9-7 9" stroke="#ffffff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(871 823)">
+    <rect x="0" y="0" width="250" height="100" rx="10" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.6" />
+    <circle cx="33" cy="35" r="16" fill="#2f80dc" />
+    <text class="num" x="29" y="41">4</text>
+    <text class="step-title" x="64" y="35" fill="#0a66d8">scroll</text>
+    <text class="step-text" x="64" y="66">ScrollTrigger 推進 frame</text>
+    <rect x="207" y="25" width="36" height="37" rx="5" fill="none" stroke="#0a66d8" stroke-width="2.2" />
+    <path d="M215 21v9M235 21v9M207 36h36M217 48h1M226 48h1M235 48h1" stroke="#0a66d8" stroke-width="2.4" stroke-linecap="round" />
+  </g>
+  <g transform="translate(1147 823)">
+    <rect x="0" y="0" width="250" height="100" rx="10" fill="#faf5ff" stroke="#a855f7" stroke-width="1.6" />
+    <circle cx="33" cy="35" r="16" fill="#7e3fba" />
+    <text class="num" x="29" y="41">5</text>
+    <text class="step-title" x="64" y="35" fill="#7e3fba">canvas</text>
+    <text class="step-text" x="64" y="66">resize + drawImage</text>
+    <rect x="207" y="27" width="38" height="34" rx="4" fill="none" stroke="#7e3fba" stroke-width="2.2" />
+    <path d="M207 39h38M220 39v22" stroke="#7e3fba" stroke-width="2.2" />
+  </g>
+  <g transform="translate(1423 823)">
+    <rect x="0" y="0" width="250" height="100" rx="10" fill="#fff7ed" stroke="#fb923c" stroke-width="1.6" />
+    <circle cx="33" cy="35" r="16" fill="#f26a00" />
+    <text class="num" x="29" y="41">6</text>
+    <text class="step-title" x="64" y="35" fill="#f26a00">stage</text>
+    <text class="step-text" x="64" y="66">loading / logo / hero</text>
+    <rect x="208" y="23" width="14" height="14" rx="2" fill="none" stroke="#f26a00" stroke-width="2" />
+    <rect x="231" y="23" width="14" height="14" rx="2" fill="none" stroke="#f26a00" stroke-width="2" />
+    <rect x="208" y="47" width="14" height="14" rx="2" fill="none" stroke="#f26a00" stroke-width="2" />
+    <rect x="231" y="47" width="14" height="14" rx="2" fill="none" stroke="#f26a00" stroke-width="2" />
+  </g>
+</svg>

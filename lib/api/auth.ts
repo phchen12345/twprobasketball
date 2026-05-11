@@ -4,30 +4,29 @@ import type { GoogleLoginResponse } from "../types/auth";
 export async function loginWithGoogleToken(accessToken: string) {
   return requestJson<GoogleLoginResponse>("/api/auth/google", {
     method: "POST",
-    credentials: "include",
     body: JSON.stringify({ accessToken }),
   });
 }
 
-export async function refreshAuthSession(csrfToken: string) {
+export async function refreshAuthSession(csrfToken: string, refreshToken: string) {
   return requestJson<GoogleLoginResponse>("/api/auth/refresh", {
     method: "POST",
-    credentials: "include",
     headers: {
       "X-CSRF-Token": csrfToken,
+      "X-Refresh-Token": refreshToken,
     },
   });
 }
 
-export async function logoutAuthSession(csrfToken: string) {
+export async function logoutAuthSession(csrfToken: string, refreshToken: string) {
   assertApiBaseUrl();
 
   const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
     method: "POST",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       "X-CSRF-Token": csrfToken,
+      "X-Refresh-Token": refreshToken,
     },
   });
 

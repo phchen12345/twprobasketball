@@ -18,6 +18,11 @@ import {
   readCsrfToken,
   storeCsrfToken,
 } from "@/lib/storage/csrf";
+import {
+  clearRefreshToken,
+  readRefreshToken,
+  storeRefreshToken,
+} from "@/lib/storage/refreshToken";
 import type { AuthUser } from "@/lib/types/user";
 
 type AuthContextValue = {
@@ -40,22 +45,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     async function loadUser() {
       const csrfToken = readCsrfToken();
+      const refreshToken = readRefreshToken();
 
-      if (!csrfToken) {
+      if (!csrfToken || !refreshToken) {
         setIsLoading(false);
         return;
       }
 
       try {
-        const refreshed = await refreshAuthSession(csrfToken);
+        const refreshed = await refreshAuthSession(csrfToken, refreshToken);
 
         if (!cancelled) {
           storeCsrfToken(refreshed.csrfToken);
+          storeRefreshToken(refreshed.refreshToken);
           setAccessToken(refreshed.accessToken);
           setUser(refreshed.user);
         }
       } catch {
         clearCsrfToken();
+        clearRefreshToken();
         setAccessToken(null);
         setUser(null);
       } finally {
@@ -76,18 +84,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const result = await loginWithGoogleToken(googleAccessToken);
 
     storeCsrfToken(result.csrfToken);
+    storeRefreshToken(result.refreshToken);
     setAccessToken(result.accessToken);
     setUser(result.user);
   }, []);
 
   const logout = useCallback(async () => {
     const csrfToken = readCsrfToken();
+    const refreshToken = readRefreshToken();
 
-    if (csrfToken) {
-      await logoutAuthSession(csrfToken).catch(() => undefined);
+    if (csrfToken && refreshToken) {
+      await logoutAuthSession(csrfToken, refreshToken).catch(() => undefined);
     }
 
     clearCsrfToken();
+    clearRefreshToken();
     setAccessToken(null);
     setUser(null);
   }, []);

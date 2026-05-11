@@ -5,6 +5,12 @@ export function readCsrfToken() {
     return null;
   }
 
+  const storedToken = window.localStorage.getItem(CSRF_STORAGE_KEY);
+
+  if (storedToken) {
+    return storedToken;
+  }
+
   const cookieToken = document.cookie
     .split("; ")
     .find((part) => part.startsWith("basketball_csrf_token="));
@@ -13,7 +19,7 @@ export function readCsrfToken() {
     return decodeURIComponent(cookieToken.split("=")[1]);
   }
 
-  return window.localStorage.getItem(CSRF_STORAGE_KEY);
+  return null;
 }
 
 export function storeCsrfToken(token: string) {
